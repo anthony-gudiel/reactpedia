@@ -11,8 +11,8 @@ Welcome to our interactive learning platform dedicated to teaching the basics of
 ## Tech Stack
 
 - **Front-End**: React.js, HTML5, CSS3, JavaScript ES6+
-- **AI Integration**: OpenAI's GPT-4 for interactive learning and support
-- **In-Browser Editor**: Ace Editor / CodeMirror
+- **AI Integration**: OpenAI's GPT-3.5 for interactive learning and support
+- **In-Browser Editor**: Ace Editor / CodeMirror / CodeSandbox
 - **Video Integration**: YouTube API
 - **Deployment**: AWS / Vercel / Netlify
 - **Version Control**: Git
@@ -32,6 +32,7 @@ To set up this project locally, follow the instructions below:
 ### Prerequisites
 
 - Git
+- Experience with JavaScript recommended
 
 ### Clone the Repository
 
