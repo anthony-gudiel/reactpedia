@@ -36,7 +36,7 @@ To set up this project locally, follow the instructions below:
 
 ### AI Declaration Forms
 
-Our AI Declaration forms can be found in the AI Declaration folder under Project Documents.
+AI Declaration forms can be found in the AI Declaration folder under Project Documents.
 
 ### Clone the Repository
 
