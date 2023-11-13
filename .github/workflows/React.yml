@@ -21,11 +21,11 @@ jobs:
 
     steps:
     - name: Checkout repository
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
 
     - name: Move to app directory
-    - run: cd app
-    - working-directory: app
+      run: cd app
+      working-directory: app
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -34,10 +34,10 @@ jobs:
         cache: 'npm'
       
     - name: Install dependencies
-    - run: npm ci
+      run: npm ci
 
     - name: Build
-    - run: npm run build --if-present
+      run: npm run build --if-present
 
     - name: Test
-    - run: npm test
+      run: npm test
