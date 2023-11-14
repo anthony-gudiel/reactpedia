@@ -2,7 +2,6 @@ import React from 'react'
 import './home.css'
 import imageSrc from '/src/assets/react-rocket-ship.png';
 import { Link } from 'react-router-dom';
-
 export const Home = () => {
   return (
     <div className='Home'>
