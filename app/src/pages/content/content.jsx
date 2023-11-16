@@ -16,19 +16,20 @@ export const Content = () => {
       },
     });
 
-    const embedId = response.data.items[0].id.videoId;
 
     setState(() => ({
       videos: response.data.items,
-      videoId: embedId,
+      videoId: response.data.items[0].id.videoId
     }));
   }
 
   return (
     <div className="App">
       Content
-      <Search onSearch={onSearch} />
-      <YoutubeEmbed embedId={state.videoId} width="560" height="315" />
+      <container>
+        <Search onSearch={onSearch}/>
+        <YoutubeEmbed embedId={state.videoId} width="560" height="315" />
+      </container>
     </div>
   );
 };
