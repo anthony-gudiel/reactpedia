@@ -26,10 +26,8 @@ export const Content = () => {
   return (
     <div className="App">
       Content
-      <container>
         <Search onSearch={onSearch}/>
         <YoutubeEmbed embedId={state.videoId} width="560" height="315" />
-      </container>
     </div>
   );
 };
