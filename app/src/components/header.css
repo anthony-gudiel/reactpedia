@@ -63,7 +63,7 @@ left: 0;
 }
 
 .links a {
-  margin-top: 20px;
+  margin-top: 2px;
   margin-left: 13px; /* Adjust the link margin for even smaller screens */
   font-size: 18px; /* Adjust the link font size for even smaller screens */
 }
