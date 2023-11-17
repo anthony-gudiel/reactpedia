@@ -14,6 +14,7 @@ export const Content = () => {
     const response = await youtube.get('/search', {
       params: {
         q: keyword,
+        type: 'video'
       },
     });
 

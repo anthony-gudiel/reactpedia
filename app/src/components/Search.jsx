@@ -4,16 +4,20 @@ class Search extends React.Component{
     state={title:""}
     onSearchChanged = event => {
         const _title = event.target.value
-        //console.log(_title)
-        this.setState({title:_title})
+        this.setState({title:_title, loading: false})
     }
 
-    onSubmit = event =>{
-        event.preventDefault()
+    onSubmit = async (event) => {
+        event.preventDefault();
         this.setState({ loading: true });
-        //console.log(this.state.title)
-        this.props.onSearch(this.state.title)
-    }
+        try {
+          await this.props.onSearch(this.state.title);
+        }
+        finally {
+          this.setState({ loading: false });
+        }
+      };
+
     render(){
         return (
             <div>
