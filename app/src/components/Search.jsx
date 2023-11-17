@@ -30,7 +30,6 @@ class Search extends React.Component{
                         </div>
                      
                      <div className="search-bar">
-                        <label><h1>Search</h1></label>
                         <input 
                             value={this.state.title}
                             onChange={this.onSearchChanged} 
