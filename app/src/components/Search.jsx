@@ -1,4 +1,5 @@
 import React from "react";
+import './Search.css';
 
 class Search extends React.Component{
     state={title:""}
@@ -23,7 +24,11 @@ class Search extends React.Component{
             <div>
                 <form onSubmit={this.onSubmit}>
                     <div className='form-control'>
-                        <label><h1>Search</h1></label>
+                        <div className="search-title">
+                            <label><h1>Explore and Learn with Video Tutorials!</h1></label>   
+                        </div>
+                     
+                     <div className="search-bar">
                         <input 
                             value={this.state.title}
                             onChange={this.onSearchChanged} 
@@ -34,6 +39,7 @@ class Search extends React.Component{
                         <button type="submit" disabled={this.state.loading}>
                             {this.state.loading ? "Searching..." : "Search"}
                         </button>
+                    </div>
                     </div>
                 </form>
             </div>
