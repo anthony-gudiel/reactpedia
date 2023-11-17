@@ -1,6 +1,7 @@
 import React from "react";
 import './Search.css';
 
+
 class Search extends React.Component{
     state={title:""}
     onSearchChanged = event => {
@@ -29,6 +30,7 @@ class Search extends React.Component{
                         </div>
                      
                      <div className="search-bar">
+                        <label><h1>Search</h1></label>
                         <input 
                             value={this.state.title}
                             onChange={this.onSearchChanged} 
@@ -41,6 +43,7 @@ class Search extends React.Component{
                         </button>
                     </div>
                     </div>
+
                 </form>
             </div>
             

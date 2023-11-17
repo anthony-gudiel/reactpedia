@@ -4,6 +4,7 @@ import Search from '../../components/Search';
 import YoutubeEmbed from '../../components/YouTubeEmbedVideo';
 import './content.css';
 
+
 export const Content = () => {
   // videoId is currently a placeholder that can be changed for each component
   const [state, setState] = useState({
@@ -18,6 +19,7 @@ export const Content = () => {
         q: keyword,
         type: 'video',
         maxResults: 25,
+        type: 'video'
       },
     });
 
@@ -58,6 +60,12 @@ export const Content = () => {
           Next
         </button>
       </div>
+
+  return (
+    <div className="App">
+      Content
+        <Search onSearch={onSearch}/>
+        <YoutubeEmbed embedId={state.videoId} width="560" height="315" />
     </div>
   );
 };
