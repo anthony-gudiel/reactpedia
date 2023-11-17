@@ -6,9 +6,10 @@ name: React CI
 on:
   push:
     branches:
-      - "*"
+      - main
   pull_request:
-    branches: ["main"]
+    branches: 
+      - main
 
 env:
   REACT_APP_YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
