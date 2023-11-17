@@ -15,7 +15,7 @@ Welcome to our interactive learning platform dedicated to teaching the basics of
 - **In-Browser Editor**: Ace Editor / CodeMirror / CodeSandbox
 - **Video Integration**: YouTube Data API
 - **Continuous Integration (CI)**: GitHub Actions
-- **Testing Framework**: Jest
+- **Testing Framework**: Vitest
 - **Deployment**: Vercel
 - **Version Control**: Git
 

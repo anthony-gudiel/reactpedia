@@ -5,7 +5,8 @@ name: React CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - "*"
   pull_request:
     branches: [ "main" ]
 
@@ -37,3 +38,6 @@ jobs:
 
     - name: Build
       run: npm run build --if-present
+
+    - name: Test
+      run: npm run test
