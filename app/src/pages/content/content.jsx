@@ -4,9 +4,10 @@ import Search from '../../components/Search';
 import YoutubeEmbed from '../../components/YouTubeEmbedVideo';
 
 export const Content = () => {
+  // videoId is currently a placeholder that can be changed for each component
   const [state, setState] = useState({
     videos: [],
-    videoId: null,
+    videoId: "a3ICNMQW7Ok",
   });
 
   const onSearch = async (keyword) => {
