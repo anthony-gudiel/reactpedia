@@ -17,7 +17,7 @@ export const Home = () => {
               </p>
             </div>
             <button className='custom-button'>
-              <Link to='/content'>Click Here to Start!</Link>
+              <Link to='/lesson-1-1'>Click Here to Start!</Link>
             </button>
           </div>
           <div className='circular-image'>

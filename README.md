@@ -13,8 +13,10 @@ Welcome to our interactive learning platform dedicated to teaching the basics of
 - **Front-End**: React.js, HTML5, CSS3, JavaScript ES6+
 - **AI Integration**: OpenAI's GPT-3.5 for interactive learning and support
 - **In-Browser Editor**: Ace Editor / CodeMirror / CodeSandbox
-- **Video Integration**: YouTube API
-- **Deployment**: AWS / Vercel / Netlify
+- **Video Integration**: YouTube Data API
+- **Continuous Integration (CI)**: GitHub Actions
+- **Testing Framework**: Vitest
+- **Deployment**: Vercel
 - **Version Control**: Git
 
 ## Contributors
@@ -29,16 +31,17 @@ Welcome to our interactive learning platform dedicated to teaching the basics of
 
 To set up this project locally, follow the instructions below:
 
+1. Clone the repository via `git clone https://github.com/anthony-gudiel/reactjs-learning-app.git`
+2. Download dependencies with `npm install`
+3. Navigate to the `app` directory within the repository with `cd app`
+4. Start the website on localhost with `npm run dev`
+
 ### Prerequisites
 
-- Git
-- Experience with JavaScript recommended
+- [Git](https://git-scm.com/downloads)
+- [Node.js](https://nodejs.org/en/)
+- To fully engage with the content on our website, experience with HTML, CSS and JavaScript is highly recommended.
 
-### AI Declaration Forms
+## AI Declaration Forms
 
 AI Declaration forms can be found in the AI Declaration folder under Project Documents.
-
-### Clone the Repository
-
-git clone https://github.com/anthony-gudiel/reactjs-learning-app.git
-
