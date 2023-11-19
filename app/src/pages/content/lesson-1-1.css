@@ -56,6 +56,9 @@
     padding: 20px;
     border-radius: 25px;
     margin-bottom: 30px;
+    font-family: monospace;
+    font-size: 15px;
+    margin-right: 15px;
 }
 
 .congratulations{
@@ -86,6 +89,7 @@
 
 .lesson-1-button{
     background-color: #E4E4DE;
+    margin-right: 5px;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -106,4 +110,46 @@
 
 .lesson-1-button:hover{
     background-color: #666;
+}
+
+pre{
+    margin-bottom: 0px;
+    margin-top: 0px;
+    font-size: 15px;
+    text-wrap: wrap;
+}
+
+.parent-explanation{
+    margin-bottom: 20px;
+}
+
+.answers-button{
+    margin-bottom: 10px;
+    background-color: #E4E4DE;
+    text-decoration: none;
+}
+
+.answers-button a{
+    text-decoration: none;
+    color:black
+}
+
+.answers-button:hover{
+    background-color: #666;
+    border: none;
+}
+
+.answers{
+    display: flex;
+    margin-top: 100px;
+    color: white;
+    margin-left: 20px;
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 615px) {
+    .answers{
+        flex-wrap: wrap;
+    }
 }

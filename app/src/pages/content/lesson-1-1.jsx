@@ -94,15 +94,15 @@ export const LESSON_1_1 = () => {
             <div className='break'></div>
             function App () &#123;
             <div className='break'></div>
-            return &#40;
+            <pre> return &#40;</pre>
             <div className='break'></div>
-            &#60;div&#62;
+            <pre>   &#60;div&#62;</pre>
             <div className='break'></div>
-            &#60;h1&#62; Hello World! &#60;&#47;h1&#62;
+            <pre>     &#60;h1&#62; Hello World! &#60;&#47;h1&#62;</pre>
             <div className='break'></div>
-            &#60;&#47;div&#62;
+            <pre>   &#60;/div&#62;</pre>
             <div className='break'></div>
-            &#41;&#59;
+            <pre> &#41;&#59;</pre>
             <div className='break'></div>
             &#125;
             <div className='break'></div>
@@ -125,7 +125,7 @@ export const LESSON_1_1 = () => {
       </div>
       </div>
       <button className='full-width-button'>
-        Any questions? Ask your AI assitant! &#129302;
+        Any questions? Ask your AI assistant! &#129302;
       </button>
     </div>
   )
