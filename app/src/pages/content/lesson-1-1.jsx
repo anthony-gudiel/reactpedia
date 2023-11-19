@@ -119,9 +119,7 @@ export const LESSON_1_1 = () => {
           <h3>Congratulations!</h3>
           You've just set up your first React app and created a simple React component. In the next lesson, we'll explore React components in more detail and learn how to create dynamic and interactive user interfaces. Happy coding!
         </div>
-        <button className='lesson-1-button'>
-          <Link to='/lesson-1-2'>Next Lesson</Link>
-        </button>
+        <a class="lesson-1-button" href="./lesson-1-2">Next Lesson</a>
       </div>
       </div>
       <button className='full-width-button'>

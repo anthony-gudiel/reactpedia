@@ -18,6 +18,7 @@
     margin-left: 10px;
     display: flex;
     flex-wrap: wrap;
+    flex-direction: row;
     max-width: 60%;
     color: black;
     line-height: 2;
@@ -62,7 +63,7 @@
 }
 
 .congratulations{
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .full-width-button {
@@ -96,7 +97,8 @@
     cursor: pointer;
     max-width: 200px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-bottom: 10px;
+    text-decoration: none;
+    color: black;
 }
 
 .lesson-1-button a{
@@ -123,22 +125,6 @@ pre{
     margin-bottom: 20px;
 }
 
-.answers-button{
-    margin-bottom: 10px;
-    background-color: #E4E4DE;
-    text-decoration: none;
-}
-
-.answers-button a{
-    text-decoration: none;
-    color:black
-}
-
-.answers-button:hover{
-    background-color: #666;
-    border: none;
-}
-
 .answers{
     display: flex;
     margin-top: 100px;
@@ -152,4 +138,9 @@ pre{
     .answers{
         flex-wrap: wrap;
     }
+}
+
+a{
+    display: inline-block;
+    margin-bottom: 20px;
 }

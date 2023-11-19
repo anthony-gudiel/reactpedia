@@ -178,15 +178,9 @@ export const LESSON_1_2 = () => {
                         <li>Create a new component called 'MultiLineComponent' with a multi-line
                             output that contains at least three different elements (paragraphs, headings, etc.)</li>
                     </ol>
-                    <button className='lesson-1-button'>
-                        <Link to='/lesson-1-1'>Previous Lesson</Link>
-                    </button>
-                    <button className='lesson-1-button'>
-                        <Link to='/lesson-1-3'>Next Lesson</Link>
-                    </button>
-                    <button className='answers-button'>
-                        <Link to='/lesson-1-2-answers'>Check Your Answers</Link>
-                    </button>
+                    <a class="lesson-1-button" href="./lesson-1-1">Previous Lesson</a>
+                    <a class="lesson-1-button" href="./lesson-1-3">Next Lesson</a>
+                    <a class="lesson-1-button" href="./lesson-1-2-answers">Check Your Answers</a>
                 </div>
             </div>
         </div>

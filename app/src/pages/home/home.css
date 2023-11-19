@@ -42,6 +42,8 @@ body{
     cursor: pointer;
     max-width: 200px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration: none;
+    color: black;
   }
   
   .custom-button:hover {
