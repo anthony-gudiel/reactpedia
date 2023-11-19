@@ -45,11 +45,15 @@ body{
   }
   
   .custom-button:hover {
-    background-color: lightgreen;
+    background-color: #666;
   }
   
   .custom-button a {
     text-decoration: none;
+    color: black;
+  }
+
+  .custom-button a:hover{
     color: black;
   }
   

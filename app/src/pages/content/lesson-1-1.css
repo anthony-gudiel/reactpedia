@@ -71,14 +71,39 @@
     text-decoration: none;
     display: flex;
     cursor: pointer;
+    font-weight: bold;
     justify-content: center;
     background-color: rgb(150, 124, 193);
-    color: white;
+    color: black;
     transition: background-color 0.3s;
     outline: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .full-width-button:hover {
-    background-color: lightgreen;
+    background-color: #666;
+}
+
+.lesson-1-button{
+    background-color: #E4E4DE;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    max-width: 200px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-bottom: 10px;
+}
+
+.lesson-1-button a{
+    text-decoration: none;
+    color: black;
+}
+
+.lesson-1-button a:hover{
+    color: black;
+}
+
+.lesson-1-button:hover{
+    background-color: #666;
 }
