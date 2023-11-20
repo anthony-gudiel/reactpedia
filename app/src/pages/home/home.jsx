@@ -16,9 +16,7 @@ export const Home = () => {
               user experiences. Join us to create modern, responsive apps today!
               </p>
             </div>
-            <button className='custom-button'>
-              <Link to='/lesson-1-1'>Click Here to Start!</Link>
-            </button>
+            <a class="custom-button" href="./lesson-1-1">Click Here to Start!</a>
           </div>
           <div className='circular-image'>
             <img src={imageSrc} alt="Failed to load." />

@@ -1,5 +1,6 @@
 import React from 'react'
 import './lesson-1-1.css'
+import { Link } from 'react-router-dom'
 
 export const LESSON_1_1 = () => {
   return (
@@ -93,15 +94,15 @@ export const LESSON_1_1 = () => {
             <div className='break'></div>
             function App () &#123;
             <div className='break'></div>
-            return &#40;
+            <pre> return &#40;</pre>
             <div className='break'></div>
-            &#60;div&#62;
+            <pre>   &#60;div&#62;</pre>
             <div className='break'></div>
-            &#60;h1&#62; Hello World! &#60;&#47;h1&#62;
+            <pre>     &#60;h1&#62; Hello World! &#60;&#47;h1&#62;</pre>
             <div className='break'></div>
-            &#60;&#47;div&#62;
+            <pre>   &#60;/div&#62;</pre>
             <div className='break'></div>
-            &#41;&#59;
+            <pre> &#41;&#59;</pre>
             <div className='break'></div>
             &#125;
             <div className='break'></div>
@@ -118,10 +119,11 @@ export const LESSON_1_1 = () => {
           <h3>Congratulations!</h3>
           You've just set up your first React app and created a simple React component. In the next lesson, we'll explore React components in more detail and learn how to create dynamic and interactive user interfaces. Happy coding!
         </div>
+        <a class="lesson-1-button" href="./lesson-1-2">Next Lesson</a>
       </div>
       </div>
       <button className='full-width-button'>
-        Any questions? Ask your AI assitant! &#129302;
+        Any questions? Ask your AI assistant! &#129302;
       </button>
     </div>
   )
