@@ -1,0 +1,23 @@
+.aboutContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-weight: lighter;
+  margin-top: 50px;
+}
+
+.aboutContainer p{
+  max-width: 50%;
+}
+
+.break{
+  flex-basis: 100%;
+  height: 0;
+}
+
+.teamSection{
+  text-align: center;
+  max-width: 50%;
+  margin-bottom: 30px;
+}
+
