@@ -86,6 +86,7 @@ export const LESSON_1_1 = () => {
             <li> package.json File: Describes your project and its dependencies.</li>
           </ul>
         </div>
+        <div className='break'></div>
         <div className='first-component'>
           <h3>Your First React Component:</h3>
           Open the src/App.js file. You'll see a basic component like this:
