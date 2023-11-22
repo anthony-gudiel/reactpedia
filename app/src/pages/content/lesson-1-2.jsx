@@ -1,8 +1,26 @@
-import React from 'react'
 import './lesson-1-1.css'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { OPENAI } from '../../api/openai'
 
 export const LESSON_1_2 = () => {
+    const [userInput, setUserInput] = useState('');
+    const [apiResponse, setApiResponse] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+  
+  
+    const handleInputChange = (event) => {
+      setUserInput(event.target.value);
+    };
+  
+    const handleAIResponse = async () => {
+      setIsLoading(true);
+      const response = await OPENAI(userInput);
+      setApiResponse(response);
+      setUserInput('');
+      setIsLoading(false); 
+  
+    };
+  
   return (
     <div className='lesson-1-1'>
         <div className='container'>
@@ -184,9 +202,26 @@ export const LESSON_1_2 = () => {
                 </div>
             </div>
         </div>
-        <button className='full-width-button'>
-            Any questions? Ask your AI assistant! &#129302;
-        </button>
+        <input
+        type="text"
+        className="full-width-button"
+        placeholder="Any questions? Type here to ask your AI assistant! &#129302;"
+        value={userInput}
+        onChange={handleInputChange}
+      />
+      <button className='ai-submit' onClick={handleAIResponse}>Click to Submit!</button>
+      <div className='ai-response'>
+        <h3>Response will appear here! :</h3>
+        {isLoading ? (
+          <div className='code'>Generating reponse. Please wait a moment...</div>
+          ) : (
+          apiResponse && (
+            <div className='code'>
+              <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>{apiResponse}</pre>
+            </div>
+          )
+        )}
+        </div>
     </div>
   )
 }

@@ -1,8 +1,26 @@
-import React from 'react'
 import './lesson-1-1.css'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { OPENAI } from '../../api/openai'
 
 export const LESSON_1_1 = () => {
+  const [userInput, setUserInput] = useState('');
+  const [apiResponse, setApiResponse] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+
+  const handleInputChange = (event) => {
+    setUserInput(event.target.value);
+  };
+
+  const handleAIResponse = async () => {
+    setIsLoading(true);
+    const response = await OPENAI(userInput);
+    setApiResponse(response);
+    setUserInput('');
+    setIsLoading(false); 
+
+  };
+
   return (
     <div className='lesson-1-1'>
       <div className='container'>
@@ -120,12 +138,29 @@ export const LESSON_1_1 = () => {
           <h3>Congratulations!</h3>
           You've just set up your first React app and created a simple React component. In the next lesson, we'll explore React components in more detail and learn how to create dynamic and interactive user interfaces. Happy coding!
         </div>
-        <a class="lesson-1-button" href="./lesson-1-2">Next Lesson</a>
+        <a className="lesson-1-button" href="./lesson-1-2">Next Lesson</a>
       </div>
       </div>
-      <button className='full-width-button'>
-        Any questions? Ask your AI assistant! &#129302;
-      </button>
+      <input
+        type="text"
+        className="full-width-button"
+        placeholder="Any questions? Type here to ask your AI assistant! &#129302;"
+        value={userInput}
+        onChange={handleInputChange}
+      />
+      <button className='ai-submit' onClick={handleAIResponse}>Click to Submit!</button>
+      <div className='ai-response'>
+        <h3>Response will appear here! :</h3>
+        {isLoading ? (
+          <div className='code'>Generating reponse. Please wait a moment...</div>
+        ) : (
+          apiResponse && (
+            <div className='code'>
+              <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>{apiResponse}</pre>
+            </div>
+          )
+        )}
+        </div>
     </div>
   )
 }

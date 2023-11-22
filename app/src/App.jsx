@@ -12,9 +12,9 @@ import { LESSON_1_3 } from './pages/content/lesson-1-3';
 import {LESSON_1_2_ANSWERS} from './pages/content/lesson-1-2-answers'
 
 function App() {
+  document.title = 'Learn React!';
   return (
     <div className="App">
-
       <Router>
         <Header />
         <Routes>
