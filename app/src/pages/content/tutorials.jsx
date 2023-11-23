@@ -1,6 +1,6 @@
 // Tutorials.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import youtube from '../../api/youtube';
 import Search from '../../components/Search';
 import YoutubeEmbed from '../../components/YouTubeEmbedVideo';
@@ -24,6 +24,7 @@ export const onSearch = async (keyword, setState) => {
   return response;
 };
 
+
 export const handleNext = (state, setState) => {
   setState((prevState) => ({
     ...prevState,
@@ -44,6 +45,19 @@ export const Tutorials = () => {
     videoId: "a3ICNMQW7Ok",
     currentVideoIndex: 0,
   });
+  const [tokenClient, setTokenClient] = useState({});
+  
+  useEffect(() => {
+    setTokenClient(
+      window.google.accounts.oauth2.initTokenClient({
+        client_id: "730770086946-fp5jl29v8oc54g6cd95cugi5g7587u4v.apps.googleusercontent.com",
+        scope: "https://www.googleapis.com/auth/youtube",
+        callback: (token) => {
+          console.log(token);
+        }
+      })
+    );
+  }, []);
 
   return (
     <div className="App">
