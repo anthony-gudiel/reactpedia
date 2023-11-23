@@ -206,6 +206,6 @@ export const Quizzes = () => {
         )}
         </div>
     </div>
-    
+
   )
 }
