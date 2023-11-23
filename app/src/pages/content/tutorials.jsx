@@ -24,7 +24,6 @@ export const onSearch = async (keyword, setState) => {
   return response;
 };
 
-
 export const handleNext = (state, setState) => {
   setState((prevState) => ({
     ...prevState,
@@ -46,17 +45,21 @@ export const Tutorials = () => {
     currentVideoIndex: 0,
   });
   const [tokenClient, setTokenClient] = useState({});
-  
+  const [accessToken, setAccessToken] = useState('');
+
   useEffect(() => {
-    setTokenClient(
-      window.google.accounts.oauth2.initTokenClient({
+    const initializeTokenClient = async () => {
+      const client = await window.google.accounts.oauth2.initTokenClient({
         client_id: "730770086946-fp5jl29v8oc54g6cd95cugi5g7587u4v.apps.googleusercontent.com",
         scope: "https://www.googleapis.com/auth/youtube",
         callback: (token) => {
-          console.log(token);
+          //console.log(token);
+          setAccessToken(token.access_token);
         }
-      })
-    );
+      });
+      setTokenClient(client);
+    };
+    initializeTokenClient();
   }, []);
 
   return (
