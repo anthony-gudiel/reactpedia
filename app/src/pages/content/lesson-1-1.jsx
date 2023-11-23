@@ -152,7 +152,7 @@ export const LESSON_1_1 = () => {
       <div className='ai-response'>
         <h3>Response will appear here! :</h3>
         {isLoading ? (
-          <div className='code'>Generating reponse. Please wait a moment...</div>
+          <div className='code'><div className='loading'>Generating reponse. Please wait a moment...</div></div>
         ) : (
           apiResponse && (
             <div className='code'>
