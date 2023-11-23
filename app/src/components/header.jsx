@@ -10,9 +10,10 @@ export const Header = () => {
       </div>
         <div className='links'>
             <Link to='/'> Home </Link>
-            <Link to='/content'> Content </Link>
+            <Link to='/quizzes'> Quizzes </Link>
+            <Link to='/tutorials'> Tutorials </Link>
             <Link to='/about'> About </Link>
-            <Link to='/resources'> Resources </Link>
+            <Link to='/content'> Content </Link>
             <Link to='/contact'> Contact </Link>
         </div>
 
