@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import youtube from '../../api/youtube';
 import Search from '../../components/Search';
 import YoutubeEmbed from '../../components/YouTubeEmbedVideo';
+import CodeBox from './../../components/codebox'
 import './tutorials.css';
 
 export const onSearch = async (keyword, setState) => {
@@ -97,7 +98,9 @@ export const Tutorials = () => {
     <div className="App">
       <div className='content-container-1'>
         <Search onSearch={(keyword) => onSearch(keyword, setState)} />
-        <button id="Subcribe" onClick={() => handleSubcribe(tokenClient, accessToken, state.videos[state.currentVideoIndex])}>Subcribe</button>
+        <button className='subcribe' onClick={() => handleSubcribe(tokenClient, accessToken, state.videos[state.currentVideoIndex])}>Subcribe</button>
+        <button className='addplaylist'>Add to playlist</button>
+        <iframe className='sandbox' src="https://codesandbox.io/"></iframe>
         <YoutubeEmbed embedId={state.videos[state.currentVideoIndex]?.id.videoId} width="560" height="315" />
       </div>
       <div className='try-another'>
