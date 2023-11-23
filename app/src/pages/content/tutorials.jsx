@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import youtube from '../../api/youtube';
 import Search from '../../components/Search';
 import YoutubeEmbed from '../../components/YouTubeEmbedVideo';
-import './content.css';
+import './tutorials.css';
 
-export const Content = () => {
-  // videoId is currently a placeholder that can be changed for each component
+export const Tutorials = () => {
   const [state, setState] = useState({
     videos: [],
     videoId: "a3ICNMQW7Ok",
