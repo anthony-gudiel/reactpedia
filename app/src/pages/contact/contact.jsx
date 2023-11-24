@@ -1,6 +1,6 @@
 import React from 'react';
 import CompilerIframe from '../../CompilerIFrame';
-import './Contact.css';
+import './contact.css';
 
 export const Contact = () => {
   return (
