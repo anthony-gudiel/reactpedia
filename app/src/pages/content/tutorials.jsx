@@ -26,15 +26,9 @@ export const onSearch = async (keyword, setState) => {
 };
 
 export const handleSubcribe = (tokenClient, accessToken, videoItems) =>{
-  console.log(videoItems)
-  console.log(videoItems.snippet.channelId)
   if (accessToken == ''){
-    //console.log("request new token")
     tokenClient.requestAccessToken()
-    
   }else{
-    console.log("already have token")
-     console.log(accessToken)
      fetch("https://www.googleapis.com/youtube/v3/subscriptions?part=snippet", {
       method: 'POST', 
       headers: {
@@ -50,8 +44,6 @@ export const handleSubcribe = (tokenClient, accessToken, videoItems) =>{
         }
       })
     })
-      .then(response => response.json())
-      .then(data => console.log(data))
       .catch(error => console.error('Error:', error));
   }
 }
@@ -85,7 +77,6 @@ export const Tutorials = () => {
         client_id: process.env.REACT_APP_OAUTH_CLIENT_ID,
         scope: "https://www.googleapis.com/auth/youtube",         
         callback: (token) => {
-          console.log(token);
           setAccessToken(token.access_token);
         }
       });
