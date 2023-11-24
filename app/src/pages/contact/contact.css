@@ -1,0 +1,20 @@
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+  }
+  
+  .compiler-heading {
+    font-size: 39px; /* Adjust the size as needed */
+    margin-bottom: 10px; /* Spacing between the heading and the paragraph */
+  }
+  
+  .compiler-description {
+    font-size: 16px; /* Adjust the size as needed */
+    margin-bottom: 20px; /* Spacing between the paragraph and the iframe */
+    max-width: 1100px; /* To ensure the paragraph is not too wide */
+  }
+  
