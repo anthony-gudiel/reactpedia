@@ -68,6 +68,7 @@
 }
 
 .full-width-button {
+    box-sizing: border-box;
     width: 100%;
     border: none;
     padding: 20px;
@@ -180,7 +181,68 @@ h3{
     margin-bottom: -10px;
 }
 
-.ai-response h3{
+.lesson-content h3{
+    margin-left: 0px;
+}
+
+.ai-response h4{
     margin-left: 20px;
     margin-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
 }
+
+
+.quiz-code{
+    margin-left: 20px;
+    margin-top: 60px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 25px;
+    margin-bottom: 30px;
+    font-family: monospace;
+    font-size: 15px;
+    margin-right: 15px;
+    color: black;
+}
+
+@keyframes pulseLarge {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes pulseSmall {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .quiz-yourself {
+    animation: pulseLarge 5s ease-in-out infinite;
+  }
+  
+  .loading {
+    animation: pulseSmall 3s ease-in-out infinite;
+    text-align: center;
+  }
+
+  .quiz-code h3{
+    margin-bottom: 10px;
+  }
+
+  .suggested-questions-modal ul, h3{
+    margin-left: 10px;
+  }

@@ -1,12 +1,15 @@
 import './lesson-1-1.css'
 import React, { useState, useEffect } from 'react';
-import { OPENAI } from '../../api/openai'
+import { OPENAI, suggestedOPENAI } from '../../api/openai'
 
 export const LESSON_1_1 = () => {
   const [userInput, setUserInput] = useState('');
   const [apiResponse, setApiResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  const [apiResponseReady, setApiResponseReady] = useState(false);
+  const [showSuggestedQuestions, setShowSuggestedQuestions] = useState(false);
+  const [suggestedQuestions, setSuggestedQuestions] = useState([]);
+  
 
   const handleInputChange = (event) => {
     setUserInput(event.target.value);
@@ -16,8 +19,11 @@ export const LESSON_1_1 = () => {
     setIsLoading(true);
     const response = await OPENAI(userInput);
     setApiResponse(response);
+    const suggestedQuestionsResponse = await suggestedOPENAI(userInput);
+    setSuggestedQuestions(suggestedQuestionsResponse);
     setUserInput('');
     setIsLoading(false); 
+    setApiResponseReady(true); 
 
   };
 
@@ -150,9 +156,9 @@ export const LESSON_1_1 = () => {
       />
       <button className='ai-submit' onClick={handleAIResponse}>Click to Submit!</button>
       <div className='ai-response'>
-        <h3>Response will appear here! :</h3>
+        <h4>Response will appear here! :</h4>
         {isLoading ? (
-          <div className='code'>Generating reponse. Please wait a moment...</div>
+          <div className='code'><div className='loading'>Generating reponse. Please wait a moment...</div></div>
         ) : (
           apiResponse && (
             <div className='code'>
@@ -160,7 +166,30 @@ export const LESSON_1_1 = () => {
             </div>
           )
         )}
-        </div>
-    </div>
+
+      {apiResponseReady && (
+        <>
+          <button className='suggested-questions-button' onClick={() => setShowSuggestedQuestions(true)}>
+            Click Here to See Related Questions
+          </button>
+
+          {showSuggestedQuestions && (
+            <div className='suggested-questions-modal'>
+              <ul>
+                  {suggestedQuestions.map((question, index) => (
+                    <li key={index}>
+                    {question.split('\n').map((line, lineIndex) => (
+                    <div key={lineIndex} className='code'>{line}</div>
+                  ))}
+              </li>
+            ))}
+              </ul>
+              <button onClick={() => setShowSuggestedQuestions(false)}>Close</button>
+            </div>
+          )}
+        </>
+      )}
+      </div>
+  </div>
   )
 }
