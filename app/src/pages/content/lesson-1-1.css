@@ -181,9 +181,15 @@ h3{
     margin-bottom: -10px;
 }
 
-.ai-response h3{
+.lesson-content h3{
+    margin-left: 0px;
+}
+
+.ai-response h4{
     margin-left: 20px;
     margin-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
 }
 
 
@@ -235,4 +241,8 @@ h3{
 
   .quiz-code h3{
     margin-bottom: 10px;
+  }
+
+  .suggested-questions-modal ul, h3{
+    margin-left: 10px;
   }
