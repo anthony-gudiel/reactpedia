@@ -26,15 +26,9 @@ export const onSearch = async (keyword, setState) => {
 };
 
 export const handleSubcribe = (tokenClient, accessToken, videoItems) =>{
-  console.log(videoItems)
-  console.log(videoItems.snippet.channelId)
   if (accessToken == ''){
-    //console.log("request new token")
     tokenClient.requestAccessToken()
-    
   }else{
-    console.log("already have token")
-     console.log(accessToken)
      fetch("https://www.googleapis.com/youtube/v3/subscriptions?part=snippet", {
       method: 'POST', 
       headers: {
@@ -50,8 +44,6 @@ export const handleSubcribe = (tokenClient, accessToken, videoItems) =>{
         }
       })
     })
-      .then(response => response.json())
-      .then(data => console.log(data))
       .catch(error => console.error('Error:', error));
   }
 }
@@ -82,10 +74,9 @@ export const Tutorials = () => {
   useEffect(() => {
     const initializeTokenClient = async () => {
       const client = await window.google.accounts.oauth2.initTokenClient({
-        client_id: "730770086946-fp5jl29v8oc54g6cd95cugi5g7587u4v.apps.googleusercontent.com",
+        client_id: process.env.REACT_APP_OAUTH_CLIENT_ID,
         scope: "https://www.googleapis.com/auth/youtube",         
         callback: (token) => {
-          console.log(token);
           setAccessToken(token.access_token);
         }
       });
@@ -98,7 +89,7 @@ export const Tutorials = () => {
     <div className="App">
       <div className='content-container-1'>
         <Search onSearch={(keyword) => onSearch(keyword, setState)} />
-        <button id="Subcribe" onClick={() => handleSubcribe(tokenClient, accessToken, state.videos[state.currentVideoIndex])}>Subcribe</button>
+        <button id="Subcribe" onClick={() => handleSubcribe(tokenClient, accessToken, state.videos[state.currentVideoIndex])}>Subscribe</button>
         <YoutubeEmbed embedId={state.videos[state.currentVideoIndex]?.id.videoId} width="560" height="315" />
       </div>
       <div className='try-another'>
