@@ -90,6 +90,8 @@ export const Tutorials = () => {
       <div className='content-container-1'>
         <Search onSearch={(keyword) => onSearch(keyword, setState)} />
         <button id="Subcribe" onClick={() => handleSubcribe(tokenClient, accessToken, state.videos[state.currentVideoIndex])}>Subscribe</button>
+        <iframe className='sandbox' src="https://codesandbox.io/"></iframe>
+
         <YoutubeEmbed embedId={state.videos[state.currentVideoIndex]?.id.videoId} width="560" height="315" />
       </div>
       <div className='try-another'>
