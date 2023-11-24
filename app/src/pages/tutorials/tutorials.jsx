@@ -6,6 +6,8 @@ import Search from "../../components/Search";
 import YoutubeEmbed from "../../components/YouTubeEmbedVideo";
 import "./tutorials.css";
 
+const defaultVideo = "SqcY0GlETPk";
+
 export const onSearch = async (keyword, setState) => {
   const response = await youtube.get("/search", {
     params: {
@@ -18,28 +20,10 @@ export const onSearch = async (keyword, setState) => {
   setState(() => ({
     videos: response.data.items,
     currentVideoIndex: 0,
-    videoId: response.data.items[0].id.videoId,
+    videoId: response.data.items.length > 0 ? response.data.items[0].id.videoId : defaultVideo,
   }));
 
   return response;
-};
-
-const fetchAccessToken = async (setAccessToken) => {
-  try {
-    const client = await window.google.accounts.oauth2.initTokenClient({
-      client_id: process.env.REACT_APP_OAUTH_CLIENT_ID,
-      scope: "https://www.googleapis.com/auth/youtube",
-      callback: (token) => {
-        setAccessToken(token.access_token);
-      },
-    });
-
-    // Request access token
-    const token = await client.requestAccessToken();
-    setAccessToken(token.access_token);
-  } catch (error) {
-    console.error("Error fetching access token:", error);
-  }
 };
 
 const handleSubscriptionToggle = async (
@@ -48,6 +32,7 @@ const handleSubscriptionToggle = async (
   videoItem,
   setSubscribed
 ) => {
+
   if (accessToken === "") {
     // Handle the case where the access token is missing
     tokenClient.requestAccessToken();
@@ -135,7 +120,7 @@ export const handlePrevious = (state, setState) => {
 export const Tutorials = () => {
   const [state, setState] = useState({
     videos: [],
-    videoId: "a3ICNMQW7Ok",
+    videoId: defaultVideo,
     currentVideoIndex: 0,
   });
   const [tokenClient, setTokenClient] = useState({});
@@ -191,7 +176,7 @@ export const Tutorials = () => {
       <div className="content-container-1">
         <Search onSearch={(keyword) => onSearch(keyword, setState)} />
         <YoutubeEmbed
-          embedId={state.videos[state.currentVideoIndex]?.id.videoId}
+          embedId={state.videos.length > 0 ? state.videos[state.currentVideoIndex]?.id.videoId : state.videoId}
           width="560"
           height="315"
         />

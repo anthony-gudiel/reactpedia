@@ -1,5 +1,5 @@
 import { test, vi, expect } from 'vitest';
-import { onSearch, handleNext, handlePrevious} from '../src/pages/content/tutorials';
+import { onSearch, handleNext, handlePrevious} from '../src/pages/tutorials/tutorials';
 import React from 'react';
 import youtube from '../src/api/youtube';
 
