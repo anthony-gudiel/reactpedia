@@ -7,7 +7,6 @@ import { Contact } from "./pages/contact/contact";
 import { LESSON_1_1 } from "./pages/content/lesson-1-1";
 import { LESSON_1_2 } from "./pages/content/lesson-1-2";
 import { LESSON_1_3 } from "./pages/content/lesson-1-3";
-import { LESSON_1_2_ANSWERS } from "./pages/content/lesson-1-2-answers";
 import { Tutorials } from "./pages/tutorials/tutorials";
 import { Content } from "./pages/resources/content";
 import { Quizzes } from "./pages/quizzes/quizzes";
