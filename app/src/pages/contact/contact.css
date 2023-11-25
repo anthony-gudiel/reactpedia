@@ -5,6 +5,7 @@
     align-items: center;
     height: 100%;
     text-align: center;
+    background-color: #1b1b1b;
   }
   
   .compiler-heading {
@@ -16,5 +17,9 @@
     font-size: 16px; /* Adjust the size as needed */
     margin-bottom: 20px; /* Spacing between the paragraph and the iframe */
     max-width: 1100px; /* To ensure the paragraph is not too wide */
+    font-weight: lighter;
   }
   
+  .frame{
+    margin-bottom: 50px;
+  }
