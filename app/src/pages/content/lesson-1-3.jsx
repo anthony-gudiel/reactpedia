@@ -108,6 +108,7 @@ export const LESSON_1_3 = () => {
           <h3>Summary: </h3>
           <div className='break'></div>
           <img src={componentImage} alt="Failed to load." className='lesson-3-image'/>
+          <div className='break'></div>
           <em>Components in React:</em>
           <ul>
             <li>Building blocks for UI elements.</li>
