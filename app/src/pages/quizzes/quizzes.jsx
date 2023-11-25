@@ -98,7 +98,7 @@ export const Quizzes = () => {
                 You've just set up your first React app and created a simple React component. In 
                 the next lesson, we'll explore React components in more detail and learn how to create
                 dynamic and interactive user interfaces. Happy coding!">
-            Lesson 1.1 - Introduction to React.js</option>
+            Lesson 1 - Introduction to React.js</option>
 
             <option value="Lesson 1.2 - React Basics: JSX: What is JSX?
                 Definition: JSX stands for JavaScript XML. It's a syntax extension for JavaScrip
@@ -191,7 +191,7 @@ export const Quizzes = () => {
                 that contains all elements, where in the second example, there is no parent
                 element (<div>)">
 
-            Lesson 1.2 - React Basics: JSX</option>
+            Lesson 2 - React Basics: JSX</option>
         </select>
         <button className='ai-submit' onClick={handleButtonClick}>Click to Submit!</button>
         </div>

@@ -31,7 +31,7 @@ export const LESSON_1_2 = () => {
     <div className='lesson-1-1'>
         <div className='container'>
             <div className='lessonHeader'>
-                <h1> Lesson 1.2 - React Basics: JSX </h1>
+                <h1> Lesson 2 - React Basics: JSX </h1>
             </div>
         </div>
         <div className='lesson-content'>
@@ -187,24 +187,8 @@ export const LESSON_1_2 = () => {
                     that contains all elements, where in the second example, there is no parent element
                     (&#60;div&#62;)
                     </div>
-                    <div className='break'></div>
-                    Now that you have a good idea about JSX syntax, it's time to do some exercises
-                    to put that knowledge to the test!
-                    <div className='break'></div>
-                    Exercises:
-                    <ol>
-                        <li> Create a new React component named 'WelcomeMessage' using
-                             JSX that displays a welcome message with a user's name passed 
-                             as a prop</li>
-                        <li>Create another component named 'AlertMessage' that conditionally
-                            renders an alert message based on a prop indicating whether or not
-                            the alert is active</li>
-                        <li>Create a new component called 'MultiLineComponent' with a multi-line
-                            output that contains at least three different elements (paragraphs, headings, etc.)</li>
-                    </ol>
                     <a className="lesson-1-button" href="./lesson-1-1">Previous Lesson</a>
                     <a className="lesson-1-button" href="./lesson-1-3">Next Lesson</a>
-                    <a className="lesson-1-button" href="./lesson-1-2-answers">Check Your Answers</a>
                 </div>
             </div>
         </div>

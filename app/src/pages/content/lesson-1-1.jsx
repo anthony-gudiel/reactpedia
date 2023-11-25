@@ -31,7 +31,7 @@ export const LESSON_1_1 = () => {
     <div className='lesson-1-1'>
       <div className='container'>
         <div className='lessonHeader'>
-          <h1>Lesson 1.1 - Introduction to React.js</h1>
+          <h1>Lesson 1 - Introduction to React.js</h1>
         </div>
       </div>
       <div className='lesson-content'>

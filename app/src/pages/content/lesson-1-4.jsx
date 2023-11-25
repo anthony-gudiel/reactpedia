@@ -2,7 +2,7 @@ import './lesson-1-1.css'
 import React, { useState, useEffect } from 'react';
 import { OPENAI, suggestedOPENAI } from '../../api/openai'
 
-export const LESSON_1_3 = () => {
+export const LESSON_1_4 = () => {
   const [userInput, setUserInput] = useState('');
   const [apiResponse, setApiResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +31,7 @@ export const LESSON_1_3 = () => {
     <div className='lesson-1-1'>
       <div className='container'>
         <div className='lessonHeader'>
-          <h1>Lesson 3 - Components</h1>
+          <h1>Lesson 4 - Components</h1>
         </div>
       </div>
       <div className='lesson-content'>
@@ -125,7 +125,7 @@ export const LESSON_1_3 = () => {
             <li>Best practice: Place imports at the file's start.</li>
           </ul>
         </div>
-          <a className="lesson-1-button" href="./lesson-1-2">Previous Lesson</a>
+          <a className="lesson-1-button" href="./lesson-1-3">Previous Lesson</a>
           <a className="lesson-1-button" href="./lesson-1-4">Next Lesson</a>
         </div>
       </div>
