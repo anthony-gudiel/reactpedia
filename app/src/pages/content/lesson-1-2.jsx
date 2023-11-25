@@ -52,6 +52,7 @@ export const LESSON_1_2 = () => {
                         <li>JSX is the standard for React applications</li>
                     </ul>
                 </div>
+                <div className='break'></div>
                 <div className='jsx-syntax-header'>
                     <h3> JSX Syntax </h3>
                 </div>
@@ -201,7 +202,7 @@ export const LESSON_1_2 = () => {
       />
       <button className='ai-submit' onClick={handleAIResponse}>Click to Submit!</button>
       <div className='ai-response'>
-        <h3>Response will appear here! :</h3>
+        <h4>Response will appear here! :</h4>
         {isLoading ? (
           <div className='code'><div className='loading'>Generating reponse. Please wait a moment...</div></div>
         ) : (

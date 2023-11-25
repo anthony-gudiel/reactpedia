@@ -19,7 +19,6 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    max-width: 60%;
     color: black;
     line-height: 2;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -246,3 +245,28 @@ h3{
   .suggested-questions-modal ul, h3{
     margin-left: 10px;
   }
+
+  .lesson-1-image{
+    width: 574px;
+    height: 324px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border: 5px solid rgb(150, 124, 193);
+    border-radius: 20px;
+  }
+
+  .lesson-3-image{
+    float: right;
+    margin-right: 80px;
+    width: 574px;
+    height: 288px;
+    border: 5px solid rgb(150, 124, 193);
+    border-radius: 20px;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 1003px) {
+    .lesson-3-image{
+        display: none;
+    }
+}

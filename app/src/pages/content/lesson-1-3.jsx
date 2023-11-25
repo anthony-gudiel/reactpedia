@@ -1,6 +1,7 @@
 import './lesson-1-1.css'
 import React, { useState, useEffect } from 'react';
 import { OPENAI, suggestedOPENAI } from '../../api/openai'
+import componentImage from '../../assets/component.png'
 
 export const LESSON_1_3 = () => {
   const [userInput, setUserInput] = useState('');
@@ -46,6 +47,7 @@ export const LESSON_1_3 = () => {
             <li>Components can be functional or class-based.</li>
           </ul>
         </div>
+        <div className='break'></div>
         <div className='what-is-header'>
           <h3>Functional Components: </h3>
         </div>
@@ -105,6 +107,7 @@ export const LESSON_1_3 = () => {
           </ul>
           <h3>Summary: </h3>
           <div className='break'></div>
+          <img src={componentImage} alt="Failed to load." className='lesson-3-image'/>
           <em>Components in React:</em>
           <ul>
             <li>Building blocks for UI elements.</li>

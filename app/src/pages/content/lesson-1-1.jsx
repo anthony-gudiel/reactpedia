@@ -1,6 +1,7 @@
 import './lesson-1-1.css'
 import React, { useState, useEffect } from 'react';
 import { OPENAI, suggestedOPENAI } from '../../api/openai'
+import nodejsImage from '../../assets/node.png'
 
 export const LESSON_1_1 = () => {
   const [userInput, setUserInput] = useState('');
@@ -83,6 +84,8 @@ export const LESSON_1_1 = () => {
           Step 1: Install Node.js
           <div className='break'></div>
           React applications are typically built using Node.js. Install it from nodejs.org.
+          <div className='break'></div>
+          <img src={nodejsImage} alt="Failed to load." className='lesson-1-image'/>
           <div className='break'></div>
           Step 2: Create a React App
           <div className='break'></div>
