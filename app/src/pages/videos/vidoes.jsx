@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import youtube from "../../api/youtube";
 import Search from "../../components/Search";
 import YoutubeEmbed from "../../components/YouTubeEmbedVideo";
-import "./tutorials.css";
+import "./videos.css";
 
 const defaultVideoId = "SqcY0GlETPk";
 const defaultChannelId = "UCWv7vMbMWH4-V0ZXdmDpPBA";
@@ -312,7 +312,7 @@ export const handlePrevious = (state, setState) => {
   }));
 };
 
-export const Tutorials = () => {
+export const Videos = () => {
   const [state, setState] = useState({
     videos: [],
     videoId: defaultVideoId,
@@ -459,7 +459,7 @@ export const Tutorials = () => {
             addedToPlaylist
               ? "remove-from-playlist-button"
               : "add-to-playlist-button"
-            }`}
+          }`}
           onClick={() =>
             handleAddToPlaylistToggle(
               tokenClient,

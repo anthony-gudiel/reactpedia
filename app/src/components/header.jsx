@@ -10,13 +10,12 @@ export const Header = () => {
       </div>
         <div className='links'>
             <Link to='/'> Home </Link>
+            <Link to='/lesson-1-1'> Lessons </Link>
             <Link to='/quizzes'> Quizzes </Link>
-            <Link to='/tutorials'> Tutorials </Link>
+            <Link to='/videos'> Videos </Link>
+            <Link to='/compiler'> Compiler </Link>
             <Link to='/about'> About </Link>
-            <Link to='/lesson-1-1'> Content </Link>
-            <Link to='/contact'> Compiler </Link>
         </div>
-
     </div>
   )
 }

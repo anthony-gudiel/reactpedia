@@ -1,45 +1,47 @@
-import React, { useState } from 'react';
-import '../content/lesson-1-1.css';
-import { OPENAI } from '../../api/openai';
+import React, { useState } from "react";
+import "../lessons/lesson-1-1.css";
+import { OPENAI } from "../../api/openai";
 
 export const Quizzes = () => {
-    const [selectedSection, setSelectedSection] = useState('');
-    const [quizContent, setQuizContent] = useState('');
-    const [loading, setLoading] = useState(false); 
-  
-    const handleDropdownChange = (e) => {
-        setSelectedSection(e.target.value);
-      };
+  const [selectedSection, setSelectedSection] = useState("");
+  const [quizContent, setQuizContent] = useState("");
+  const [loading, setLoading] = useState(false);
 
-      const handleButtonClick = async () => {
-        if (selectedSection) {
-          setLoading(true);
-    
-          const quiz = await OPENAI(`Quiz for ${selectedSection}`);
-          
-          setQuizContent(quiz);
-          setLoading(false);
-        }
-      };
-    
+  const handleDropdownChange = (e) => {
+    setSelectedSection(e.target.value);
+  };
+
+  const handleButtonClick = async () => {
+    if (selectedSection) {
+      setLoading(true);
+
+      const quiz = await OPENAI(`Quiz for ${selectedSection}`);
+
+      setQuizContent(quiz);
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className='quizzes'>
-        <div className='container'>
-            <div className='lessonHeader'>
-                <div className='quiz-yourself'><h1>Quiz Yourself!</h1></div>
-            </div>
+    <div className="quizzes">
+      <div className="container">
+        <div className="lessonHeader">
+          <div className="quiz-yourself">
+            <h1>Quiz Yourself!</h1>
+          </div>
         </div>
-        <div className='quiz-container'>
+      </div>
+      <div className="quiz-container">
         <select
-            className="full-width-button"
-            onChange={handleDropdownChange}
-            value={selectedSection}
-            >
-            <option value="" disabled>
-                Click here to select which section would you like to be quizzed on.
-            </option>
-            <option value="Lesson 1.1 - Introduction to React.js. Here is what the lesson contains:
+          className="full-width-button"
+          onChange={handleDropdownChange}
+          value={selectedSection}
+        >
+          <option value="" disabled>
+            Click here to select which section would you like to be quizzed on.
+          </option>
+          <option
+            value="Lesson 1.1 - Introduction to React.js. Here is what the lesson contains:
                 Lesson Overview:
                 Welcome to the exciting world of React.js! In this introductory lesson, we'll cover the
                 basics of what React is, why it's widely used, and how to set up a simple React application.
@@ -97,10 +99,13 @@ export const Quizzes = () => {
                 Congratulations!
                 You've just set up your first React app and created a simple React component. In 
                 the next lesson, we'll explore React components in more detail and learn how to create
-                dynamic and interactive user interfaces. Happy coding!">
-            Lesson 1 - Introduction to React.js</option>
+                dynamic and interactive user interfaces. Happy coding!"
+          >
+            Lesson 1 - Introduction to React.js
+          </option>
 
-            <option value="Lesson 1.2 - React Basics: JSX: What is JSX?
+          <option
+            value="Lesson 1.2 - React Basics: JSX: What is JSX?
                 Definition: JSX stands for JavaScript XML. It's a syntax extension for JavaScrip
                 recommended by React or describing what the UI should look like.
 
@@ -189,23 +194,31 @@ export const Quizzes = () => {
                 )
                 Do you see the difference? In this first valid example, there is a single <div>
                 that contains all elements, where in the second example, there is no parent
-                element (<div>)">
-
-            Lesson 2 - React Basics: JSX</option>
+                element (<div>)"
+          >
+            Lesson 2 - React Basics: JSX
+          </option>
         </select>
-        <button className='ai-submit' onClick={handleButtonClick}>Click to Submit!</button>
-        </div>
-        <div className='quiz-code'>
-            Quiz will appear here:
-        {loading && <div className='loading'>Please be patient. This may take a moment...</div>}
+        <button className="ai-submit" onClick={handleButtonClick}>
+          Click to Submit!
+        </button>
+      </div>
+      <div className="quiz-code">
+        Quiz will appear here:
+        {loading && (
+          <div className="loading">
+            Please be patient. This may take a moment...
+          </div>
+        )}
         {!loading && quizContent && (
           <div>
             <h3>Quiz:</h3>
-            <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'monospace' }}>{quizContent}</pre>
+            <pre style={{ whiteSpace: "pre-wrap", fontFamily: "monospace" }}>
+              {quizContent}
+            </pre>
           </div>
         )}
-        </div>
+      </div>
     </div>
-
-  )
-}
+  );
+};
