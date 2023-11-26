@@ -7,8 +7,9 @@ import YoutubeEmbed from "../../components/YouTubeEmbedVideo";
 import "./tutorials.css";
 
 const defaultVideoId = "SqcY0GlETPk";
-const playlistId = "Your Playlist ID";
-const defaultChannelId = "UCWv7vMbMWH4-V0ZXdmDpPBA";
+var nameplaylist = 'ReactPedia'
+var playlistId = "";
+// const defaultChannelId = "UCWv7vMbMWH4-V0ZXdmDpPBA";
 
 export const onSearch = async (keyword, setState) => {
   const response = await youtube.get("/search", {
@@ -109,13 +110,108 @@ const handleAddToPlaylistToggle = async (
   tokenClient,
   accessToken,
   videoItem,
-  playlistId,
   setAddedToPlaylist
 ) => {
   if (accessToken === "") {
     tokenClient.requestAccessToken();
     return;
   }
+  var playlistId_list
+  console.log("already have token")
+  //console.log("retriveData")
+  const response = await fetch("https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true&maxResults=50", {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+
+      playlistId_list = data
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    })
+
+  var playlistId = "";
+
+  for (var i = 0; i < playlistId_list.items.length; i++) {
+    if (playlistId_list.items[i].snippet.localized.title === nameplaylist) {
+      playlistId = playlistId_list.items[i].id
+      break;
+    }
+  }
+  console.log(playlistId)
+
+  // if (id == "") {
+  //   while (playlists.nextPageToken != "") {
+  //     console.log("already have token")
+  //     const response = await fetch("https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true", {
+  //       method: 'GET',
+  //       headers: {
+  //         'Authorization': `Bearer ${accessToken}`,
+  //         'Content-Type': 'application/json'
+  //       }
+  //     })
+  //       .then(response => {
+  //         if (!response.ok) {
+  //           throw new Error(`HTTP error! Status: ${response.status}`);
+  //         }
+  //         return response.json();
+  //       })
+  //       .then(data => {
+  //         playlists = data;
+
+  //       })
+  //       .catch(error => {
+  //         console.error('Error:', error);
+  //       })
+  //   }
+  // }
+
+  if (playlistId === "") {
+    console.log("no playlist")
+    await fetch("https://www.googleapis.com/youtube/v3/playlists?part=id,snippet", {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "snippet": {
+          "title": nameplaylist,
+          "description": "This is playlist from website.",
+          "tags": [
+            "react-learning-app"
+          ]
+        }
+      })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        //console.log(data)
+        playlistId = data.id
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
+
+  }
+
+
+
 
   // Check if the video is already in the playlist
   const playlistItemsResponse = await fetch(
@@ -145,7 +241,7 @@ const handleAddToPlaylistToggle = async (
         },
       }
     );
-    
+
     if (removeFromPlaylistResponse.ok) {
       setAddedToPlaylist(false);
     } else {
@@ -271,18 +367,18 @@ export const Tutorials = () => {
       if (!accessToken) {
         return;
       }
-  
+
       const channelId =
         state.videos.length > 0
           ? state.videos[state.currentVideoIndex].snippet.channelId
           : defaultChannelId;
-  
+
       try {
         const videoId =
           state.videos.length > 0
             ? state.videos[state.currentVideoIndex].id.videoId
             : defaultVideoId;
-  
+
         const playlistItemsResponse = await fetch(
           `https://www.googleapis.com/youtube/v3/playlistItems?part=id&playlistId=${playlistId}&videoId=${videoId}`,
           {
@@ -293,9 +389,9 @@ export const Tutorials = () => {
             },
           }
         );
-  
+
         const playlistItemsData = await playlistItemsResponse.json();
-  
+
         setAddedToPlaylist(
           playlistItemsData.items && playlistItemsData.items.length > 0
         );
@@ -303,10 +399,10 @@ export const Tutorials = () => {
         console.error('Error checking playlist status:', error);
       }
     };
-  
+
     fetchSubscriptionStatus();
   }, [state.videos, state.currentVideoIndex, accessToken]);
-  
+
 
   return (
     <div className="App">
@@ -324,9 +420,8 @@ export const Tutorials = () => {
       </div>
       <div className="video-info">
         <button
-          className={`subscribed-button ${
-            subscribed ? "unsubscribe-button" : "subscribe-button"
-          }`}
+          className={`subscribed-button ${subscribed ? "unsubscribe-button" : "subscribe-button"
+            }`}
           onClick={() =>
             handleSubscriptionToggle(
               tokenClient,
@@ -334,13 +429,13 @@ export const Tutorials = () => {
               state.videos.length > 0
                 ? state.videos[state.currentVideoIndex]
                 : {
-                    snippet: {
-                      channelId: defaultChannelId,
-                    },
-                    id: {
-                      videoId: defaultVideoId,
-                    },
+                  snippet: {
+                    channelId: defaultChannelId,
                   },
+                  id: {
+                    videoId: defaultVideoId,
+                  },
+                },
               setSubscribed
             )
           }
@@ -348,9 +443,8 @@ export const Tutorials = () => {
           {subscribed ? "Unsubscribe" : "Subscribe"}
         </button>
         <button
-          className={`added-to-playlist-button ${
-            addedToPlaylist ? "remove-from-playlist-button" : "add-to-playlist-button"
-          }`}
+          className={`added-to-playlist-button ${addedToPlaylist ? "remove-from-playlist-button" : "add-to-playlist-button"
+            }`}
           onClick={() =>
             handleAddToPlaylistToggle(
               tokenClient,
@@ -358,14 +452,13 @@ export const Tutorials = () => {
               state.videos.length > 0
                 ? state.videos[state.currentVideoIndex]
                 : {
-                    snippet: {
-                      channelId: defaultChannelId,
-                    },
-                    id: {
-                      videoId: defaultVideoId,
-                    },
+                  snippet: {
+                    channelId: defaultChannelId,
                   },
-              playlistId,
+                  id: {
+                    videoId: defaultVideoId,
+                  },
+                },
               setAddedToPlaylist
             )
           }
