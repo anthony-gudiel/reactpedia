@@ -6,7 +6,7 @@ import Search from '../../components/Search';
 import YoutubeEmbed from '../../components/YouTubeEmbedVideo';
 import './tutorials.css';
 
-var nameplaylist = 'react-learning-app'
+var nameplaylist = 'test4'
 
 export const onSearch = async (keyword, setState) => {
   const response = await youtube.get('/search', {
@@ -56,21 +56,54 @@ export const handleSubcribe = (tokenClient, accessToken, videoItems) => {
   }
 }
 
-const onGettingPlaylist = async (tokenClient, accessToken, playlists) => {
+export const onGettingPlaylistItems = async (accessToken, playlists, videoItem) => {
+  console.log("onGettingPlaylist")
   console.log(playlists)
   var id = "";
 
   for (var i = 0; i < playlists.items.length; i++) {
-    if (playlists.items[i].snippet.localized.title === "react-learning-app") {
-      console.log(playlists);
-      console.log(playlists.items[i].id)
+    if (playlists.items[i].snippet.localized.title === nameplaylist) {
+      id = playlists.items[i].id
       break;
     }
   }
+  console.log(id)
+
+
+
+  // if (id == "") {
+  //   while (playlists.nextPageToken != "") {
+  //     console.log("already have token")
+  //     const response = await fetch("https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true", {
+  //       method: 'GET',
+  //       headers: {
+  //         'Authorization': `Bearer ${accessToken}`,
+  //         'Content-Type': 'application/json'
+  //       }
+  //     })
+  //       .then(response => {
+  //         if (!response.ok) {
+  //           throw new Error(`HTTP error! Status: ${response.status}`);
+  //         }
+  //         return response.json();
+  //       })
+  //       .then(data => {
+  //         playlists = data;
+          
+  //       })
+  //       .catch(error => {
+  //         console.error('Error:', error);
+  //       })
+  //   }
+  // }
+
+
+
+  // after checking all items
   if (id === "") {
-    console.log(" no react")
+    console.log("no playlist")
     await fetch("https://www.googleapis.com/youtube/v3/playlists?part=id,snippet", {
-      method: 'DELETE',
+      method: 'POST',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
@@ -84,28 +117,64 @@ const onGettingPlaylist = async (tokenClient, accessToken, playlists) => {
           ]
         }
       })
-    }).then(response => response.json())
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        id = data.id
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      })
 
-    for (var i = 0; i < playlists.items.length; i++) {
-      if (playlists.items[i].snippet.localized.title === "react-learning-app") {
-        console.log(playlists);
-        console.log(playlists.items[i].id)
-        break;
-      }
-    }
   }
 
-  
+
+  // add to existed playlist
+  console.log("now I have id")
+  console.log(id)
+  console.log(videoItem.id.videoId)
+  await fetch("https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails,id,snippet,status", {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "snippet": {
+        "playlistId": id,
+        "resourceId": {
+          "kind": "youtube#video",
+          "videoId": videoItem.id.videoId
+        }
+      }
+    })
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log(data)
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    })
 } 
 
-export const handleAddToPlaylist = async (tokenClient, accessToken) => {
-
+export const handleAddToPlaylist = async (tokenClient, accessToken, videoId) => {
   if (accessToken == '') {
-    // console.log("request new token")
+    console.log("request new token")
     tokenClient.requestAccessToken()
   } else {
-    // console.log("already have token")
-    // console.log("retriveData")
+    console.log("already have token")
+    //console.log("retriveData")
     const response = await fetch("https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true", {
       method: 'GET',
       headers: {
@@ -120,8 +189,7 @@ export const handleAddToPlaylist = async (tokenClient, accessToken) => {
         return response.json();
       })
       .then(data => {
-        console.log(data)
-        //onGettingPlaylist(data);
+        const res = onGettingPlaylistItems(accessToken, data, videoId);
       })
       .catch(error => {
         console.error('Error:', error);
@@ -173,7 +241,7 @@ export const Tutorials = () => {
       <div className='content-container-1'>
         <Search onSearch={(keyword) => onSearch(keyword, setState)} />
         <button id="Subcribe" onClick={() => handleSubcribe(tokenClient, accessToken, state.videos[state.currentVideoIndex])}>Subcribe</button>
-        <button id="add-to-playlist" onClick={() => handleAddToPlaylist(tokenClient, accessToken)}>Add to playlists</button>
+        <button id="add-to-playlist" onClick={() => handleAddToPlaylist(tokenClient, accessToken, state.videos[state.currentVideoIndex])}>Add to playlists</button>
         <YoutubeEmbed embedId={state.videos[state.currentVideoIndex]?.id.videoId} width="560" height="315" />
       </div>
       <div className='try-another'>
