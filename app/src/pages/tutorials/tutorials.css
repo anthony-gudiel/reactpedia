@@ -91,3 +91,7 @@
 .remove-from-playlist-button:hover {
   background-color: black;
 }
+
+h4 {
+  margin: 0;
+}
