@@ -31,10 +31,29 @@ export const LESSON_1_2 = () => {
     <div className='lesson-1-1'>
         <div className='container'>
             <div className='lessonHeader'>
-                <h1> Lesson 1.2 - React Basics: JSX </h1>
+                <h1> Lesson 2 - React Basics: JSX </h1>
             </div>
         </div>
         <div className='lesson-content'>
+        <div className='menu'>
+        <div className='menu-content'>
+          <h2>Lesson Directory</h2>
+          <a href='/lesson-1-1'>Lesson 1 - Introduction to React.js</a>
+          <a href='/lesson-1-2'>Lesson 2 - React Basics: JSX</a>
+          <a href='/lesson-1-3'>Lesson 3 - Components</a>
+          <a href='/lesson-1-3'>Lesson 4 - State and Lifecycle</a>
+          <a href='/lesson-1-3'>Lesson 5 - Handling Events</a>
+          <a href='/lesson-1-3'>Lesson 6 - Conditional Rendering</a>
+          <a href='/lesson-1-3'>Lesson 7 - Lists and Keys</a>
+          <a href='/lesson-1-3'>Lesson 8 - Forms in React</a>
+          <a href='/lesson-1-3'>Lesson 9 - React Router</a>
+          <a href='/lesson-1-3'>Lesson 10 - State Management with Context</a>
+          <a href='/lesson-1-3'>Lesson 11 - Hooks in React</a>
+          <a href='/lesson-1-3'>Lesson 12 - Fetching Data with API</a>
+          <a href='/lesson-1-3'>Lesson 13 - Testing in React</a>
+          <a href='/lesson-1-3'>Lesson 14 - Deployment and Best Practices</a>
+        </div>
+      </div>
             <div className='container-2'>
                 <div className='what-is-jsx'>
                    <h3> What is JSX? </h3>
@@ -52,6 +71,7 @@ export const LESSON_1_2 = () => {
                         <li>JSX is the standard for React applications</li>
                     </ul>
                 </div>
+                <div className='break'></div>
                 <div className='jsx-syntax-header'>
                     <h3> JSX Syntax </h3>
                 </div>
@@ -187,24 +207,8 @@ export const LESSON_1_2 = () => {
                     that contains all elements, where in the second example, there is no parent element
                     (&#60;div&#62;)
                     </div>
-                    <div className='break'></div>
-                    Now that you have a good idea about JSX syntax, it's time to do some exercises
-                    to put that knowledge to the test!
-                    <div className='break'></div>
-                    Exercises:
-                    <ol>
-                        <li> Create a new React component named 'WelcomeMessage' using
-                             JSX that displays a welcome message with a user's name passed 
-                             as a prop</li>
-                        <li>Create another component named 'AlertMessage' that conditionally
-                            renders an alert message based on a prop indicating whether or not
-                            the alert is active</li>
-                        <li>Create a new component called 'MultiLineComponent' with a multi-line
-                            output that contains at least three different elements (paragraphs, headings, etc.)</li>
-                    </ol>
                     <a className="lesson-1-button" href="./lesson-1-1">Previous Lesson</a>
                     <a className="lesson-1-button" href="./lesson-1-3">Next Lesson</a>
-                    <a className="lesson-1-button" href="./lesson-1-2-answers">Check Your Answers</a>
                 </div>
             </div>
         </div>
@@ -217,7 +221,7 @@ export const LESSON_1_2 = () => {
       />
       <button className='ai-submit' onClick={handleAIResponse}>Click to Submit!</button>
       <div className='ai-response'>
-        <h3>Response will appear here! :</h3>
+        <h4>Response will appear here! :</h4>
         {isLoading ? (
           <div className='code'><div className='loading'>Generating reponse. Please wait a moment...</div></div>
         ) : (

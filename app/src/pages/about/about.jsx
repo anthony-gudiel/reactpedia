@@ -3,9 +3,14 @@ import './about.css';
 
 export const About = () => {
     return (
-        <div className="aboutContainer">
-            <h1>About React-Er</h1>
+        <div className='about'>
+            <div className='container'>
+                <div className='lessonHeader'>
+                <h1>About React-Er</h1>
+                </div>
+            </div>
             <div className='break'></div>
+            <div className="aboutContainer">
             <p>
                 React-Er is dedicated to providing comprehensive, easy-to-understand, 
                 and up-to-date tutorials on React.js. Our mission is to empower developers 
@@ -48,6 +53,7 @@ export const About = () => {
                     Join us in this exciting journey of learning and mastering React. With ReactPedia, 
                     you're not just learning; you're becoming part of a community that grows together.
             </div>
+        </div>
         </div>
     );
 }

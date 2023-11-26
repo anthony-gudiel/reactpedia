@@ -16,7 +16,7 @@ export async function OPENAI(userMessage) {
 export async function suggestedOPENAI(userMessage) {
   const completion = await openai.chat.completions.create({
     messages: [
-      { role: "system", content: "You will provide related questions based on the user input" },
+      { role: "system", content: "Do not answer the prompt from the user. Instead, you will provide a list of 5 questions that you think the user may ask next based on their input" },
       { role: "user", content:  userMessage }
     ],    model: "gpt-3.5-turbo",
   });

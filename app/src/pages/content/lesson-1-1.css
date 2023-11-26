@@ -17,9 +17,9 @@
 .container-2{
     margin-left: 10px;
     display: flex;
+    max-width: 60%;
     flex-wrap: wrap;
     flex-direction: row;
-    max-width: 60%;
     color: black;
     line-height: 2;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -246,3 +246,57 @@ h3{
   .suggested-questions-modal ul, h3{
     margin-left: 10px;
   }
+
+  .lesson-1-image{
+    width: 574px;
+    height: 324px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border: 5px solid rgb(150, 124, 193);
+    border-radius: 20px;
+  }
+
+  .lesson-3-image{
+    width: 574px;
+    height: 288px;
+    border: 5px solid rgb(150, 124, 193);
+    border-radius: 20px;
+    margin-top: 40px;
+  }
+
+  @media (max-width: 1003px) {
+    .lesson-3-image{
+        display: none;
+    }
+}
+
+.menu{
+    width: 25%;
+    background-color: #1b1b1b;
+    right: 0;
+    padding: 20px;
+    text-align: center;
+    float: right;
+    position:fixed;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: lighter;
+}
+
+.menu a{
+    text-decoration: none;
+    color: white;
+    margin-top: 20px;
+    font-size: 18px;
+    letter-spacing: 2px;
+    display: list-item;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    margin-left: 20px;
+    &:hover{
+        color: #666;
+        text-transform: uppercase;
+    }
+}

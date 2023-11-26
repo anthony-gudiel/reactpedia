@@ -1,6 +1,7 @@
 import './lesson-1-1.css'
 import React, { useState, useEffect } from 'react';
 import { OPENAI, suggestedOPENAI } from '../../api/openai'
+import nodejsImage from '../../assets/node.png'
 
 export const LESSON_1_1 = () => {
   const [userInput, setUserInput] = useState('');
@@ -31,11 +32,31 @@ export const LESSON_1_1 = () => {
     <div className='lesson-1-1'>
       <div className='container'>
         <div className='lessonHeader'>
-          <h1>Lesson 1.1 - Introduction to React.js</h1>
+          <h1>Lesson 1 - Introduction to React.js</h1>
         </div>
       </div>
       <div className='lesson-content'>
+      <div className='menu'>
+        <div className='menu-content'>
+          <h2>Lesson Directory</h2>
+          <a href='/lesson-1-1'>Lesson 1 - Introduction to React.js</a>
+          <a href='/lesson-1-2'>Lesson 2 - React Basics: JSX</a>
+          <a href='/lesson-1-3'>Lesson 3 - Components</a>
+          <a href='/lesson-1-3'>Lesson 4 - State and Lifecycle</a>
+          <a href='/lesson-1-3'>Lesson 5 - Handling Events</a>
+          <a href='/lesson-1-3'>Lesson 6 - Conditional Rendering</a>
+          <a href='/lesson-1-3'>Lesson 7 - Lists and Keys</a>
+          <a href='/lesson-1-3'>Lesson 8 - Forms in React</a>
+          <a href='/lesson-1-3'>Lesson 9 - React Router</a>
+          <a href='/lesson-1-3'>Lesson 10 - State Management with Context</a>
+          <a href='/lesson-1-3'>Lesson 11 - Hooks in React</a>
+          <a href='/lesson-1-3'>Lesson 12 - Fetching Data with API</a>
+          <a href='/lesson-1-3'>Lesson 13 - Testing in React</a>
+          <a href='/lesson-1-3'>Lesson 14 - Deployment and Best Practices</a>
+        </div>
+      </div>
       <div className='container-2'>
+        <div className='break'></div>
         <div className='overview-header'>
           <h3>Lesson Overview:</h3>
         </div>
@@ -83,6 +104,8 @@ export const LESSON_1_1 = () => {
           Step 1: Install Node.js
           <div className='break'></div>
           React applications are typically built using Node.js. Install it from nodejs.org.
+          <div className='break'></div>
+          <img src={nodejsImage} alt="Failed to load." className='lesson-1-image'/>
           <div className='break'></div>
           Step 2: Create a React App
           <div className='break'></div>

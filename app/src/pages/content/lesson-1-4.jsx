@@ -1,9 +1,8 @@
 import './lesson-1-1.css'
 import React, { useState, useEffect } from 'react';
 import { OPENAI, suggestedOPENAI } from '../../api/openai'
-import componentImage from '../../assets/component.png'
 
-export const LESSON_1_3 = () => {
+export const LESSON_1_4 = () => {
   const [userInput, setUserInput] = useState('');
   const [apiResponse, setApiResponse] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -32,29 +31,10 @@ export const LESSON_1_3 = () => {
     <div className='lesson-1-1'>
       <div className='container'>
         <div className='lessonHeader'>
-          <h1>Lesson 3 - Components</h1>
+          <h1>Lesson 4 - Components</h1>
         </div>
       </div>
       <div className='lesson-content'>
-      <div className='menu'>
-        <div className='menu-content'>
-          <h2>Lesson Directory</h2>
-          <a href='/lesson-1-1'>Lesson 1 - Introduction to React.js</a>
-          <a href='/lesson-1-2'>Lesson 2 - React Basics: JSX</a>
-          <a href='/lesson-1-3'>Lesson 3 - Components</a>
-          <a href='/lesson-1-3'>Lesson 4 - State and Lifecycle</a>
-          <a href='/lesson-1-3'>Lesson 5 - Handling Events</a>
-          <a href='/lesson-1-3'>Lesson 6 - Conditional Rendering</a>
-          <a href='/lesson-1-3'>Lesson 7 - Lists and Keys</a>
-          <a href='/lesson-1-3'>Lesson 8 - Forms in React</a>
-          <a href='/lesson-1-3'>Lesson 9 - React Router</a>
-          <a href='/lesson-1-3'>Lesson 10 - State Management with Context</a>
-          <a href='/lesson-1-3'>Lesson 11 - Hooks in React</a>
-          <a href='/lesson-1-3'>Lesson 12 - Fetching Data with API</a>
-          <a href='/lesson-1-3'>Lesson 13 - Testing in React</a>
-          <a href='/lesson-1-3'>Lesson 14 - Deployment and Best Practices</a>
-        </div>
-      </div>
       <div className='container-2'>
         <div className='overview-header'>
           <h3>Components in React</h3>
@@ -66,7 +46,6 @@ export const LESSON_1_3 = () => {
             <li>Components can be functional or class-based.</li>
           </ul>
         </div>
-        <div className='break'></div>
         <div className='what-is-header'>
           <h3>Functional Components: </h3>
         </div>
@@ -126,8 +105,6 @@ export const LESSON_1_3 = () => {
           </ul>
           <h3>Summary: </h3>
           <div className='break'></div>
-          <img src={componentImage} alt="Failed to load." className='lesson-3-image'/>
-          <div className='break'></div>
           <em>Components in React:</em>
           <ul>
             <li>Building blocks for UI elements.</li>
@@ -148,7 +125,7 @@ export const LESSON_1_3 = () => {
             <li>Best practice: Place imports at the file's start.</li>
           </ul>
         </div>
-          <a className="lesson-1-button" href="./lesson-1-2">Previous Lesson</a>
+          <a className="lesson-1-button" href="./lesson-1-3">Previous Lesson</a>
           <a className="lesson-1-button" href="./lesson-1-4">Next Lesson</a>
         </div>
       </div>
