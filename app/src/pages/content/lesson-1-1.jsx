@@ -207,6 +207,9 @@ export const LESSON_1_1 = () => {
           <a className="lesson-1-button" href="./lesson-1-2">
             Next Lesson
           </a>
+          <a className="lesson-1-button" href="./quizzes">
+            Quiz yourself!
+          </a>
         </div>
       </div>
       <input
