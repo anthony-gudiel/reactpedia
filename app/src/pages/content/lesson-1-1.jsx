@@ -1,5 +1,5 @@
 import "./lesson-1-1.css";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { OPENAI, suggestedOPENAI } from "../../api/openai";
 import nodejsImage from "../../assets/node.png";
 
@@ -46,17 +46,17 @@ export const LESSON_1_1 = () => {
             <a href="/lesson-1-1">Lesson 1 - Introduction to React.js</a>
             <a href="/lesson-1-2">Lesson 2 - React Basics: JSX</a>
             <a href="/lesson-1-3">Lesson 3 - Components</a>
-            <a href="/lesson-1-3">Lesson 4 - State and Lifecycle</a>
-            <a href="/lesson-1-3">Lesson 5 - Handling Events</a>
-            <a href="/lesson-1-3">Lesson 6 - Conditional Rendering</a>
-            <a href="/lesson-1-3">Lesson 7 - Lists and Keys</a>
-            <a href="/lesson-1-3">Lesson 8 - Forms in React</a>
-            <a href="/lesson-1-3">Lesson 9 - React Router</a>
-            <a href="/lesson-1-3">Lesson 10 - State Management with Context</a>
-            <a href="/lesson-1-3">Lesson 11 - Hooks in React</a>
-            <a href="/lesson-1-3">Lesson 12 - Fetching Data with API</a>
-            <a href="/lesson-1-3">Lesson 13 - Testing in React</a>
-            <a href="/lesson-1-3">Lesson 14 - Deployment and Best Practices</a>
+            <a href="/lesson-1-4">Lesson 4 - State and Lifecycle</a>
+            <a href="/lesson-1-5">Lesson 5 - Handling Events</a>
+            <a href="/lesson-1-6">Lesson 6 - Conditional Rendering</a>
+            <a href="/lesson-1-7">Lesson 7 - Lists and Keys</a>
+            <a href="/lesson-1-8">Lesson 8 - Forms in React</a>
+            <a href="/lesson-1-9">Lesson 9 - React Router</a>
+            <a href="/lesson-1-10">Lesson 10 - State Management with Context</a>
+            <a href="/lesson-1-11">Lesson 11 - Hooks in React</a>
+            <a href="/lesson-1-12">Lesson 12 - Fetching Data with API</a>
+            <a href="/lesson-1-13">Lesson 13 - Testing in React</a>
+            <a href="/lesson-1-14">Lesson 14 - Deployment and Best Practices</a>
           </div>
         </div>
         <div className="container-2">

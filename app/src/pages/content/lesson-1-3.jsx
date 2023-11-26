@@ -1,5 +1,5 @@
 import './lesson-1-1.css'
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { OPENAI, suggestedOPENAI } from '../../api/openai'
 import componentImage from '../../assets/component.png'
 
@@ -16,16 +16,21 @@ export const LESSON_1_3 = () => {
     setUserInput(event.target.value);
   };
 
-  const handleAIResponse = async () => {
-    setIsLoading(true);
-    const response = await OPENAI(userInput);
-    setApiResponse(response);
-    const suggestedQuestionsResponse = await suggestedOPENAI(userInput);
-    setSuggestedQuestions(suggestedQuestionsResponse);
-    setUserInput('');
-    setIsLoading(false); 
-    setApiResponseReady(true); 
+  const handleQuestionClick = (question) => {
+    question = question.slice(3);
+    setUserInput(question);
+    handleAIResponse(question);
+  };
 
+  const handleAIResponse = async (input) => {
+    setIsLoading(true);
+    const response = await OPENAI(input);
+    setApiResponse(response);
+    const suggestedQuestionsResponse = await suggestedOPENAI(response);
+    setSuggestedQuestions(suggestedQuestionsResponse);
+    setUserInput("");
+    setIsLoading(false);
+    setApiResponseReady(true);
   };
 
   return (
@@ -39,20 +44,20 @@ export const LESSON_1_3 = () => {
       <div className='menu'>
         <div className='menu-content'>
           <h2>Lesson Directory</h2>
-          <a href='/lesson-1-1'>Lesson 1 - Introduction to React.js</a>
-          <a href='/lesson-1-2'>Lesson 2 - React Basics: JSX</a>
-          <a href='/lesson-1-3'>Lesson 3 - Components</a>
-          <a href='/lesson-1-3'>Lesson 4 - State and Lifecycle</a>
-          <a href='/lesson-1-3'>Lesson 5 - Handling Events</a>
-          <a href='/lesson-1-3'>Lesson 6 - Conditional Rendering</a>
-          <a href='/lesson-1-3'>Lesson 7 - Lists and Keys</a>
-          <a href='/lesson-1-3'>Lesson 8 - Forms in React</a>
-          <a href='/lesson-1-3'>Lesson 9 - React Router</a>
-          <a href='/lesson-1-3'>Lesson 10 - State Management with Context</a>
-          <a href='/lesson-1-3'>Lesson 11 - Hooks in React</a>
-          <a href='/lesson-1-3'>Lesson 12 - Fetching Data with API</a>
-          <a href='/lesson-1-3'>Lesson 13 - Testing in React</a>
-          <a href='/lesson-1-3'>Lesson 14 - Deployment and Best Practices</a>
+          <a href="/lesson-1-1">Lesson 1 - Introduction to React.js</a>
+            <a href="/lesson-1-2">Lesson 2 - React Basics: JSX</a>
+            <a href="/lesson-1-3">Lesson 3 - Components</a>
+            <a href="/lesson-1-4">Lesson 4 - State and Lifecycle</a>
+            <a href="/lesson-1-5">Lesson 5 - Handling Events</a>
+            <a href="/lesson-1-6">Lesson 6 - Conditional Rendering</a>
+            <a href="/lesson-1-7">Lesson 7 - Lists and Keys</a>
+            <a href="/lesson-1-8">Lesson 8 - Forms in React</a>
+            <a href="/lesson-1-9">Lesson 9 - React Router</a>
+            <a href="/lesson-1-10">Lesson 10 - State Management with Context</a>
+            <a href="/lesson-1-11">Lesson 11 - Hooks in React</a>
+            <a href="/lesson-1-12">Lesson 12 - Fetching Data with API</a>
+            <a href="/lesson-1-13">Lesson 13 - Testing in React</a>
+            <a href="/lesson-1-14">Lesson 14 - Deployment and Best Practices</a>
         </div>
       </div>
       <div className='container-2'>
@@ -159,7 +164,7 @@ export const LESSON_1_3 = () => {
         value={userInput}
         onChange={handleInputChange}
       />
-      <button className='ai-submit' onClick={handleAIResponse}>Click to Submit!</button>
+      <button className='ai-submit' onClick={() =>handleAIResponse(userInput)}>Click to Submit!</button>
       <div className='ai-response'>
         <h4>Response will appear here! :</h4>
         {isLoading ? (
@@ -172,28 +177,39 @@ export const LESSON_1_3 = () => {
           )
         )}
 
-      {apiResponseReady && (
-        <>
-          <button className='suggested-questions-button' onClick={() => setShowSuggestedQuestions(true)}>
-            Click Here to See Related Questions
-          </button>
+{apiResponseReady && (
+          <>
+            <button
+              className="suggested-questions-button"
+              onClick={() => setShowSuggestedQuestions(true)}
+            >
+              Click Here to See Related Questions
+            </button>
 
-          {showSuggestedQuestions && (
-            <div className='suggested-questions-modal'>
-              <ul>
-                  {suggestedQuestions.map((question, index) => (
-                    <li key={index}>
-                    {question.split('\n').map((line, lineIndex) => (
-                    <div key={lineIndex} className='code'>{line}</div>
-                  ))}
-              </li>
-            ))}
-              </ul>
-              <button onClick={() => setShowSuggestedQuestions(false)}>Close</button>
-            </div>
-          )}
-        </>
-      )}
+            {showSuggestedQuestions && (
+              <div className="suggested-questions-modal">
+                <ul>
+                  {suggestedQuestions.map((question, index) =>
+                    question.split("\n").map((line, lineIndex) => (
+                      <li key={`${index}-${lineIndex}`}>
+                        <div
+                          key={`${index}-${lineIndex}`}
+                          className="suggested-question-button"
+                          onClick={() => handleQuestionClick(line)}
+                        >
+                          {line}
+                        </div>
+                      </li>
+                    ))
+                  )}
+                </ul>
+                <button onClick={() => setShowSuggestedQuestions(false)}>
+                  Close
+                </button>
+              </div>
+            )}
+          </>
+        )}
       </div>
   </div>
   )
