@@ -300,3 +300,20 @@ h3{
         text-transform: uppercase;
     }
 }
+
+.suggested-question-button{
+    margin-left: 20px;
+    margin-top: 30px;
+    background-color: rgb(150, 124, 193);
+    padding: 20px;
+    border-radius: 25px;
+    margin-bottom: 30px;
+    font-family: monospace;
+    font-size: 15px;
+    margin-right: 15px;
+    color: white;
+}
+
+.suggested-question-button:hover{
+    background-color: #666;
+}
