@@ -7,7 +7,7 @@ import { Compiler } from "./pages/compiler/compiler";
 import { LESSON_1_1 } from "./pages/lessons/lesson-1-1";
 import { LESSON_1_2 } from "./pages/lessons/lesson-1-2";
 import { LESSON_1_3 } from "./pages/lessons/lesson-1-3";
-import { Videos } from "./pages/videos/vidoes";
+import { Videos } from "./pages/videos/videos";
 import { Content } from "./pages/resources/content";
 import { Quizzes } from "./pages/quizzes/quizzes";
 import { LESSON_1_4 } from "./pages/lessons/lesson-1-4";
