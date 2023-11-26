@@ -58,6 +58,7 @@
 
 .subscribe-button {
   background-color: red;
+  margin-bottom: 10px;
 }
 
 .subscribe-button:hover {
@@ -67,4 +68,26 @@
 .unsubscribe-button {
   background-color: grey;
   color: white;
+  margin-bottom: 10px;
+}
+
+.unsubscribe-button:hover {
+  background-color: black;
+}
+
+.add-to-playlist-button {
+  background-color: lightseagreen;
+}
+
+.add-to-playlist-button:hover {
+  background-color: darkseagreen;
+}
+
+.remove-from-playlist-button {
+  background-color: grey;
+  color: white;
+}
+
+.remove-from-playlist-button:hover {
+  background-color: black;
 }

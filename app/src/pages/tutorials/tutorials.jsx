@@ -6,7 +6,9 @@ import Search from "../../components/Search";
 import YoutubeEmbed from "../../components/YouTubeEmbedVideo";
 import "./tutorials.css";
 
-const defaultVideo = "SqcY0GlETPk";
+const defaultVideoId = "SqcY0GlETPk";
+const playlistId = "Your Playlist ID";
+const defaultChannelId = "UCWv7vMbMWH4-V0ZXdmDpPBA";
 
 export const onSearch = async (keyword, setState) => {
   const response = await youtube.get("/search", {
@@ -20,7 +22,10 @@ export const onSearch = async (keyword, setState) => {
   setState(() => ({
     videos: response.data.items,
     currentVideoIndex: 0,
-    videoId: response.data.items.length > 0 ? response.data.items[0].id.videoId : defaultVideo,
+    videoId:
+      response.data.items.length > 0
+        ? response.data.items[0].id.videoId
+        : defaultVideoId,
   }));
 
   return response;
@@ -32,7 +37,6 @@ const handleSubscriptionToggle = async (
   videoItem,
   setSubscribed
 ) => {
-
   if (accessToken === "") {
     // Handle the case where the access token is missing
     tokenClient.requestAccessToken();
@@ -101,6 +105,89 @@ const handleSubscriptionToggle = async (
   }
 };
 
+const handleAddToPlaylistToggle = async (
+  tokenClient,
+  accessToken,
+  videoItem,
+  playlistId,
+  setAddedToPlaylist
+) => {
+  if (accessToken === "") {
+    tokenClient.requestAccessToken();
+    return;
+  }
+
+  // Check if the video is already in the playlist
+  const playlistItemsResponse = await fetch(
+    `https://www.googleapis.com/youtube/v3/playlistItems?part=id&playlistId=${playlistId}&videoId=${videoItem.id.videoId}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  const playlistItemsData = await playlistItemsResponse.json();
+
+  if (playlistItemsData.items && playlistItemsData.items.length > 0) {
+    // Video is already in the playlist, remove it
+    const playlistItemId = playlistItemsData.items[0].id;
+
+    const removeFromPlaylistResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems?id=${playlistItemId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    
+    if (removeFromPlaylistResponse.ok) {
+      setAddedToPlaylist(false);
+    } else {
+      console.error(
+        "Error removing from playlist:",
+        removeFromPlaylistResponse.statusText
+      );
+    }
+  } else {
+    // Video is not in the playlist, add it
+    const addToPlaylistResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          snippet: {
+            playlistId: playlistId,
+            resourceId: {
+              kind: "youtube#video",
+              videoId: videoItem.id.videoId,
+            },
+          },
+        }),
+      }
+    );
+
+    if (addToPlaylistResponse.ok) {
+      setAddedToPlaylist(true);
+    } else {
+      console.error(
+        "Error adding to playlist:",
+        addToPlaylistResponse.statusText
+      );
+    }
+  }
+};
+
+
 export const handleNext = (state, setState) => {
   setState((prevState) => ({
     ...prevState,
@@ -120,12 +207,13 @@ export const handlePrevious = (state, setState) => {
 export const Tutorials = () => {
   const [state, setState] = useState({
     videos: [],
-    videoId: defaultVideo,
+    videoId: defaultVideoId,
     currentVideoIndex: 0,
   });
   const [tokenClient, setTokenClient] = useState({});
   const [accessToken, setAccessToken] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const [addedToPlaylist, setAddedToPlaylist] = useState(false);
 
   useEffect(() => {
     const initializeTokenClient = async () => {
@@ -148,9 +236,55 @@ export const Tutorials = () => {
         return;
       }
 
+      const channelId =
+        state.videos.length > 0
+          ? state.videos[state.currentVideoIndex].snippet.channelId
+          : defaultChannelId;
+
       try {
         const subscriptionsResponse = await fetch(
-          `https://www.googleapis.com/youtube/v3/subscriptions?part=id&mine=true&forChannelId=${state.videos[state.currentVideoIndex].snippet.channelId}`,
+          `https://www.googleapis.com/youtube/v3/subscriptions?part=id&mine=true&forChannelId=${channelId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const subscriptionsData = await subscriptionsResponse.json();
+
+        setSubscribed(
+          subscriptionsData.items && subscriptionsData.items.length > 0
+        );
+      } catch (error) {
+        console.error("Error fetching subscription status:", error);
+      }
+    };
+
+    fetchSubscriptionStatus();
+  }, [state.videos, state.currentVideoIndex, accessToken]);
+
+  useEffect(() => {
+    const fetchSubscriptionStatus = async () => {
+      if (!accessToken) {
+        return;
+      }
+  
+      const channelId =
+        state.videos.length > 0
+          ? state.videos[state.currentVideoIndex].snippet.channelId
+          : defaultChannelId;
+  
+      try {
+        const videoId =
+          state.videos.length > 0
+            ? state.videos[state.currentVideoIndex].id.videoId
+            : defaultVideoId;
+  
+        const playlistItemsResponse = await fetch(
+          `https://www.googleapis.com/youtube/v3/playlistItems?part=id&playlistId=${playlistId}&videoId=${videoId}`,
           {
             method: 'GET',
             headers: {
@@ -159,24 +293,31 @@ export const Tutorials = () => {
             },
           }
         );
-
-        const subscriptionsData = await subscriptionsResponse.json();
-
-        setSubscribed(subscriptionsData.items && subscriptionsData.items.length > 0);
+  
+        const playlistItemsData = await playlistItemsResponse.json();
+  
+        setAddedToPlaylist(
+          playlistItemsData.items && playlistItemsData.items.length > 0
+        );
       } catch (error) {
-        console.error('Error fetching subscription status:', error);
+        console.error('Error checking playlist status:', error);
       }
     };
-
+  
     fetchSubscriptionStatus();
   }, [state.videos, state.currentVideoIndex, accessToken]);
+  
 
   return (
     <div className="App">
       <div className="content-container-1">
         <Search onSearch={(keyword) => onSearch(keyword, setState)} />
         <YoutubeEmbed
-          embedId={state.videos.length > 0 ? state.videos[state.currentVideoIndex]?.id.videoId : state.videoId}
+          embedId={
+            state.videos.length > 0
+              ? state.videos[state.currentVideoIndex]?.id.videoId
+              : state.videoId
+          }
           width="560"
           height="315"
         />
@@ -190,12 +331,46 @@ export const Tutorials = () => {
             handleSubscriptionToggle(
               tokenClient,
               accessToken,
-              state.videos[state.currentVideoIndex],
+              state.videos.length > 0
+                ? state.videos[state.currentVideoIndex]
+                : {
+                    snippet: {
+                      channelId: defaultChannelId,
+                    },
+                    id: {
+                      videoId: defaultVideoId,
+                    },
+                  },
               setSubscribed
             )
           }
         >
           {subscribed ? "Unsubscribe" : "Subscribe"}
+        </button>
+        <button
+          className={`added-to-playlist-button ${
+            addedToPlaylist ? "remove-from-playlist-button" : "add-to-playlist-button"
+          }`}
+          onClick={() =>
+            handleAddToPlaylistToggle(
+              tokenClient,
+              accessToken,
+              state.videos.length > 0
+                ? state.videos[state.currentVideoIndex]
+                : {
+                    snippet: {
+                      channelId: defaultChannelId,
+                    },
+                    id: {
+                      videoId: defaultVideoId,
+                    },
+                  },
+              playlistId,
+              setAddedToPlaylist
+            )
+          }
+        >
+          {addedToPlaylist ? "Remove from Playlist" : "Add to Playlist"}
         </button>
       </div>
       <div className="try-another">
