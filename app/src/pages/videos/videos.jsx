@@ -108,6 +108,7 @@ const handleSubscriptionToggle = async (
 
 const findAndCreatePlaylist = async (accessToken) => {
   var playlistId_list;
+  var noPlaylist = false;
   //console.log("already have token");
   //console.log("retriveData")
   const response = await fetch(
@@ -122,7 +123,9 @@ const findAndCreatePlaylist = async (accessToken) => {
   )
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        if (response.status === 404) {
+          noPlaylist = true;
+        }
       }
       return response.json();
     })
@@ -133,10 +136,12 @@ const findAndCreatePlaylist = async (accessToken) => {
       console.error("Error:", error);
     });
 
-  for (var i = 0; i < playlistId_list.items.length; i++) {
-    if (playlistId_list.items[i].snippet.localized.title === nameplaylist) {
-      playlistId = playlistId_list.items[i].id;
-      break;
+  if (noPlaylist === false) {
+    for (var i = 0; i < playlistId_list.items.length; i++) {
+      if (playlistId_list.items[i].snippet.localized.title === nameplaylist) {
+        playlistId = playlistId_list.items[i].id;
+        break;
+      }
     }
   }
   //console.log(playlistId);
@@ -167,7 +172,7 @@ const findAndCreatePlaylist = async (accessToken) => {
   //   }
   // }
 
-  if (playlistId === "") {
+  if (noPlaylist === true || playlistId === "") {
     //console.log("no playlist");
     await fetch(
       "https://www.googleapis.com/youtube/v3/playlists?part=id,snippet",
@@ -180,7 +185,7 @@ const findAndCreatePlaylist = async (accessToken) => {
         body: JSON.stringify({
           snippet: {
             title: nameplaylist,
-            description: "This is playlist from website.",
+            description: "This is playlist from ReactPedia.",
             tags: ["react-learning-app"],
           },
         }),
