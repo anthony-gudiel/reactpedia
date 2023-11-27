@@ -6,13 +6,13 @@ export const About = () => {
         <div className='about'>
             <div className='container'>
                 <div className='lessonHeader'>
-                <h1>About React-Er</h1>
+                <h1>About ReactPedia</h1>
                 </div>
             </div>
             <div className='break'></div>
             <div className="aboutContainer">
             <p>
-                React-Er is dedicated to providing comprehensive, easy-to-understand, 
+                ReactPedia is dedicated to providing comprehensive, easy-to-understand, 
                 and up-to-date tutorials on React.js. Our mission is to empower developers 
                 at all levels, from beginners to advanced, to master React and build 
                 efficient, modern web applications.
@@ -20,7 +20,7 @@ export const About = () => {
             <div className='break'></div>
             <div className="teamSection">
                 <h2>Meet the Team Behind ReactPedia</h2>
-                    At React-Er, our journey began much like yours - as curious students 
+                    At ReactPedia, our journey began much like yours - as curious students 
                     with a passion for coding and an eagerness to master React. We remember 
                     the hurdles, the late-night coding sessions, and the thirst for a resource 
                     that could make React not just understandable, but also engaging and fun.

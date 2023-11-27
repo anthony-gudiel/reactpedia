@@ -5,18 +5,22 @@ import logo from '../assets/reactpedia(1).jpg'
 export const Header = () => {
   return (
     <div className='header'>
-      <div className='header-logo'>
-        <img src={logo} alt="Failed to load." />
-      </div>
-        <div className='links'>
-            <Link to='/'> Home </Link>
-            <Link to='/quizzes'> Quizzes </Link>
-            <Link to='/tutorials'> Tutorials </Link>
-            <Link to='/about'> About </Link>
-            <Link to='/lesson-1-1'> Content </Link>
-            <Link to='/contact'> Compiler </Link>
+      <div className='logo-and-title'>
+        <div className='header-logo'>
+          <img src={logo} alt="Failed to load." />
         </div>
-
+        <div className='header-title'>
+        ReactPedia
+        </div>
+      </div>
+      <div className='links'>
+        <Link to='/'> Home </Link>
+        <Link to='/lesson-1-1'> Lessons </Link>
+        <Link to='/quizzes'> Quizzes </Link>
+        <Link to='/videos'> Videos </Link>
+        <Link to='/compiler'> Compiler </Link>
+        <Link to='/about'> About </Link>
+      </div>
     </div>
   )
 }
