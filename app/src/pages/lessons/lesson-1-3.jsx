@@ -92,7 +92,7 @@ export const LESSON_1_3 = () => {
               function FirstComponent() &#123;
               <div className="break"></div>
               <pre> return &#40;</pre>
-              <pre> &#60;p&#62;This is my first component!&#60;/p&#62;</pre>
+              <pre>   &#60;p&#62;This is my first component!&#60;/p&#62;</pre>
               <div className="break"></div>
               <pre> &#41;;</pre>
               <div className="break"></div>
@@ -105,13 +105,13 @@ export const LESSON_1_3 = () => {
               <div className="break"></div>
               return &#40;
               <div className="break"></div>
-              <pre> &#60;div&#62;</pre>
+              <pre>   &#60;div&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;p&#62;This is my app!&#60;/p&#62;</pre>
+              <pre>     &#60;p&#62;This is my app!&#60;/p&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;FirstComponent /&#62;</pre>
+              <pre>     &#60;FirstComponent /&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;/div&#62;</pre>
+              <pre>   &#60;/div&#62;</pre>
               <div className="break"></div>
               &#41;;
               <div className="break"></div>

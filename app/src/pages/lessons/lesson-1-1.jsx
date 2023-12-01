@@ -175,11 +175,11 @@ export const LESSON_1_1 = () => {
               <div className="break"></div>
               <pre> return &#40;</pre>
               <div className="break"></div>
-              <pre> &#60;div&#62;</pre>
+              <pre>   &#60;div&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;h1&#62; Hello World! &#60;&#47;h1&#62;</pre>
+              <pre>     &#60;h1&#62; Hello World! &#60;&#47;h1&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;/div&#62;</pre>
+              <pre>   &#60;/div&#62;</pre>
               <div className="break"></div>
               <pre> &#41;&#59;</pre>
               <div className="break"></div>
