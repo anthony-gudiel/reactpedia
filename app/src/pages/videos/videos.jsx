@@ -32,7 +32,7 @@ export const onSearch = async (keyword, setState) => {
   return response;
 };
 
-const handleSubscriptionToggle = async (
+export const handleSubscriptionToggle = async (
   tokenClient,
   accessToken,
   videoItem,
@@ -54,7 +54,11 @@ const handleSubscriptionToggle = async (
       },
     }
   );
-
+  
+  if (!subscriptionsResponse.ok) {
+    console.error("Error fetching subscription status:", subscriptionsResponse.statusText);
+    return;
+  }
   const subscriptionsData = await subscriptionsResponse.json();
 
   if (subscriptionsData.items && subscriptionsData.items.length > 0) {
@@ -106,10 +110,8 @@ const handleSubscriptionToggle = async (
   }
 };
 
-const findAndCreatePlaylist = async (accessToken) => {
+export const findAndCreatePlaylist = async (accessToken) => {
   var playlistId_list;
-  //console.log("already have token");
-  //console.log("retriveData")
   const response = await fetch(
     "https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true&maxResults=50",
     {
@@ -139,36 +141,8 @@ const findAndCreatePlaylist = async (accessToken) => {
       break;
     }
   }
-  //console.log(playlistId);
-
-  // if (id == "") {
-  //   while (playlists.nextPageToken != "") {
-  //     console.log("already have token")
-  //     const response = await fetch("https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true", {
-  //       method: 'GET',
-  //       headers: {
-  //         'Authorization': `Bearer ${accessToken}`,
-  //         'Content-Type': 'application/json'
-  //       }
-  //     })
-  //       .then(response => {
-  //         if (!response.ok) {
-  //           throw new Error(`HTTP error! Status: ${response.status}`);
-  //         }
-  //         return response.json();
-  //       })
-  //       .then(data => {
-  //         playlists = data;
-
-  //       })
-  //       .catch(error => {
-  //         console.error('Error:', error);
-  //       })
-  //   }
-  // }
 
   if (playlistId === "") {
-    //console.log("no playlist");
     await fetch(
       "https://www.googleapis.com/youtube/v3/playlists?part=id,snippet",
       {
@@ -193,7 +167,6 @@ const findAndCreatePlaylist = async (accessToken) => {
         return response.json();
       })
       .then((data) => {
-        //console.log(data)
         playlistId = data.id;
       })
       .catch((error) => {
@@ -202,7 +175,7 @@ const findAndCreatePlaylist = async (accessToken) => {
   }
 };
 
-const handleAddToPlaylistToggle = async (
+export const handleAddToPlaylistToggle = async (
   tokenClient,
   accessToken,
   videoItem,
