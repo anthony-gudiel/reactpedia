@@ -45,8 +45,8 @@ export const LESSON_1_2 = () => {
             <a href="/lesson-1-1">Lesson 1 - Introduction to React.js</a>
             <a href="/lesson-1-2">Lesson 2 - React Basics: JSX</a>
             <a href="/lesson-1-3">Lesson 3 - Components</a>
-            <a href="/lesson-1-4">Lesson 4 - State and Lifecycle</a>
-            <a href="/lesson-1-5">Lesson 5 - Handling Events</a>
+            <a href="/lesson-1-4">Lesson 4 - Props & State</a>
+            <a href="/lesson-1-5">Lesson 5 - Lists & Keys</a>
             <a href="/lesson-1-6">Lesson 6 - Conditional Rendering</a>
             <a href="/lesson-1-7">Lesson 7 - Lists and Keys</a>
             <a href="/lesson-1-8">Lesson 8 - Forms in React</a>
@@ -111,10 +111,7 @@ export const LESSON_1_2 = () => {
             <div className="code">
               function Greeting(props) &#123;
               <div className="break"></div>
-              <pre>
-                {" "}
-                return &#60;p&#62; Hello, &#123;props.name&#125;! &#60;/p&#62;;
-              </pre>
+              <pre>   return &#60;p&#62; Hello, &#123;props.name&#125;! &#60;/p&#62;;</pre>
               <div className="break"></div>
               &#125;
             </div>
@@ -138,11 +135,11 @@ export const LESSON_1_2 = () => {
               <div className="break"></div>
               <pre> return &#40;</pre>
               <div className="break"></div>
-              <pre> &#60;div&#62;</pre>
+              <pre>   &#60;div&#62;</pre>
               <div className="break"></div>
-              <pre> &#123;Greeting name="John" /&#125;</pre>
+              <pre>     &#123;Greeting name="John" /&#125;</pre>
               <div className="break"></div>
-              <pre> &#60;/div&#62;</pre>
+              <pre>   &#60;/div&#62;</pre>
               <div className="break"></div>
               <pre> &#41;</pre>
               <div className="break"></div>
@@ -174,15 +171,12 @@ export const LESSON_1_2 = () => {
               function Greeting (&#123;isLoggedIn&#125;) &#123;
               <div className="break"></div>
               <pre> return &#40;</pre>
-              <pre> &#60;div&#62;</pre>
+              <pre>   &#60;div&#62;</pre>
               <div className="break"></div>
-              <pre>
-                {" "}
-                &#123;isLoggedIn ? &#60;p&#62; Welcome back! &#60;/p&#62;
-                :&#60;p&#62; Please log in. &#60;/p&#62; &#125;
+              <pre>     &#123;isLoggedIn ? &#60;p&#62; Welcome back! &#60;/p&#62;:&#60;p&#62; Please log in. &#60;/p&#62; &#125;
               </pre>
               <div className="break"></div>
-              <pre> &#60;/div&#62;</pre>
+              <pre>   &#60;/div&#62;</pre>
               <div className="break"></div>
               <pre> &#41;</pre>
               &#125;
@@ -202,13 +196,13 @@ export const LESSON_1_2 = () => {
             <div className="code">
               const element = &#40;
               <div className="break"></div>
-              <pre> &#60;div&#62;</pre>
+              <pre>   &#60;div&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;h1&#62;Hello&#60;/h1&#62;</pre>
+              <pre>     &#60;h1&#62;Hello&#60;/h1&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;p&#62;React is awesome!&#60;/p&#62;</pre>
+              <pre>     &#60;p&#62;React is awesome!&#60;/p&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;/div&#62;</pre>
+              <pre>   &#60;/div&#62;</pre>
               <div className="break"></div>
               &#41;
             </div>
@@ -222,11 +216,11 @@ export const LESSON_1_2 = () => {
               <div className="break"></div>
               const validJSX = &#40;
               <div className="break"></div>
-              <pre> &#60;div&#62;</pre>
+              <pre>   &#60;div&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;h1&#62;Hello&#60;/h1&#62;</pre>
+              <pre>     &#60;h1&#62;Hello&#60;/h1&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;/div&#62;</pre>
+              <pre>   &#60;/div&#62;</pre>
               <div className="break"></div>
               &#41;
             </div>

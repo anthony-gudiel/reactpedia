@@ -46,8 +46,8 @@ export const LESSON_1_1 = () => {
             <a href="/lesson-1-1">Lesson 1 - Introduction to React.js</a>
             <a href="/lesson-1-2">Lesson 2 - React Basics: JSX</a>
             <a href="/lesson-1-3">Lesson 3 - Components</a>
-            <a href="/lesson-1-4">Lesson 4 - State and Lifecycle</a>
-            <a href="/lesson-1-5">Lesson 5 - Handling Events</a>
+            <a href="/lesson-1-4">Lesson 4 - Props & State</a>
+            <a href="/lesson-1-5">Lesson 5 - Lists & Keys</a>
             <a href="/lesson-1-6">Lesson 6 - Conditional Rendering</a>
             <a href="/lesson-1-7">Lesson 7 - Lists and Keys</a>
             <a href="/lesson-1-8">Lesson 8 - Forms in React</a>
@@ -175,11 +175,11 @@ export const LESSON_1_1 = () => {
               <div className="break"></div>
               <pre> return &#40;</pre>
               <div className="break"></div>
-              <pre> &#60;div&#62;</pre>
+              <pre>   &#60;div&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;h1&#62; Hello World! &#60;&#47;h1&#62;</pre>
+              <pre>     &#60;h1&#62; Hello World! &#60;&#47;h1&#62;</pre>
               <div className="break"></div>
-              <pre> &#60;/div&#62;</pre>
+              <pre>   &#60;/div&#62;</pre>
               <div className="break"></div>
               <pre> &#41;&#59;</pre>
               <div className="break"></div>
