@@ -3,11 +3,54 @@ import { test, vi, expect } from "vitest";
 
 global.fetch = vi.fn();
 
-const createFetchResponse = (data, status = 200, statusText = "Successful") => ({
+const createFetchResponse = (
+  data,
+  status = 200,
+  statusText = "Successful"
+) => ({
   ok: status >= 200 && status < 300,
   status,
   statusText,
   json: () => new Promise((resolve) => resolve(data)),
+});
+
+// First test case
+test("Testing handleSubscriptionToggle: User is not logged in", async () => {
+  const tokenClient = {
+    requestAccessToken: () => {},
+  };
+  vi.spyOn(tokenClient, "requestAccessToken");
+  const accessToken = "";
+  const videoItem = {
+    snippet: {
+      channelId: "mockChannelId",
+    },
+  };
+
+  // Fetch response when the user is subscribed
+  const mockResponse = {
+    items: [
+      {
+        id: "mockSubscriptionId",
+      },
+    ],
+  };
+
+  fetch.mockResolvedValue(createFetchResponse(mockResponse));
+
+  const setSubscribed = vi.fn();
+
+  await handleSubscriptionToggle(
+    tokenClient,
+    accessToken,
+    videoItem,
+    setSubscribed
+  );
+
+  // Assertions
+  expect(tokenClient.requestAccessToken).toHaveBeenCalled();
+  expect(fetch).not.toHaveBeenCalled();
+  vi.clearAllMocks();
 });
 
 // Second test case
@@ -86,8 +129,7 @@ test("Testing handleSubscriptionToggle: User is not subscribed", async () => {
   };
 
   // Fetch response when the user is not subscribed
-  const mockResponse = {
-  };
+  const mockResponse = {};
 
   fetch.mockResolvedValue(createFetchResponse(mockResponse));
 
@@ -151,8 +193,7 @@ test("Testing handleSubscriptionToggle: YouTube API response error", async () =>
   };
 
   // Fetch response
-  const mockResponse = {
-  };
+  const mockResponse = {};
 
   // Mock the fetch function to return an error
   fetch.mockResolvedValue(createFetchResponse(mockResponse, 404, "Not found"));
@@ -180,7 +221,10 @@ test("Testing handleSubscriptionToggle: YouTube API response error", async () =>
       },
     }
   );
-  expect(logSpy).toHaveBeenCalledWith("Error fetching subscription status:", "Not found");
+  expect(logSpy).toHaveBeenCalledWith(
+    "Error fetching subscription status:",
+    "Not found"
+  );
   expect(fetch).toHaveBeenCalledTimes(1);
   expect(setSubscribed).not.toHaveBeenCalled();
   vi.clearAllMocks();
