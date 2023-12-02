@@ -12,4 +12,7 @@ export default defineConfig({
     'process.env.REACT_APP_OPENAI_API_KEY': JSON.stringify(process.env.REACT_APP_OPENAI_API_KEY),
     'process.env.REACT_APP_OAUTH_CLIENT_ID': JSON.stringify(process.env.REACT_APP_OAUTH_CLIENT_ID),
   },
+  test: {
+    environment: 'happy-dom'
+  },
 });
