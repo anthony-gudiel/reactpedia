@@ -1,4 +1,4 @@
-// Tutorials.js
+// Videos.js
 
 import React, { useState, useEffect } from "react";
 import youtube from "../../api/youtube";
@@ -179,7 +179,8 @@ export const handleAddToPlaylistToggle = async (
   tokenClient,
   accessToken,
   videoItem,
-  setAddedToPlaylist
+  setAddedToPlaylist,
+  playlistId
 ) => {
   if (accessToken === "") {
     tokenClient.requestAccessToken();
@@ -191,7 +192,6 @@ export const handleAddToPlaylistToggle = async (
   }
 
   // Check if the video is already in the playlist
-  try {
     const playlistItemsResponse = await fetch(
       `https://www.googleapis.com/youtube/v3/playlistItems?part=id&playlistId=${playlistId}&videoId=${videoItem.id.videoId}`,
       {
@@ -202,6 +202,11 @@ export const handleAddToPlaylistToggle = async (
         },
       }
     );
+
+    if (!playlistItemsResponse.ok) {
+      console.error("Error fetching playlist status:", playlistItemsResponse.statusText);
+      return;
+    }
 
     const playlistItemsData = await playlistItemsResponse.json();
 
@@ -259,14 +264,6 @@ export const handleAddToPlaylistToggle = async (
         );
       }
     }
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      console.error("Playlist not found");
-      playlistId = "";
-    } else {
-      console.error("An error occurred:", error);
-    }
-  }
 };
 
 export const handleNext = (state, setState) => {
@@ -447,7 +444,8 @@ export const Videos = () => {
                       videoId: defaultVideoId,
                     },
                   },
-              setAddedToPlaylist
+              setAddedToPlaylist,
+              playlistId
             )
           }
         >

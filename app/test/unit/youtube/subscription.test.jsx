@@ -199,7 +199,7 @@ test("Testing handleSubscriptionToggle: YouTube API response error", async () =>
   fetch.mockResolvedValue(createFetchResponse(mockResponse, 404, "Not found"));
 
   const setSubscribed = vi.fn();
-  const logSpy = vi.spyOn(console, "error");
+  const errorSpy = vi.spyOn(console, "error");
 
   await handleSubscriptionToggle(
     tokenClient,
@@ -221,7 +221,7 @@ test("Testing handleSubscriptionToggle: YouTube API response error", async () =>
       },
     }
   );
-  expect(logSpy).toHaveBeenCalledWith(
+  expect(errorSpy).toHaveBeenCalledWith(
     "Error fetching subscription status:",
     "Not found"
   );
