@@ -54,9 +54,16 @@ export const handleSubscriptionToggle = async (
       },
     }
   );
-  
+
   if (!subscriptionsResponse.ok) {
-    console.error("Error fetching subscription status:", subscriptionsResponse.statusText);
+    alert(
+      "Error fetching subscription status:",
+      subscriptionsResponse.statusText
+    );
+    console.error(
+      "Error fetching subscription status:",
+      subscriptionsResponse.statusText
+    );
     return;
   }
   const subscriptionsData = await subscriptionsResponse.json();
@@ -79,6 +86,7 @@ export const handleSubscriptionToggle = async (
     if (unsubscribeResponse.ok) {
       setSubscribed(false);
     } else {
+      alert("Error unsubscribing:", unsubscribeResponse.statusText);
       console.error("Error unsubscribing:", unsubscribeResponse.statusText);
     }
   } else {
@@ -105,6 +113,7 @@ export const handleSubscriptionToggle = async (
     if (subscribeResponse.ok) {
       setSubscribed(true);
     } else {
+      alert("Error subscribing:", subscribeResponse.statusText);
       console.error("Error subscribing:", subscribeResponse.statusText);
     }
   }
@@ -192,10 +201,36 @@ export const handleAddToPlaylistToggle = async (
   }
 
   // Check if the video is already in the playlist
-    const playlistItemsResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=id&playlistId=${playlistId}&videoId=${videoItem.id.videoId}`,
+  const playlistItemsResponse = await fetch(
+    `https://www.googleapis.com/youtube/v3/playlistItems?part=id&playlistId=${playlistId}&videoId=${videoItem.id.videoId}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!playlistItemsResponse.ok) {
+    alert("Error fetching playlist status:", playlistItemsResponse.statusText);
+    console.error(
+      "Error fetching playlist status:",
+      playlistItemsResponse.statusText
+    );
+    return;
+  }
+
+  const playlistItemsData = await playlistItemsResponse.json();
+
+  if (playlistItemsData.items && playlistItemsData.items.length > 0) {
+    // Video is already in the playlist, remove it
+    const playlistItemId = playlistItemsData.items[0].id;
+
+    const removeFromPlaylistResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems?id=${playlistItemId}`,
       {
-        method: "GET",
+        method: "DELETE",
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
@@ -203,67 +238,50 @@ export const handleAddToPlaylistToggle = async (
       }
     );
 
-    if (!playlistItemsResponse.ok) {
-      console.error("Error fetching playlist status:", playlistItemsResponse.statusText);
-      return;
-    }
-
-    const playlistItemsData = await playlistItemsResponse.json();
-
-    if (playlistItemsData.items && playlistItemsData.items.length > 0) {
-      // Video is already in the playlist, remove it
-      const playlistItemId = playlistItemsData.items[0].id;
-
-      const removeFromPlaylistResponse = await fetch(
-        `https://www.googleapis.com/youtube/v3/playlistItems?id=${playlistItemId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (removeFromPlaylistResponse.ok) {
-        setAddedToPlaylist(false);
-      } else {
-        console.error(
-          "Error removing from playlist:",
-          removeFromPlaylistResponse.statusText
-        );
-      }
+    if (removeFromPlaylistResponse.ok) {
+      setAddedToPlaylist(false);
     } else {
-      // Video is not in the playlist, add it
-      const addToPlaylistResponse = await fetch(
-        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            snippet: {
-              playlistId: playlistId,
-              resourceId: {
-                kind: "youtube#video",
-                videoId: videoItem.id.videoId,
-              },
-            },
-          }),
-        }
+      alert(
+        "Error removing from playlist:",
+        removeFromPlaylistResponse.statusText
       );
-
-      if (addToPlaylistResponse.ok) {
-        setAddedToPlaylist(true);
-      } else {
-        console.error(
-          "Error adding to playlist:",
-          addToPlaylistResponse.statusText
-        );
-      }
+      console.error(
+        "Error removing from playlist:",
+        removeFromPlaylistResponse.statusText
+      );
     }
+  } else {
+    // Video is not in the playlist, add it
+    const addToPlaylistResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          snippet: {
+            playlistId: playlistId,
+            resourceId: {
+              kind: "youtube#video",
+              videoId: videoItem.id.videoId,
+            },
+          },
+        }),
+      }
+    );
+
+    if (addToPlaylistResponse.ok) {
+      setAddedToPlaylist(true);
+    } else {
+      alert("Error adding to playlist:", addToPlaylistResponse.statusText);
+      console.error(
+        "Error adding to playlist:",
+        addToPlaylistResponse.statusText
+      );
+    }
+  }
 };
 
 export const handleNext = (state, setState) => {
@@ -337,6 +355,7 @@ export const Videos = () => {
           subscriptionsData.items && subscriptionsData.items.length > 0
         );
       } catch (error) {
+        alert("Error fetching subscription status:", error);
         console.error("Error fetching subscription status:", error);
       }
     };
@@ -377,6 +396,7 @@ export const Videos = () => {
           playlistItemsData.items && playlistItemsData.items.length > 0
         );
       } catch (error) {
+        alert("Error checking playlist status:", error);
         console.error("Error checking playlist status:", error);
       }
     };

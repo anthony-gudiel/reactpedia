@@ -208,6 +208,7 @@ test("Testing handleAddToPlaylistToggle: YouTube API response error", async () =
   
     // Mock 404 error
     fetch.mockResolvedValue(createFetchResponse(mockResponse, 404, "Not found"));
+    const alertSpy = vi.spyOn(window, "alert");
     const errorSpy = vi.spyOn(console, "error");
   
     const setAddedToPlaylist = vi.fn();
@@ -234,6 +235,10 @@ test("Testing handleAddToPlaylistToggle: YouTube API response error", async () =
       }
     );
     expect(fetch).toHaveBeenCalledTimes(1);
+    expect(alertSpy).toHaveBeenCalledWith(
+        "Error fetching playlist status:",
+        "Not found"
+      );
     expect(errorSpy).toHaveBeenCalledWith(
         "Error fetching playlist status:",
         "Not found"
