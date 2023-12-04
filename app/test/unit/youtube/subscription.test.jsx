@@ -3,11 +3,7 @@ import { test, vi, expect } from "vitest";
 
 global.fetch = vi.fn();
 
-const createFetchResponse = (
-  data,
-  status = 200,
-  statusText = "Successful"
-) => ({
+const createFetchResponse = (data, status = 200, statusText = "Successful") => ({
   ok: status >= 200 && status < 300,
   status,
   statusText,
@@ -225,9 +221,12 @@ test("Testing handleSubscriptionToggle: YouTube API response error", async () =>
   expect(fetch).toHaveBeenCalledTimes(1);
   expect(alertSpy).toHaveBeenCalledWith(
     "Error fetching subscription status:",
-    "Not found"
+    404
   );
-  expect(errorSpy).toHaveBeenCalledWith("Error fetching subscription status:", "Not found");
+  expect(errorSpy).toHaveBeenCalledWith(
+    "Error fetching subscription status:",
+    404
+  );
   expect(setSubscribed).not.toHaveBeenCalled();
   vi.clearAllMocks();
 });

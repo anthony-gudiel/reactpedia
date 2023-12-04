@@ -8,7 +8,7 @@ import "./videos.css";
 
 const defaultVideoId = "SqcY0GlETPk";
 const defaultChannelId = "UCWv7vMbMWH4-V0ZXdmDpPBA";
-var nameplaylist = "ReactPedia";
+var playlistName = "ReactPedia";
 var playlistId = "";
 
 export const onSearch = async (keyword, setState) => {
@@ -58,11 +58,11 @@ export const handleSubscriptionToggle = async (
   if (!subscriptionsResponse.ok) {
     alert(
       "Error fetching subscription status:",
-      subscriptionsResponse.statusText
+      subscriptionsResponse.status
     );
     console.error(
       "Error fetching subscription status:",
-      subscriptionsResponse.statusText
+      subscriptionsResponse.status
     );
     return;
   }
@@ -86,8 +86,8 @@ export const handleSubscriptionToggle = async (
     if (unsubscribeResponse.ok) {
       setSubscribed(false);
     } else {
-      alert("Error unsubscribing:", unsubscribeResponse.statusText);
-      console.error("Error unsubscribing:", unsubscribeResponse.statusText);
+      alert("Error unsubscribing:", unsubscribeResponse.status);
+      console.error("Error unsubscribing:", unsubscribeResponse.status);
     }
   } else {
     // User is not subscribed, subscribe
@@ -113,14 +113,15 @@ export const handleSubscriptionToggle = async (
     if (subscribeResponse.ok) {
       setSubscribed(true);
     } else {
-      alert("Error subscribing:", subscribeResponse.statusText);
-      console.error("Error subscribing:", subscribeResponse.statusText);
+      alert("Error subscribing:", subscribeResponse.status);
+      console.error("Error subscribing:", subscribeResponse.status);
     }
   }
 };
 
-export const findAndCreatePlaylist = async (accessToken) => {
+export const findAndCreatePlaylist = async (accessToken, playlistId) => {
   var playlistId_list;
+  // Get all playlists
   const response = await fetch(
     "https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true&maxResults=50",
     {
@@ -130,29 +131,25 @@ export const findAndCreatePlaylist = async (accessToken) => {
         "Content-Type": "application/json",
       },
     }
-  )
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      playlistId_list = data;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  );
+  if (!response.ok) {
+    alert("Error fetching playlists:", response.status);
+    console.error("Error fetching playlists:", response.status);
+    return;
+  } else {
+    playlistId_list = await response.json();
+  }
 
   for (var i = 0; i < playlistId_list.items.length; i++) {
-    if (playlistId_list.items[i].snippet.localized.title === nameplaylist) {
+    if (playlistId_list.items[i].snippet.localized.title === playlistName) {
       playlistId = playlistId_list.items[i].id;
       break;
     }
   }
 
+  // No playlist found, create one
   if (playlistId === "") {
-    await fetch(
+    const response = await fetch(
       "https://www.googleapis.com/youtube/v3/playlists?part=id,snippet",
       {
         method: "POST",
@@ -162,26 +159,22 @@ export const findAndCreatePlaylist = async (accessToken) => {
         },
         body: JSON.stringify({
           snippet: {
-            title: nameplaylist,
+            title: playlistName,
             description: "This is playlist from website.",
             tags: ["react-learning-app"],
           },
         }),
       }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        playlistId = data.id;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    );
+    if (!response.ok) {
+      alert("Error fetching playlists:", response.status);
+      console.error("Error fetching playlists:", response.status);
+      return;
+    } else {
+      playlistId_list = await response.json();
+    }
   }
+  return playlistId;
 };
 
 export const handleAddToPlaylistToggle = async (
@@ -197,7 +190,7 @@ export const handleAddToPlaylistToggle = async (
   }
 
   if (playlistId === "") {
-    await findAndCreatePlaylist(accessToken);
+    playlistId = await findAndCreatePlaylist(accessToken, playlistId);
   }
 
   // Check if the video is already in the playlist
@@ -213,10 +206,10 @@ export const handleAddToPlaylistToggle = async (
   );
 
   if (!playlistItemsResponse.ok) {
-    alert("Error fetching playlist status:", playlistItemsResponse.statusText);
+    alert("Error fetching playlist status:", playlistItemsResponse.status);
     console.error(
       "Error fetching playlist status:",
-      playlistItemsResponse.statusText
+      playlistItemsResponse.status
     );
     return;
   }
@@ -243,11 +236,11 @@ export const handleAddToPlaylistToggle = async (
     } else {
       alert(
         "Error removing from playlist:",
-        removeFromPlaylistResponse.statusText
+        removeFromPlaylistResponse.status
       );
       console.error(
         "Error removing from playlist:",
-        removeFromPlaylistResponse.statusText
+        removeFromPlaylistResponse.status
       );
     }
   } else {
@@ -275,10 +268,10 @@ export const handleAddToPlaylistToggle = async (
     if (addToPlaylistResponse.ok) {
       setAddedToPlaylist(true);
     } else {
-      alert("Error adding to playlist:", addToPlaylistResponse.statusText);
+      alert("Error adding to playlist:", addToPlaylistResponse.status);
       console.error(
         "Error adding to playlist:",
-        addToPlaylistResponse.statusText
+        addToPlaylistResponse.status
       );
     }
   }
@@ -370,7 +363,7 @@ export const Videos = () => {
       }
 
       if (playlistId === "") {
-        await findAndCreatePlaylist(accessToken);
+        playlistId = await findAndCreatePlaylist(accessToken, playlistId);
       }
 
       try {
