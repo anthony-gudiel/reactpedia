@@ -19,6 +19,22 @@ export const onSearch = async (keyword, setState) => {
     },
   });
 
+  if (!response.ok) {
+    if (response.status === 403) {
+      alert(
+        "Error fetching videos: 403 Forbidden\n You might have exceeded the YouTube API quota."
+      );
+      console.error(
+        "Error fetching videos: 403 Forbidden \n You might have exceeded the YouTube API quota."
+      );
+      return;
+    } else {
+      alert("Error fetching videos:", response.status);
+      console.error("Error fetching videos:", response.status);
+      return;
+    }
+  }
+
   setState(() => ({
     videos: response.data.items,
     currentVideoIndex: 0,
@@ -55,10 +71,7 @@ export const handleSubscriptionToggle = async (
   );
 
   if (!subscriptionsResponse.ok) {
-    alert(
-      "Error fetching subscription status:",
-      subscriptionsResponse.status
-    );
+    alert("Error fetching subscription status:", subscriptionsResponse.status);
     console.error(
       "Error fetching subscription status:",
       subscriptionsResponse.status
@@ -243,10 +256,7 @@ export const handleAddToPlaylistToggle = async (
     if (removeFromPlaylistResponse.ok) {
       setAddedToPlaylist(false);
     } else {
-      alert(
-        "Error removing from playlist:",
-        removeFromPlaylistResponse.status
-      );
+      alert("Error removing from playlist:", removeFromPlaylistResponse.status);
       console.error(
         "Error removing from playlist:",
         removeFromPlaylistResponse.status
@@ -279,10 +289,7 @@ export const handleAddToPlaylistToggle = async (
       setAddedToPlaylist(true);
     } else {
       alert("Error adding to playlist:", addToPlaylistResponse.status);
-      console.error(
-        "Error adding to playlist:",
-        addToPlaylistResponse.status
-      );
+      console.error("Error adding to playlist:", addToPlaylistResponse.status);
       playlistId = "";
     }
   }
@@ -327,22 +334,7 @@ export const Videos = () => {
     event.preventDefault();
     setLoading(true);
     try {
-      const response = await youtube.get("/search", {
-        params: {
-          q: searchTitle,
-          type: "video",
-          maxResults: 25,
-        },
-      });
-
-      setState(() => ({
-        videos: response.data.items,
-        currentVideoIndex: 0,
-        currentVideoId:
-          response.data.items.length > 0
-            ? response.data.items[0].id.videoId
-            : defaultVideoId,
-      }));
+      await onSearch(searchTitle, setState);
     } finally {
       setLoading(false);
     }
@@ -450,7 +442,7 @@ export const Videos = () => {
 
   return (
     <div className="App">
-<div className="content-container-1">
+      <div className="content-container-1">
         <form onSubmit={onSubmit}>
           <div className="form-control">
             <div className="search-title">
@@ -467,7 +459,11 @@ export const Videos = () => {
                 type="text"
                 placeholder="Search"
               />
-              <button type="submit" disabled={loading}>
+              <button
+                type="submit"
+                disabled={loading}
+                data-testid="search-button"
+              >
                 {loading ? "Searching..." : "Search"}
               </button>
             </div>

@@ -7,6 +7,7 @@ test('Testing onSearch function', async () => {
 
   // Mock the youtube.get method
   const mockResponse = {
+    ok: true,
     data: {
       items: Array(25).fill({ id: { videoId: '123' } }),
     },
