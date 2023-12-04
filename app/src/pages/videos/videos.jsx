@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import youtube from "../../api/youtube";
-import Search from "../../components/Search";
 import YoutubeEmbed from "../../components/YouTubeEmbedVideo";
 import "./videos.css";
 
@@ -23,7 +22,7 @@ export const onSearch = async (keyword, setState) => {
   setState(() => ({
     videos: response.data.items,
     currentVideoIndex: 0,
-    videoId:
+    currentVideoId:
       response.data.items.length > 0
         ? response.data.items[0].id.videoId
         : defaultVideoId,
@@ -133,7 +132,7 @@ export const createPlaylist = async (accessToken, playlistName) => {
         snippet: {
           title: playlistName,
           description: "This is a generated playlist from ReactPedia.",
-          tags: ["react-learning-app"],
+          tags: ["ReactPedia"],
         },
       }),
     }
@@ -220,6 +219,7 @@ export const handleAddToPlaylistToggle = async (
       "Error fetching playlist status:",
       playlistItemsResponse.status
     );
+    playlistId = "";
     return;
   }
 
@@ -251,6 +251,7 @@ export const handleAddToPlaylistToggle = async (
         "Error removing from playlist:",
         removeFromPlaylistResponse.status
       );
+      playlistId = "";
     }
   } else {
     // Video is not in the playlist, add it
@@ -282,6 +283,7 @@ export const handleAddToPlaylistToggle = async (
         "Error adding to playlist:",
         addToPlaylistResponse.status
       );
+      playlistId = "";
     }
   }
 };
@@ -305,13 +307,46 @@ export const handlePrevious = (state, setState) => {
 export const Videos = () => {
   const [state, setState] = useState({
     videos: [],
-    videoId: defaultVideoId,
+    currentVideoId: defaultVideoId,
     currentVideoIndex: 0,
   });
   const [tokenClient, setTokenClient] = useState({});
   const [accessToken, setAccessToken] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [addedToPlaylist, setAddedToPlaylist] = useState(false);
+  const [searchTitle, setSearchTitle] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const onSearchChanged = (event) => {
+    const _title = event.target.value;
+    setSearchTitle(_title);
+    setLoading(false);
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      const response = await youtube.get("/search", {
+        params: {
+          q: searchTitle,
+          type: "video",
+          maxResults: 25,
+        },
+      });
+
+      setState(() => ({
+        videos: response.data.items,
+        currentVideoIndex: 0,
+        currentVideoId:
+          response.data.items.length > 0
+            ? response.data.items[0].id.videoId
+            : defaultVideoId,
+      }));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const initializeTokenClient = async () => {
@@ -406,6 +441,7 @@ export const Videos = () => {
       } catch (error) {
         alert("Error checking playlist status:", error);
         console.error("Error checking playlist status:", error);
+        playlistId = "";
       }
     };
 
@@ -414,13 +450,34 @@ export const Videos = () => {
 
   return (
     <div className="App">
-      <div className="content-container-1">
-        <Search onSearch={(keyword) => onSearch(keyword, setState)} />
+<div className="content-container-1">
+        <form onSubmit={onSubmit}>
+          <div className="form-control">
+            <div className="search-title">
+              <label>
+                <h1>Explore and Learn with Video Tutorials!</h1>
+              </label>
+            </div>
+
+            <div className="search-bar">
+              <input
+                value={searchTitle}
+                onChange={onSearchChanged}
+                id="keyword"
+                type="text"
+                placeholder="Search"
+              />
+              <button type="submit" disabled={loading}>
+                {loading ? "Searching..." : "Search"}
+              </button>
+            </div>
+          </div>
+        </form>
         <YoutubeEmbed
           embedId={
             state.videos.length > 0
               ? state.videos[state.currentVideoIndex]?.id.videoId
-              : state.videoId
+              : state.currentVideoId
           }
           width="560"
           height="315"

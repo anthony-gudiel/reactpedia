@@ -40,7 +40,7 @@ test("Testing createPlaylist: Creation successful", async () => {
         snippet: {
           title: playlistName,
           description: "This is a generated playlist from ReactPedia.",
-          tags: ["react-learning-app"],
+          tags: ["ReactPedia"],
         },
       }),
     });
@@ -74,7 +74,7 @@ test("Testing createPlaylist: Error occurred while creating playlists", async ()
         snippet: {
           title: playlistName,
           description: "This is a generated playlist from ReactPedia.",
-          tags: ["react-learning-app"],
+          tags: ["ReactPedia"],
         },
       }),
     });
