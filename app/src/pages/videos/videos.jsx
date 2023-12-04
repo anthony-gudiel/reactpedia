@@ -119,8 +119,38 @@ export const handleSubscriptionToggle = async (
   }
 };
 
-export const findAndCreatePlaylist = async (accessToken, playlistId) => {
-  var playlistId_list;
+export const createPlaylist = async (accessToken, playlistName) => {
+  var playlistIdList;
+  const response = await fetch(
+    "https://www.googleapis.com/youtube/v3/playlists?part=id,snippet",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        snippet: {
+          title: playlistName,
+          description: "This is a generated playlist from ReactPedia.",
+          tags: ["react-learning-app"],
+        },
+      }),
+    }
+  );
+  if (!response.ok) {
+    alert("Error fetching playlists:", response.status);
+    console.error("Error fetching playlists:", response.status);
+    return "";
+  } else {
+    playlistIdList = await response.json();
+  }
+  return playlistIdList.id;
+};
+
+export const findPlaylist = async (accessToken, playlistName) => {
+  let playlistId = "";
+  let playlistIdList;
   // Get all playlists
   const response = await fetch(
     "https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true&maxResults=50",
@@ -135,45 +165,18 @@ export const findAndCreatePlaylist = async (accessToken, playlistId) => {
   if (!response.ok) {
     alert("Error fetching playlists:", response.status);
     console.error("Error fetching playlists:", response.status);
-    return;
+    return "";
   } else {
-    playlistId_list = await response.json();
+    playlistIdList = await response.json();
   }
 
-  for (var i = 0; i < playlistId_list.items.length; i++) {
-    if (playlistId_list.items[i].snippet.localized.title === playlistName) {
-      playlistId = playlistId_list.items[i].id;
+  for (var i = 0; i < playlistIdList.items.length; i++) {
+    if (playlistIdList.items[i].snippet.localized.title === playlistName) {
+      playlistId = playlistIdList.items[i].id;
       break;
     }
   }
-
-  // No playlist found, create one
-  if (playlistId === "") {
-    const response = await fetch(
-      "https://www.googleapis.com/youtube/v3/playlists?part=id,snippet",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          snippet: {
-            title: playlistName,
-            description: "This is playlist from website.",
-            tags: ["react-learning-app"],
-          },
-        }),
-      }
-    );
-    if (!response.ok) {
-      alert("Error fetching playlists:", response.status);
-      console.error("Error fetching playlists:", response.status);
-      return;
-    } else {
-      playlistId_list = await response.json();
-    }
-  }
+  // Returns playlistId if playlist exists, else returns empty string
   return playlistId;
 };
 
@@ -189,8 +192,14 @@ export const handleAddToPlaylistToggle = async (
     return;
   }
 
+  // Check if playlist exists
   if (playlistId === "") {
-    playlistId = await findAndCreatePlaylist(accessToken, playlistId);
+    playlistId = await findPlaylist(accessToken, playlistName);
+  }
+
+  // If playlist does not exist, create it
+  if (playlistId === "") {
+    playlistId = await createPlaylist(accessToken, playlistName);
   }
 
   // Check if the video is already in the playlist
@@ -362,8 +371,14 @@ export const Videos = () => {
         return;
       }
 
+      // Check if playlist exists
       if (playlistId === "") {
-        playlistId = await findAndCreatePlaylist(accessToken, playlistId);
+        playlistId = await findPlaylist(accessToken, playlistName);
+      }
+
+      // If playlist does not exist, return
+      if (playlistId === "") {
+        return;
       }
 
       try {
