@@ -48,7 +48,7 @@ export const LESSON_1_6 = () => {
             <a href="/lesson-1-4">Lesson 4 - Props & State</a>
             <a href="/lesson-1-5">Lesson 5 - Lists & Keys</a>
             <a href="/lesson-1-6">Lesson 6 - Conditional Rendering</a>
-            <a href="/lesson-1-7">Lesson 7 - Lists and Keys</a>
+            <a href="/lesson-1-7">Lesson 7 - Component Lifecycle</a>
             <a href="/lesson-1-8">Lesson 8 - Forms in React</a>
             <a href="/lesson-1-9">Lesson 9 - React Router</a>
             <a href="/lesson-1-10">Lesson 10 - State Management with Context</a>
@@ -271,7 +271,7 @@ export const LESSON_1_6 = () => {
           <a className="lesson-1-button" href="./lesson-1-5">
             Previous Lesson
           </a>
-          <a className="lesson-1-button" href="./lesson-1-6">
+          <a className="lesson-1-button" href="./lesson-1-7">
             Next Lesson
           </a>
           <a className="lesson-1-button" href="./quizzes">

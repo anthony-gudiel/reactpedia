@@ -13,6 +13,7 @@ import { Quizzes } from "./pages/quizzes/quizzes";
 import { LESSON_1_4 } from "./pages/lessons/lesson-1-4";
 import { LESSON_1_5 } from "./pages/lessons/lesson-1-5";
 import { LESSON_1_6 } from "./pages/lessons/lesson-1-6";
+import { LESSON_1_7 } from "./pages/lessons/lesson-1-7";
 
 function App() {
   document.title = "Learn React!";
@@ -30,6 +31,7 @@ function App() {
           <Route path="/lesson-1-4" element={<LESSON_1_4 />} />
           <Route path="/lesson-1-5" element={<LESSON_1_5 />} />
           <Route path="/lesson-1-6" element={<LESSON_1_6 />} />
+          <Route path="/lesson-1-7" element={<LESSON_1_7 />} />
           <Route path="/about" element={<About />} />
           <Route path="/content" element={<Content />} />
           <Route path="/compiler" element={<Compiler />} />
