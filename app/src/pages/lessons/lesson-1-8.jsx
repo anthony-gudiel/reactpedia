@@ -2,7 +2,7 @@ import "./lesson-1-1.css";
 import React, { useState } from "react";
 import { OPENAI, suggestedOPENAI } from "../../api/openai";
 
-export const LESSON_1_7 = () => {
+export const LESSON_1_8 = () => {
   const [userInput, setUserInput] = useState("");
   const [apiResponse, setApiResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +35,7 @@ export const LESSON_1_7 = () => {
     <div className="lesson-1-1">
       <div className="container">
         <div className="lessonHeader">
-          <h1>Lesson 7 - Component Lifecycle in React</h1>
+          <h1>Lesson 8 - Styling in React</h1>
         </div>
       </div>
       <div className="lesson-content">
@@ -65,136 +65,117 @@ export const LESSON_1_7 = () => {
           <div className="break"></div>
           <div className="overview-paragraph">
             <ul>
-                <li>Understand the lifecycle phases of a React component.</li>
-                <li>Learn how to utilize lifecycle methods for various tasks.</li>
-                <li>Apply knowledge of the component lifecycle to manage state, perform side effects, and optimize performance.</li>
+                <li>Understand various approaches of styling in React</li>
+                <li>Learn about inline styles, CSS-in-JS libraries, and external stylesheets.</li>
+                <li>Apply styling techniques to create visually appealing React components.</li>
             </ul>
           </div>
           <div className="break"></div>
           <div className="what-is-header">
-          <h3>Introduction to Component Lifecycle: </h3>
+          <h3>Introduction to Styling in React: </h3>
           </div>
           <div className="break"></div>
           <div className="what-is-paragraph">
             <ul>
-                <li>Handling events is crucial for creating interactive and responsive user interfaces
-                in React.The component lifecycle refers to the different phases a React component goes
-                through, from its creation to its removal from the DOM.</li>
-                <li>Understanding these phases allows developers to perform tasks at specific points in a component's existence.</li>
-                <b>Phases: </b>
-                <li>Mounting: When a component is being created and inserted into the DOM.</li>
-                <li>Updating: When a component is re-rendered as a result of changes to its state or props.</li>
-                <li>Unmounting: When a component is removed from the DOM.</li>
+                <li>Importance of Styling: Allows you to create engaging and user-friendly web applications.</li>
+                <li>Common Challenges with Styling: Resuability, responsiveness, code organization.</li>
             </ul>
           </div>
           <div className="first-app">
-            <h3>Mounting Phase: </h3>
+            <h3>Inline Styles: </h3>
             <ul>
-                <li>`constructor()` Method</li>
-                <li>The constructor is called when an instance of the component is being created. It's the right place to initialize state.</li>
+                <li>We'll first discuss how to apply styles directly within the JSX using the `style` attribute.</li>
+                <li>These are called inline styles.</li>
+                <li>Pros of Inline Styles: Easy integration with React components, dynamic styling.</li>
+                <li>Cons of Inline Styles: Limited reusability, potential code clutter.</li>
+                <li>Example: </li>
             </ul>
             <div className="code">
               <div className="break"></div>
-              constructor (props) &#123;
+              const MyComponent = () =&#62; &#123;
               <div className="break"></div>
-              <pre> super(props);</pre>
+              <pre> const styles = &#123;</pre>
               <div className="break"></div>
-              <pre> this.state = &#123;</pre>
+              <pre>     color: 'blue',</pre>
               <div className="break"></div>
-              <pre>     count : 0,</pre>
+              <pre>     fontSize: '16px',</pre>
               <div className="break"></div>
               <pre> &#125;;</pre>
               <div className="break"></div>
-              <pre> this.handleClick = this.handleClick.bind(this)</pre>
-              <div className="break"></div>
-              <pre>&#125;</pre>
-            </div>
-            <div className="break"></div>
-            <ul>
-                <li>Next is the `render()` Method</li>
-                <li>The render method is responsible for creating the initial UI structure of the component.</li>
-            </ul>
-            <div className="code">
-              <div className="break"></div>
-              render() &#123;
-              <div className="break"></div>
-              <pre> return &#60;div&#62;&#123;this.state.count&#125;&#60;/div&#62;</pre>
+              <pre> return &#60;div style=&#123;styles&#125;&#62;Styled Component&#60;/div&#62;</pre>
               <div className="break"></div>
               &#125;
             </div>
+            <h3>CSS-in-JS Libraries: </h3>
             <ul>
-                <li>Next is the `componentDidMount()` Method.</li>
-                <li>This is called after the component is rendered in the DOM. It' suitable for fetching data or performing similar side effects.</li>
+                <li>CSS-in-JS libraries are tools that allow developers to write and manage CSS styles directly within JavaScript frameworks.</li>
+                <li>Good for scoped styling, dynamic theming, and better organization.</li>
             </ul>
             <div className="code">
               <div className="break"></div>
-              componentDidMount() &#123;
+              import styled from 'styled-components';
               <div className="break"></div>
-              <pre> //Say we're fetching data from an API</pre>
+              const StyledButton = styled.button`
               <div className="break"></div>
-              <pre> fetch('https://api.example.com/data')</pre>
+              <pre>     background-color: blue;</pre>
               <div className="break"></div>
-              <pre>     .then(response =&#62; response.json())</pre>
+              <pre>     color: black;</pre>
               <div className="break"></div>
-              <pre>     .then(data =&#62; this.setState (&#123; data &#125;))</pre>
+              <pre>     padding: 10px;</pre>
               <div className="break"></div>
+              `;
+            </div>
+            <ul>
+                <li>Here, we are importing the `styled` function from the `styled-components` library.
+                    This function is a utility provided by `styled-components` to create styled
+                    components.
+                </li>
+                <li>We then use the `styled` function called with our HTML element `button` as a template
+                    literal. The template literal contains CSS styles that will be applied to the specified
+                    element.
+                </li>
+            </ul>
+            <h3>External StyleSheets: </h3>
+            <ul>
+                <li>This is commonly considered the most traditional approach for using CSS to stylize.</li>
+                <li>In this method, we link external CSS files to use in our JSX file.</li>
+                <li>There are two common ways of doing this:</li>
+            </ul>
+            <div className="code">
+                &#60;link rel='stylesheet' href='styles.css' /&#62;
+            </div>
+            <div className="code">
+                import '../my-stylesheet.css'
+            </div>
+            <h3>Responsive Design in React: </h3>
+            <ul>
+                <li>Media queries are essential in creating responsive designs</li>
+                <li>Media queries are commonly used to adjust your styles based on the screen size of the user: </li>
+            </ul>
+            <div className="code">
+                @media (max-width:1003px) &#123;
+                <div className="break"></div>
+                <pre>   .lesson-3-image&#123;</pre>
+                <div className="break"></div>
+                <pre>       display: none;</pre>
+                <div className="break"></div>
+                <pre>   &#125;</pre>
+                <div className="break"></div>
                 &#125;
             </div>
-            <h3>Updating Phase: </h3>
             <ul>
-                <li>`shouldComponentUpdate()` Method </li>
-                <li>This allows you to control whether a component should re-render.</li>
-                <li>It can optimize performance by preventing unnecessary re-renders.</li>
+                <li>Here, we're making it so that once the screen size of the user hits 1003px or less,
+                    the image under class `lesson-3-image` will no longer be displayed.
+                </li>
             </ul>
-            <div className="code">
-              <div className="break"></div>
-              shouldComponentUpdate(nextProps, nextState) &#123;
-              <div className="break"></div>
-              <pre> //Only re-render if the count changes</pre>
-              <div className="break"></div>
-              <pre> return this.state.count !== nextState.count;</pre>
-              <div className="break"></div>
-                &#125;
-            </div>
-            <ul>
-                <li>`render()` Method again</li>
-                <li>The render method is called again when a component re-renders due to changes in state or props.</li>
-            </ul>
-            <ul>
-                <li>`componentDidUpdate()` Method:</li>
-                <li>`componentDidUpdate` is called after the component is updated. It's suitable for performing side effects or additional data fetching.</li>
-            </ul>
-            <div className="code">
-              <div className="break"></div>
-              componentDidUpdate(prevProps, prevState) &#123;
-              <div className="break"></div>
-              <pre> if (prevState.count !== this.state.count) &#123;</pre>
-              <div className="break"></div>
-              <pre>     console.log('Count updated:', this.state.count);</pre>
-              <div className="break"></div>
-              <pre> &#125;</pre>
-              <div className="break"></div>
-                &#125;
-            </div>
-            <h3>Error Handling: </h3>
-            <ul>
-                <li>`componentDidCatch()` Method</li>
-                <li>`componentDidCatch` is a lifecycle method for handling errors that occur within child components during rendering.</li>
-            </ul>
-            <div className="code">
-            componentDidCatch(error, errorInfo) &#123;
-            <div className="break"></div>
-            <pre>   logErrorToMyService(error, errorInfo);</pre>
-            <div className="break"></div>
-            &#125;
-            </div>
             <h3>Best Practices: </h3>
             <ul>
-                <li>Keep lifecycle methods concise and focused on specific functionalities</li>
-                <li>Be aware of depricated lifecycle methods, as React evolves.</li>
+                <li>Use consistent naming conventions and meaningful class names for styles</li>
+                <li>Consider the reusability of your styles.</li>
+                <li>Explore common CSS techniques like Flexbox and Grid</li>
             </ul>
           </div>
-          <a className="lesson-1-button" href="./lesson-1-6">
+          <a className="lesson-1-button" href="./lesson-1-7">
             Previous Lesson
           </a>
           <a className="lesson-1-button" href="./lesson-1-8">
