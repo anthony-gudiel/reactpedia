@@ -1,14 +1,13 @@
-// Tutorials.js
+// Videos.js
 
 import React, { useState, useEffect } from "react";
 import youtube from "../../api/youtube";
-import Search from "../../components/Search";
 import YoutubeEmbed from "../../components/YouTubeEmbedVideo";
 import "./videos.css";
 
 const defaultVideoId = "SqcY0GlETPk";
 const defaultChannelId = "UCWv7vMbMWH4-V0ZXdmDpPBA";
-var nameplaylist = "ReactPedia";
+var playlistName = "ReactPedia";
 var playlistId = "";
 
 export const onSearch = async (keyword, setState) => {
@@ -20,10 +19,26 @@ export const onSearch = async (keyword, setState) => {
     },
   });
 
+  if (!response.ok) {
+    if (response.status === 403) {
+      alert(
+        "Error fetching videos: 403 Forbidden\n You might have exceeded the YouTube API quota."
+      );
+      console.error(
+        "Error fetching videos: 403 Forbidden \n You might have exceeded the YouTube API quota."
+      );
+      return;
+    } else {
+      alert("Error fetching videos:", response.status);
+      console.error("Error fetching videos:", response.status);
+      return;
+    }
+  }
+
   setState(() => ({
     videos: response.data.items,
     currentVideoIndex: 0,
-    videoId:
+    currentVideoId:
       response.data.items.length > 0
         ? response.data.items[0].id.videoId
         : defaultVideoId,
@@ -32,7 +47,7 @@ export const onSearch = async (keyword, setState) => {
   return response;
 };
 
-const handleSubscriptionToggle = async (
+export const handleSubscriptionToggle = async (
   tokenClient,
   accessToken,
   videoItem,
@@ -55,6 +70,14 @@ const handleSubscriptionToggle = async (
     }
   );
 
+  if (!subscriptionsResponse.ok) {
+    alert("Error fetching subscription status:", subscriptionsResponse.status);
+    console.error(
+      "Error fetching subscription status:",
+      subscriptionsResponse.status
+    );
+    return;
+  }
   const subscriptionsData = await subscriptionsResponse.json();
 
   if (subscriptionsData.items && subscriptionsData.items.length > 0) {
@@ -75,7 +98,8 @@ const handleSubscriptionToggle = async (
     if (unsubscribeResponse.ok) {
       setSubscribed(false);
     } else {
-      console.error("Error unsubscribing:", unsubscribeResponse.statusText);
+      alert("Error unsubscribing:", unsubscribeResponse.status);
+      console.error("Error unsubscribing:", unsubscribeResponse.status);
     }
   } else {
     // User is not subscribed, subscribe
@@ -101,15 +125,45 @@ const handleSubscriptionToggle = async (
     if (subscribeResponse.ok) {
       setSubscribed(true);
     } else {
-      console.error("Error subscribing:", subscribeResponse.statusText);
+      alert("Error subscribing:", subscribeResponse.status);
+      console.error("Error subscribing:", subscribeResponse.status);
     }
   }
 };
 
-const findAndCreatePlaylist = async (accessToken) => {
-  var playlistId_list;
-  //console.log("already have token");
-  //console.log("retriveData")
+export const createPlaylist = async (accessToken, playlistName) => {
+  var playlistIdList;
+  const response = await fetch(
+    "https://www.googleapis.com/youtube/v3/playlists?part=id,snippet",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        snippet: {
+          title: playlistName,
+          description: "This is a generated playlist from ReactPedia.",
+          tags: ["ReactPedia"],
+        },
+      }),
+    }
+  );
+  if (!response.ok) {
+    alert("Error fetching playlists:", response.status);
+    console.error("Error fetching playlists:", response.status);
+    return "";
+  } else {
+    playlistIdList = await response.json();
+  }
+  return playlistIdList.id;
+};
+
+export const findPlaylist = async (accessToken, playlistName) => {
+  let playlistId = "";
+  let playlistIdList;
+  // Get all playlists
   const response = await fetch(
     "https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true&maxResults=50",
     {
@@ -119,58 +173,100 @@ const findAndCreatePlaylist = async (accessToken) => {
         "Content-Type": "application/json",
       },
     }
-  )
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      playlistId_list = data;
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  );
+  if (!response.ok) {
+    alert("Error fetching playlists:", response.status);
+    console.error("Error fetching playlists:", response.status);
+    return "";
+  } else {
+    playlistIdList = await response.json();
+  }
 
-  for (var i = 0; i < playlistId_list.items.length; i++) {
-    if (playlistId_list.items[i].snippet.localized.title === nameplaylist) {
-      playlistId = playlistId_list.items[i].id;
+  for (var i = 0; i < playlistIdList.items.length; i++) {
+    if (playlistIdList.items[i].snippet.localized.title === playlistName) {
+      playlistId = playlistIdList.items[i].id;
       break;
     }
   }
-  //console.log(playlistId);
+  // Returns playlistId if playlist exists, else returns empty string
+  return playlistId;
+};
 
-  // if (id == "") {
-  //   while (playlists.nextPageToken != "") {
-  //     console.log("already have token")
-  //     const response = await fetch("https://www.googleapis.com/youtube/v3/playlists?part=snippet&mine=true", {
-  //       method: 'GET',
-  //       headers: {
-  //         'Authorization': `Bearer ${accessToken}`,
-  //         'Content-Type': 'application/json'
-  //       }
-  //     })
-  //       .then(response => {
-  //         if (!response.ok) {
-  //           throw new Error(`HTTP error! Status: ${response.status}`);
-  //         }
-  //         return response.json();
-  //       })
-  //       .then(data => {
-  //         playlists = data;
+export const handleAddToPlaylistToggle = async (
+  tokenClient,
+  accessToken,
+  videoItem,
+  setAddedToPlaylist,
+  playlistId
+) => {
+  if (accessToken === "") {
+    tokenClient.requestAccessToken();
+    return;
+  }
 
-  //       })
-  //       .catch(error => {
-  //         console.error('Error:', error);
-  //       })
-  //   }
-  // }
-
+  // Check if playlist exists
   if (playlistId === "") {
-    //console.log("no playlist");
-    await fetch(
-      "https://www.googleapis.com/youtube/v3/playlists?part=id,snippet",
+    playlistId = await findPlaylist(accessToken, playlistName);
+  }
+
+  // If playlist does not exist, create it
+  if (playlistId === "") {
+    playlistId = await createPlaylist(accessToken, playlistName);
+  }
+
+  // Check if the video is already in the playlist
+  const playlistItemsResponse = await fetch(
+    `https://www.googleapis.com/youtube/v3/playlistItems?part=id&playlistId=${playlistId}&videoId=${videoItem.id.videoId}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
+  if (!playlistItemsResponse.ok) {
+    alert("Error fetching playlist status:", playlistItemsResponse.status);
+    console.error(
+      "Error fetching playlist status:",
+      playlistItemsResponse.status
+    );
+    playlistId = "";
+    return;
+  }
+
+  const playlistItemsData = await playlistItemsResponse.json();
+
+  if (playlistItemsData.items && playlistItemsData.items.length > 0) {
+    // Video is already in the playlist, remove it
+    const playlistItemId = playlistItemsData.items[0].id;
+
+    const removeFromPlaylistResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems?id=${playlistItemId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (removeFromPlaylistResponse.ok) {
+      setAddedToPlaylist(false);
+    } else {
+      alert("Error removing from playlist:", removeFromPlaylistResponse.status);
+      console.error(
+        "Error removing from playlist:",
+        removeFromPlaylistResponse.status
+      );
+      playlistId = "";
+    }
+  } else {
+    // Video is not in the playlist, add it
+    const addToPlaylistResponse = await fetch(
+      `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet`,
       {
         method: "POST",
         headers: {
@@ -179,119 +275,22 @@ const findAndCreatePlaylist = async (accessToken) => {
         },
         body: JSON.stringify({
           snippet: {
-            title: nameplaylist,
-            description: "This is playlist from website.",
-            tags: ["react-learning-app"],
+            playlistId: playlistId,
+            resourceId: {
+              kind: "youtube#video",
+              videoId: videoItem.id.videoId,
+            },
           },
         }),
       }
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        //console.log(data)
-        playlistId = data.id;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
-};
-
-const handleAddToPlaylistToggle = async (
-  tokenClient,
-  accessToken,
-  videoItem,
-  setAddedToPlaylist
-) => {
-  if (accessToken === "") {
-    tokenClient.requestAccessToken();
-    return;
-  }
-
-  if (playlistId === "") {
-    await findAndCreatePlaylist(accessToken);
-  }
-
-  // Check if the video is already in the playlist
-  try {
-    const playlistItemsResponse = await fetch(
-      `https://www.googleapis.com/youtube/v3/playlistItems?part=id&playlistId=${playlistId}&videoId=${videoItem.id.videoId}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      }
     );
 
-    const playlistItemsData = await playlistItemsResponse.json();
-
-    if (playlistItemsData.items && playlistItemsData.items.length > 0) {
-      // Video is already in the playlist, remove it
-      const playlistItemId = playlistItemsData.items[0].id;
-
-      const removeFromPlaylistResponse = await fetch(
-        `https://www.googleapis.com/youtube/v3/playlistItems?id=${playlistItemId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (removeFromPlaylistResponse.ok) {
-        setAddedToPlaylist(false);
-      } else {
-        console.error(
-          "Error removing from playlist:",
-          removeFromPlaylistResponse.statusText
-        );
-      }
+    if (addToPlaylistResponse.ok) {
+      setAddedToPlaylist(true);
     } else {
-      // Video is not in the playlist, add it
-      const addToPlaylistResponse = await fetch(
-        `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet`,
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            snippet: {
-              playlistId: playlistId,
-              resourceId: {
-                kind: "youtube#video",
-                videoId: videoItem.id.videoId,
-              },
-            },
-          }),
-        }
-      );
-
-      if (addToPlaylistResponse.ok) {
-        setAddedToPlaylist(true);
-      } else {
-        console.error(
-          "Error adding to playlist:",
-          addToPlaylistResponse.statusText
-        );
-      }
-    }
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      console.error("Playlist not found");
+      alert("Error adding to playlist:", addToPlaylistResponse.status);
+      console.error("Error adding to playlist:", addToPlaylistResponse.status);
       playlistId = "";
-    } else {
-      console.error("An error occurred:", error);
     }
   }
 };
@@ -315,13 +314,31 @@ export const handlePrevious = (state, setState) => {
 export const Videos = () => {
   const [state, setState] = useState({
     videos: [],
-    videoId: defaultVideoId,
+    currentVideoId: defaultVideoId,
     currentVideoIndex: 0,
   });
   const [tokenClient, setTokenClient] = useState({});
   const [accessToken, setAccessToken] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [addedToPlaylist, setAddedToPlaylist] = useState(false);
+  const [searchTitle, setSearchTitle] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const onSearchChanged = (event) => {
+    const _title = event.target.value;
+    setSearchTitle(_title);
+    setLoading(false);
+  };
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true);
+    try {
+      await onSearch(searchTitle, setState);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     const initializeTokenClient = async () => {
@@ -367,6 +384,7 @@ export const Videos = () => {
           subscriptionsData.items && subscriptionsData.items.length > 0
         );
       } catch (error) {
+        alert("Error fetching subscription status:", error);
         console.error("Error fetching subscription status:", error);
       }
     };
@@ -380,8 +398,14 @@ export const Videos = () => {
         return;
       }
 
+      // Check if playlist exists
       if (playlistId === "") {
-        await findAndCreatePlaylist(accessToken);
+        playlistId = await findPlaylist(accessToken, playlistName);
+      }
+
+      // If playlist does not exist, return
+      if (playlistId === "") {
+        return;
       }
 
       try {
@@ -407,7 +431,9 @@ export const Videos = () => {
           playlistItemsData.items && playlistItemsData.items.length > 0
         );
       } catch (error) {
+        alert("Error checking playlist status:", error);
         console.error("Error checking playlist status:", error);
+        playlistId = "";
       }
     };
 
@@ -417,12 +443,37 @@ export const Videos = () => {
   return (
     <div className="App">
       <div className="content-container-1">
-        <Search onSearch={(keyword) => onSearch(keyword, setState)} />
+        <form onSubmit={onSubmit}>
+          <div className="form-control">
+            <div className="search-title">
+              <label>
+                <h1>Explore and Learn with Video Tutorials!</h1>
+              </label>
+            </div>
+
+            <div className="search-bar">
+              <input
+                value={searchTitle}
+                onChange={onSearchChanged}
+                id="keyword"
+                type="text"
+                placeholder="Search"
+              />
+              <button
+                type="submit"
+                disabled={loading}
+                data-testid="search-button"
+              >
+                {loading ? "Searching..." : "Search"}
+              </button>
+            </div>
+          </div>
+        </form>
         <YoutubeEmbed
           embedId={
             state.videos.length > 0
               ? state.videos[state.currentVideoIndex]?.id.videoId
-              : state.videoId
+              : state.currentVideoId
           }
           width="560"
           height="315"
@@ -474,7 +525,8 @@ export const Videos = () => {
                       videoId: defaultVideoId,
                     },
                   },
-              setAddedToPlaylist
+              setAddedToPlaylist,
+              playlistId
             )
           }
         >
