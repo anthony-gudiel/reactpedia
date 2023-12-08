@@ -23,6 +23,7 @@ test("Testing OpenAI Chatbot: Test input and response", async () => {
   });
     expect(OPENAI).toHaveBeenCalledWith(userMessage);
     expect(OPENAI).toHaveBeenCalledTimes(1);
+    // Check that the response is correct
     expect(getByTestId("ai-response").textContent).toBe("42");
     expect(getByTestId("user-input").value).toBe("");
 });
