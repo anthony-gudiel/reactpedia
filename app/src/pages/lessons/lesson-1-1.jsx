@@ -212,10 +212,11 @@ export const LESSON_1_1 = () => {
         type="text"
         className="full-width-button"
         placeholder="Any questions? Type here to ask your AI assistant! &#129302;"
+        data-testid="user-input"
         value={userInput}
         onChange={handleInputChange}
       />
-      <button className="ai-submit" onClick={() => handleAIResponse(userInput)}>
+      <button className="ai-submit" data-testid="submit-button" onClick={() => handleAIResponse(userInput)}>
         Click to Submit!
       </button>
       <div className="ai-response">
@@ -229,7 +230,7 @@ export const LESSON_1_1 = () => {
         ) : (
           apiResponse && (
             <div className="code">
-              <pre style={{ whiteSpace: "pre-wrap", fontFamily: "monospace" }}>
+              <pre style={{ whiteSpace: "pre-wrap", fontFamily: "monospace" }} data-testid="ai-response">
                 {apiResponse}
               </pre>
             </div>
@@ -240,6 +241,7 @@ export const LESSON_1_1 = () => {
           <>
             <button
               className="suggested-questions-button"
+              data-testid="suggested-questions-button"
               onClick={() => setShowSuggestedQuestions(true)}
             >
               Click Here to See Related Questions
@@ -248,12 +250,14 @@ export const LESSON_1_1 = () => {
             {showSuggestedQuestions && (
               <div className="suggested-questions-modal">
                 <ul>
-                  {suggestedQuestions.map((question, index) =>
+                  {
+                  suggestedQuestions.map((question, index) =>
                     question.split("\n").map((line, lineIndex) => (
-                      <li key={`${index}-${lineIndex}`}>
+                      <li key={`${index}-${lineIndex}`} data-testid={`question-${lineIndex + 1}`}>
                         <div
                           key={`${index}-${lineIndex}`}
                           className="suggested-question-button"
+                          data-testid={`question-${lineIndex + 1}-button`}
                           onClick={() => handleQuestionClick(line)}
                         >
                           {line}

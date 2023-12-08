@@ -35,6 +35,7 @@ export const Quizzes = () => {
         <select
           className="full-width-button"
           onChange={handleDropdownChange}
+          data-testid="quiz-dropdown"
           value={selectedSection}
         >
           <option value="" disabled>
@@ -766,7 +767,7 @@ export const Quizzes = () => {
             Lesson 10 - Hooks in React
           </option>
         </select>
-        <button className="ai-submit" onClick={handleButtonClick}>
+        <button className="ai-submit" data-testId="submit-button" onClick={handleButtonClick}>
           Click to Submit!
         </button>
       </div>
@@ -780,7 +781,7 @@ export const Quizzes = () => {
         {!loading && quizContent && (
           <div>
             <h3>Quiz:</h3>
-            <pre style={{ whiteSpace: "pre-wrap", fontFamily: "monospace" }}>
+            <pre style={{ whiteSpace: "pre-wrap", fontFamily: "monospace" }} data-testId="quiz-output">
               {quizContent}
             </pre>
           </div>
