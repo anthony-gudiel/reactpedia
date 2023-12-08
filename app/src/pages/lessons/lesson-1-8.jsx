@@ -1,9 +1,8 @@
 import "./lesson-1-1.css";
 import React, { useState } from "react";
 import { OPENAI, suggestedOPENAI } from "../../api/openai";
-import componentImage from "../../assets/component.png";
 
-export const LESSON_1_3 = () => {
+export const LESSON_1_8 = () => {
   const [userInput, setUserInput] = useState("");
   const [apiResponse, setApiResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +35,7 @@ export const LESSON_1_3 = () => {
     <div className="lesson-1-1">
       <div className="container">
         <div className="lessonHeader">
-          <h1>Lesson 3 - Components</h1>
+          <h1>Lesson 8 - Styling in React</h1>
         </div>
       </div>
       <div className="lesson-content">
@@ -61,133 +60,125 @@ export const LESSON_1_3 = () => {
         </div>
         <div className="container-2">
           <div className="overview-header">
-            <h3>Components in React</h3>
+            <h3>Objectives</h3>
           </div>
           <div className="break"></div>
           <div className="overview-paragraph">
             <ul>
-              <li>
-                In React, a component is a reusable, self-contained building
-                block that encapsulates a piece of the user interface.
-              </li>
-              <li>Components can be functional or class-based.</li>
+                <li>Understand various approaches of styling in React</li>
+                <li>Learn about inline styles, CSS-in-JS libraries, and external stylesheets.</li>
+                <li>Apply styling techniques to create visually appealing React components.</li>
             </ul>
           </div>
           <div className="break"></div>
           <div className="what-is-header">
-            <h3>Functional Components: </h3>
+          <h3>Introduction to Styling in React: </h3>
           </div>
           <div className="break"></div>
           <div className="what-is-paragraph">
             <ul>
-              <li>
-                These kinds of components are declared as JavaScript functions.
-              </li>
-              <li>
-                Typically simple and concise, especially for presentational
-                components.
-              </li>
-            </ul>
-            <div className="code">
-              function FirstComponent() &#123;
-              <div className="break"></div>
-              <pre> return &#40;</pre>
-              <pre>   &#60;p&#62;This is my first component!&#60;/p&#62;</pre>
-              <div className="break"></div>
-              <pre> &#41;;</pre>
-              <div className="break"></div>
-              &#125;
-            </div>
-            Now that we have made a component, we can use it in another
-            component like this:
-            <div className="code">
-              export default function MyApp() &#123;
-              <div className="break"></div>
-              return &#40;
-              <div className="break"></div>
-              <pre>   &#60;div&#62;</pre>
-              <div className="break"></div>
-              <pre>     &#60;p&#62;This is my app!&#60;/p&#62;</pre>
-              <div className="break"></div>
-              <pre>     &#60;FirstComponent /&#62;</pre>
-              <div className="break"></div>
-              <pre>   &#60;/div&#62;</pre>
-              <div className="break"></div>
-              &#41;;
-              <div className="break"></div>
-              &#125;
-            </div>
-            <ul>
-              <li>
-                This code represents a basic React component (MyApp) that you
-                can use as the starting point for your application. When you
-                import MyApp into another file, you can include and render it as
-                a component in your application.
-              </li>
+                <li>Importance of Styling: Allows you to create engaging and user-friendly web applications.</li>
+                <li>Common Challenges with Styling: Resuability, responsiveness, code organization.</li>
             </ul>
           </div>
           <div className="first-app">
-            <h3> Importing and Exporting: </h3>
+            <h3>Inline Styles: </h3>
             <ul>
-              <li>
-                In the previous example, the export default statement is used to
-                export the MyApp component as the default export from this
-                module.
-              </li>
-              <li>
-                This allows you to import and use MyApp in other parts of your
-                application.
-              </li>
-              <li>To import components into other files:</li>
+                <li>We'll first discuss how to apply styles directly within the JSX using the `style` attribute.</li>
+                <li>These are called inline styles.</li>
+                <li>Pros of Inline Styles: Easy integration with React components, dynamic styling.</li>
+                <li>Cons of Inline Styles: Limited reusability, potential code clutter.</li>
+                <li>Example: </li>
             </ul>
             <div className="code">
-              import React from 'react'; //This is typical for every .jsx file
               <div className="break"></div>
-              import &#123;MyApp&#125; from './MyApp';
+              const MyComponent = () =&#62; &#123;
+              <div className="break"></div>
+              <pre> const styles = &#123;</pre>
+              <div className="break"></div>
+              <pre>     color: 'blue',</pre>
+              <div className="break"></div>
+              <pre>     fontSize: '16px',</pre>
+              <div className="break"></div>
+              <pre> &#125;;</pre>
+              <div className="break"></div>
+              <pre> return &#60;div style=&#123;styles&#125;&#62;Styled Component&#60;/div&#62;</pre>
+              <div className="break"></div>
+              &#125;
+            </div>
+            <h3>CSS-in-JS Libraries: </h3>
+            <ul>
+                <li>CSS-in-JS libraries are tools that allow developers to write and manage CSS styles directly within JavaScript frameworks.</li>
+                <li>Good for scoped styling, dynamic theming, and better organization.</li>
+            </ul>
+            <div className="code">
+              <div className="break"></div>
+              import styled from 'styled-components';
+              <div className="break"></div>
+              const StyledButton = styled.button`
+              <div className="break"></div>
+              <pre>     background-color: blue;</pre>
+              <div className="break"></div>
+              <pre>     color: black;</pre>
+              <div className="break"></div>
+              <pre>     padding: 10px;</pre>
+              <div className="break"></div>
+              `;
             </div>
             <ul>
-              <li>
-                It is best practice to put these import statements in the first
-                lines of your file
-              </li>
-              <li>
-                In this example, we're importing our 'MyApp' component from the
-                'MyApp.jsx' file into another file, though we don't explicitly
-                state the .jsx extension in the import statement
-              </li>
+                <li>Here, we are importing the `styled` function from the `styled-components` library.
+                    This function is a utility provided by `styled-components` to create styled
+                    components.
+                </li>
+                <li>We then use the `styled` function called with our HTML element `button` as a template
+                    literal. The template literal contains CSS styles that will be applied to the specified
+                    element.
+                </li>
             </ul>
-            <h3>Summary: </h3>
-            <div className="break"></div>
-            <img
-              src={componentImage}
-              alt="Failed to load."
-              className="lesson-3-image"
-            />
-            <div className="break"></div>
-            <em>Components in React:</em>
+            <h3>External StyleSheets: </h3>
             <ul>
-              <li>Building blocks for UI elements.</li>
+                <li>This is commonly considered the most traditional approach for using CSS to stylize.</li>
+                <li>In this method, we link external CSS files to use in our JSX file.</li>
+                <li>There are two common ways of doing this:</li>
             </ul>
-            <em>Functional Components</em>
+            <div className="code">
+                &#60;link rel='stylesheet' href='styles.css' /&#62;
+            </div>
+            <div className="code">
+                import '../my-stylesheet.css'
+            </div>
+            <h3>Responsive Design in React: </h3>
             <ul>
-              <li>Declared as functions.</li>
-              <li>Ideal for simplicity and presentation.</li>
+                <li>Media queries are essential in creating responsive designs</li>
+                <li>Media queries are commonly used to adjust your styles based on the screen size of the user: </li>
             </ul>
-            <em>Using Components:</em>
+            <div className="code">
+                @media (max-width:1003px) &#123;
+                <div className="break"></div>
+                <pre>   .lesson-3-image&#123;</pre>
+                <div className="break"></div>
+                <pre>       display: none;</pre>
+                <div className="break"></div>
+                <pre>   &#125;</pre>
+                <div className="break"></div>
+                &#125;
+            </div>
             <ul>
-              <li>Compose components within others.</li>
-              <li>Export using export default.</li>
+                <li>Here, we're making it so that once the screen size of the user hits 1003px or less,
+                    the image under class `lesson-3-image` will no longer be displayed.
+                </li>
             </ul>
-            <em>Importing Components:</em>
+            <h3>Best Practices: </h3>
             <ul>
-              <li>Import components for reuse.</li>
-              <li>Best practice: Place imports at the file's start.</li>
+                <li>Use consistent naming conventions and meaningful class names for styles</li>
+                <li>Consider the reusability of your styles.</li>
+                <li>Explore common CSS techniques like Flexbox and Grid</li>
             </ul>
           </div>
-          <a className="lesson-1-button" href="./lesson-1-2">
+          <a className="lesson-1-button" href="./lesson-1-7">
             Previous Lesson
           </a>
-          <a className="lesson-1-button" href="./lesson-1-4">
+          <a className="lesson-1-button" href="./lesson-1-9">
             Next Lesson
           </a>
           <a className="lesson-1-button" href="./quizzes">
@@ -202,7 +193,7 @@ export const LESSON_1_3 = () => {
         value={userInput}
         onChange={handleInputChange}
       />
-      <button className="ai-submit" onClick={() => handleAIResponse(userInput)}>
+      <button className="ai-submit" onClick={handleAIResponse}>
         Click to Submit!
       </button>
       <div className="ai-response">

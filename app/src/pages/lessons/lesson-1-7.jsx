@@ -1,9 +1,8 @@
 import "./lesson-1-1.css";
 import React, { useState } from "react";
 import { OPENAI, suggestedOPENAI } from "../../api/openai";
-import componentImage from "../../assets/component.png";
 
-export const LESSON_1_3 = () => {
+export const LESSON_1_7 = () => {
   const [userInput, setUserInput] = useState("");
   const [apiResponse, setApiResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +35,7 @@ export const LESSON_1_3 = () => {
     <div className="lesson-1-1">
       <div className="container">
         <div className="lessonHeader">
-          <h1>Lesson 3 - Components</h1>
+          <h1>Lesson 7 - Component Lifecycle in React</h1>
         </div>
       </div>
       <div className="lesson-content">
@@ -61,133 +60,144 @@ export const LESSON_1_3 = () => {
         </div>
         <div className="container-2">
           <div className="overview-header">
-            <h3>Components in React</h3>
+            <h3>Objectives</h3>
           </div>
           <div className="break"></div>
           <div className="overview-paragraph">
             <ul>
-              <li>
-                In React, a component is a reusable, self-contained building
-                block that encapsulates a piece of the user interface.
-              </li>
-              <li>Components can be functional or class-based.</li>
+                <li>Understand the lifecycle phases of a React component.</li>
+                <li>Learn how to utilize lifecycle methods for various tasks.</li>
+                <li>Apply knowledge of the component lifecycle to manage state, perform side effects, and optimize performance.</li>
             </ul>
           </div>
           <div className="break"></div>
           <div className="what-is-header">
-            <h3>Functional Components: </h3>
+          <h3>Introduction to Component Lifecycle: </h3>
           </div>
           <div className="break"></div>
           <div className="what-is-paragraph">
             <ul>
-              <li>
-                These kinds of components are declared as JavaScript functions.
-              </li>
-              <li>
-                Typically simple and concise, especially for presentational
-                components.
-              </li>
-            </ul>
-            <div className="code">
-              function FirstComponent() &#123;
-              <div className="break"></div>
-              <pre> return &#40;</pre>
-              <pre>   &#60;p&#62;This is my first component!&#60;/p&#62;</pre>
-              <div className="break"></div>
-              <pre> &#41;;</pre>
-              <div className="break"></div>
-              &#125;
-            </div>
-            Now that we have made a component, we can use it in another
-            component like this:
-            <div className="code">
-              export default function MyApp() &#123;
-              <div className="break"></div>
-              return &#40;
-              <div className="break"></div>
-              <pre>   &#60;div&#62;</pre>
-              <div className="break"></div>
-              <pre>     &#60;p&#62;This is my app!&#60;/p&#62;</pre>
-              <div className="break"></div>
-              <pre>     &#60;FirstComponent /&#62;</pre>
-              <div className="break"></div>
-              <pre>   &#60;/div&#62;</pre>
-              <div className="break"></div>
-              &#41;;
-              <div className="break"></div>
-              &#125;
-            </div>
-            <ul>
-              <li>
-                This code represents a basic React component (MyApp) that you
-                can use as the starting point for your application. When you
-                import MyApp into another file, you can include and render it as
-                a component in your application.
-              </li>
+                <li>Handling events is crucial for creating interactive and responsive user interfaces
+                in React.The component lifecycle refers to the different phases a React component goes
+                through, from its creation to its removal from the DOM.</li>
+                <li>Understanding these phases allows developers to perform tasks at specific points in a component's existence.</li>
+                <b>Phases: </b>
+                <li>Mounting: When a component is being created and inserted into the DOM.</li>
+                <li>Updating: When a component is re-rendered as a result of changes to its state or props.</li>
+                <li>Unmounting: When a component is removed from the DOM.</li>
             </ul>
           </div>
           <div className="first-app">
-            <h3> Importing and Exporting: </h3>
+            <h3>Mounting Phase: </h3>
             <ul>
-              <li>
-                In the previous example, the export default statement is used to
-                export the MyApp component as the default export from this
-                module.
-              </li>
-              <li>
-                This allows you to import and use MyApp in other parts of your
-                application.
-              </li>
-              <li>To import components into other files:</li>
+                <li>`constructor()` Method</li>
+                <li>The constructor is called when an instance of the component is being created. It's the right place to initialize state.</li>
             </ul>
             <div className="code">
-              import React from 'react'; //This is typical for every .jsx file
               <div className="break"></div>
-              import &#123;MyApp&#125; from './MyApp';
+              constructor (props) &#123;
+              <div className="break"></div>
+              <pre> super(props);</pre>
+              <div className="break"></div>
+              <pre> this.state = &#123;</pre>
+              <div className="break"></div>
+              <pre>     count : 0,</pre>
+              <div className="break"></div>
+              <pre> &#125;;</pre>
+              <div className="break"></div>
+              <pre> this.handleClick = this.handleClick.bind(this)</pre>
+              <div className="break"></div>
+              <pre>&#125;</pre>
+            </div>
+            <div className="break"></div>
+            <ul>
+                <li>Next is the `render()` Method</li>
+                <li>The render method is responsible for creating the initial UI structure of the component.</li>
+            </ul>
+            <div className="code">
+              <div className="break"></div>
+              render() &#123;
+              <div className="break"></div>
+              <pre> return &#60;div&#62;&#123;this.state.count&#125;&#60;/div&#62;</pre>
+              <div className="break"></div>
+              &#125;
             </div>
             <ul>
-              <li>
-                It is best practice to put these import statements in the first
-                lines of your file
-              </li>
-              <li>
-                In this example, we're importing our 'MyApp' component from the
-                'MyApp.jsx' file into another file, though we don't explicitly
-                state the .jsx extension in the import statement
-              </li>
+                <li>Next is the `componentDidMount()` Method.</li>
+                <li>This is called after the component is rendered in the DOM. It' suitable for fetching data or performing similar side effects.</li>
             </ul>
-            <h3>Summary: </h3>
+            <div className="code">
+              <div className="break"></div>
+              componentDidMount() &#123;
+              <div className="break"></div>
+              <pre> //Say we're fetching data from an API</pre>
+              <div className="break"></div>
+              <pre> fetch('https://api.example.com/data')</pre>
+              <div className="break"></div>
+              <pre>     .then(response =&#62; response.json())</pre>
+              <div className="break"></div>
+              <pre>     .then(data =&#62; this.setState (&#123; data &#125;))</pre>
+              <div className="break"></div>
+                &#125;
+            </div>
+            <h3>Updating Phase: </h3>
+            <ul>
+                <li>`shouldComponentUpdate()` Method </li>
+                <li>This allows you to control whether a component should re-render.</li>
+                <li>It can optimize performance by preventing unnecessary re-renders.</li>
+            </ul>
+            <div className="code">
+              <div className="break"></div>
+              shouldComponentUpdate(nextProps, nextState) &#123;
+              <div className="break"></div>
+              <pre> //Only re-render if the count changes</pre>
+              <div className="break"></div>
+              <pre> return this.state.count !== nextState.count;</pre>
+              <div className="break"></div>
+                &#125;
+            </div>
+            <ul>
+                <li>`render()` Method again</li>
+                <li>The render method is called again when a component re-renders due to changes in state or props.</li>
+            </ul>
+            <ul>
+                <li>`componentDidUpdate()` Method:</li>
+                <li>`componentDidUpdate` is called after the component is updated. It's suitable for performing side effects or additional data fetching.</li>
+            </ul>
+            <div className="code">
+              <div className="break"></div>
+              componentDidUpdate(prevProps, prevState) &#123;
+              <div className="break"></div>
+              <pre> if (prevState.count !== this.state.count) &#123;</pre>
+              <div className="break"></div>
+              <pre>     console.log('Count updated:', this.state.count);</pre>
+              <div className="break"></div>
+              <pre> &#125;</pre>
+              <div className="break"></div>
+                &#125;
+            </div>
+            <h3>Error Handling: </h3>
+            <ul>
+                <li>`componentDidCatch()` Method</li>
+                <li>`componentDidCatch` is a lifecycle method for handling errors that occur within child components during rendering.</li>
+            </ul>
+            <div className="code">
+            componentDidCatch(error, errorInfo) &#123;
             <div className="break"></div>
-            <img
-              src={componentImage}
-              alt="Failed to load."
-              className="lesson-3-image"
-            />
+            <pre>   logErrorToMyService(error, errorInfo);</pre>
             <div className="break"></div>
-            <em>Components in React:</em>
+            &#125;
+            </div>
+            <h3>Best Practices: </h3>
             <ul>
-              <li>Building blocks for UI elements.</li>
-            </ul>
-            <em>Functional Components</em>
-            <ul>
-              <li>Declared as functions.</li>
-              <li>Ideal for simplicity and presentation.</li>
-            </ul>
-            <em>Using Components:</em>
-            <ul>
-              <li>Compose components within others.</li>
-              <li>Export using export default.</li>
-            </ul>
-            <em>Importing Components:</em>
-            <ul>
-              <li>Import components for reuse.</li>
-              <li>Best practice: Place imports at the file's start.</li>
+                <li>Keep lifecycle methods concise and focused on specific functionalities</li>
+                <li>Be aware of depricated lifecycle methods, as React evolves.</li>
             </ul>
           </div>
-          <a className="lesson-1-button" href="./lesson-1-2">
+          <a className="lesson-1-button" href="./lesson-1-6">
             Previous Lesson
           </a>
-          <a className="lesson-1-button" href="./lesson-1-4">
+          <a className="lesson-1-button" href="./lesson-1-8">
             Next Lesson
           </a>
           <a className="lesson-1-button" href="./quizzes">
@@ -202,7 +212,7 @@ export const LESSON_1_3 = () => {
         value={userInput}
         onChange={handleInputChange}
       />
-      <button className="ai-submit" onClick={() => handleAIResponse(userInput)}>
+      <button className="ai-submit" onClick={handleAIResponse}>
         Click to Submit!
       </button>
       <div className="ai-response">

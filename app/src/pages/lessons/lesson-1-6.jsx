@@ -2,7 +2,7 @@ import "./lesson-1-1.css";
 import React, { useState } from "react";
 import { OPENAI, suggestedOPENAI } from "../../api/openai";
 
-export const LESSON_1_5 = () => {
+export const LESSON_1_6 = () => {
   const [userInput, setUserInput] = useState("");
   const [apiResponse, setApiResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +35,7 @@ export const LESSON_1_5 = () => {
     <div className="lesson-1-1">
       <div className="container">
         <div className="lessonHeader">
-          <h1>Lesson 5 - Lists & Keys in React</h1>
+          <h1>Lesson 6 - Handling Events & Conditional Rendering</h1>
         </div>
       </div>
       <div className="lesson-content">
@@ -65,145 +65,213 @@ export const LESSON_1_5 = () => {
           <div className="break"></div>
           <div className="overview-paragraph">
             <ul>
-                <li>Understand how to render lists of data in React.</li>
-                <li>Learn about the importance of using keys in React lists.</li>
-                <li>Apply knowledge to dynamically render components based on data.</li>
+                <li>Understand how to handle events in React components.</li>
+                <li>Learn about the concept of conditional rendering.</li>
+                <li>Apply event handling and conditional rendering in React applications.</li>
             </ul>
           </div>
           <div className="break"></div>
           <div className="what-is-header">
-          <h3>Rendering Lists in React</h3>
+          <h3>Handling Events in React:</h3>
           </div>
           <div className="break"></div>
           <div className="what-is-paragraph">
             <ul>
-                <li>Definition: Lists in React represent dynamically generated collections of elements, often sourced from arrays, that can be efficiently updated and managed using keys.</li>
-                <li>Purpose: Enables the display of dynamic data retrieved from APIs or user input.</li>
+                <li>Handling events is crucial for creating interactive and responsive user interfaces in React.</li>
+                <li>Events like clicks, changes, and submissions can be managed efficiently.</li>
             </ul>
             <div className="code">
-              const MyList = () =&#62; &#123;
+              const EventHandlingExample = () =&#62; &#123;
               <div className="break"></div>
-              <pre> const items = ['Item 1', 'Item 2', 'Item 3']</pre>
+              <pre> const handleClick = () =&#62; &#123;</pre>
               <div className="break"></div>
-              <pre>  return &#40;</pre>
+              <pre>     console.log('Button Clicked')</pre>
               <div className="break"></div>
-              <pre>     &#60;ul&#62;</pre>
+              <pre> &#125;;</pre>
+
+
               <div className="break"></div>
-              <pre>         &#123;items.map&#40;(item, index) =&#62; &#40;</pre>
+              <pre> return &#40;</pre>
               <div className="break"></div>
-              <pre>             &#60;li key=&#123;index&#125;&#62;&#123;item&#125;&#60;/li&#62;</pre>
+              <pre>     &#60;button onClick=&#123;handleClick&#125;&#62;</pre>
               <div className="break"></div>
-              <pre>         &#41;&#41;&#125;</pre>
+              <pre>         Click me</pre>
               <div className="break"></div>
-              <pre>     &#60;/ul&#62;</pre>
+              <pre>     &#60;/button&#62;</pre>
+              <div className="break"></div>
+              <pre> &#41;;</pre>
+              <div className="break"></div>
+                &#125;;
+            </div>
+          </div>
+          <div className="first-app">
+            <h3>Event Handling Syntax: </h3>
+            <ul>
+                <li>In React, event handlers are assigned in JSX use camelCase, such as `onClick` or `onChange`.</li>
+                <li>Common events include `onClick`, `onChange`, and `onSubmit`</li>
+            </ul>
+            <div className="code">
+              <div className="break"></div>
+              const EventHandlingSyntax = () =&#62; &#123;
+              <div className="break"></div>
+              <pre> const handleChange = (event) =&#62; &#123;</pre>
+              <div className="break"></div>
+              <pre>     console.log('Input Value:', event.target.value);</pre>
+              <div className="break"></div>
+              <pre> &#125;</pre>
+          
+
+              <div className="break"></div>
+              <pre> return &#40;</pre>
+              <div className="break"></div>
+              <pre>     &#60;input type='text' onChange=&#123;handleChange&#125; /&#62;</pre>
+              <div className="break"></div>
+              <pre> &#41;;</pre>
+              <div className="break"></div>
+              <pre>&#125;;</pre>
+            </div>
+            <h3>State and Event Handling:</h3>
+            <div className="break"></div>
+            <ul>
+                <li>State and event handling often go hand in hand.</li>
+                <li>You can update state based on user interactions, leading to dynamic and responsive components.</li>
+            </ul>
+            <div className="code">
+              <div className="break"></div>
+              const StateAndEventHandling = () =&#62; &#123;
+              <div className="break"></div>
+              <pre> const [count, setCount] = useState(0);</pre>
+              <div className="break"></div>
+              <pre> const handleIncrement = () =&#62; &#123;</pre>
+              <div className="break"></div>
+              <pre>     setCount(count + 1);</pre>
+              <div className="break"></div>
+              &#125;;
+              <div className="break"></div>
+              <pre> return &#40;</pre>
+              <div className="break"></div>
+              <pre>     &#60;div&#62;</pre>
+              <div className="break"></div>
+              <pre>         &#60;p&#62; Count: &#123;count&#125; &#60;/p&#62;</pre>
+              <div className="break"></div>
+              <pre>         &#60;button onClick=&#123;handleIncrement&#125;&#62;</pre>
+              <div className="break"></div>
+              <pre>             Increment</pre>
+              <div className="break"></div>
+              <pre>         &#60;/button&#62;</pre>
+              <div className="break"></div>
+              <pre>     &#60;div&#62;</pre>
+              <div className="break"></div>
+              <pre> &#41;;</pre>
+              <div className="break"></div>
+              &#125;;
+            </div>
+            <h3>Conditional Rendering in React: </h3>
+            <ul>
+                <li>Conditional rendering allows components to be displayed or hidden based on certain conditions</li>
+                <li>This is useful for showing different content based on user authentication, form validation, etc.</li>
+            </ul>
+            <div className="code">
+              <div className="break"></div>
+              const ConditionalRenderingExample = () =&#62; &#123;
+              <div className="break"></div>
+              <pre> const [isLoggedIn, setIsLoggedIn] = useState(false);</pre>
+              <div className="break"></div>
+              <pre> return &#40;</pre>
+              <div className="break"></div>
+              <pre>     &#60;div&#62;</pre>
+              <div className="break"></div>
+              <pre>         &#123;isLoggedIn ? &#40;</pre>
+              <div className="break"></div>
+              <pre>             &#60;p&#62;Welcome, user!&#60;/p&#62;</pre>
+              <div className="break"></div>
+              <pre>         &#41; : &#40;</pre>
+              <div className="break"></div>
+              <pre>             &#60;button onClick = &#123;() =&#62; setIsLoggedIn(true)&#125;&#62;</pre>
+              <div className="break"></div>
+              <pre>                 Log In</pre>
+              <div className="break"></div>
+              <pre>             &#60;/button&#62;</pre>
+              <div className="break"></div>
+              <pre>         &#41;&#125;</pre>
+              <div className="break"></div>
+              <pre>     &#60;/div&#62;</pre>
+              <div className="break"></div>
+              <pre> &#41;;</pre>
+              <div className="break"></div>
+                &#125;;
+            </div>
+            <h3>Conditional Rendering Techniques</h3>
+            <ul>
+                <li>Ternary operator:</li>
+            </ul>
+            <div className="code">
+              <div className="break"></div>
+              const RenderWithTernary = () =&#62; &#123;
+              <div className="break"></div>
+              <pre> const isTrue = true;</pre>
+              <div className="break"></div>
+              <pre> return &#40;</pre>
+              <div className="break"></div>
+              <pre>     &#60;p&#62; &#123;isTrue ? 'It is true' : 'It is false' &#125;&#60;/p&#62;</pre>
               <div className="break"></div>
               <pre> &#41;;</pre>
               <div className="break"></div>
                 &#125;;
             </div>
             <ul>
-                <li>First we declare the functional component `MyList`</li>
-                <li>Then we create a list named `items`</li>
-                <li>In the return statement, &#123;items.map&#40;(item, index) =&#62; &#40; uses the map function to iterate over each element in the `items` array. </li>
-                <li> &#60;li key=&#123;index&#125;&#62;&#123;item&#125;&#60;/li&#62; :  For each item in the array, a list item is created. The `key` attribute is set to the `index` of the item, which helps React efficiently update the list when items are added or removed.</li>
-            </ul>
-          </div>
-          <div className="first-app">
-            <h3> The Importance of Keys </h3>
-            <ul>
-                <li>Definition: Keys are special attributes used to uniquely identify and track individual elements within dynamically rendered lists.</li>
-                <li>Purpose: Aids React in efficiently updating the user interface.</li>
-                <li>Keys help React identify which items have changed, are added, or are removed.</li>
+                <li>&& operator:</li>
             </ul>
             <div className="code">
               <div className="break"></div>
-              const MyList = () =&#62; &#123;
+              const RenderWithLogicalAnd = () =&#62; &#123;
               <div className="break"></div>
-              <pre> const items = &#91;</pre>
-              <div className="break"></div>
-              <pre>   &#123; id: 1, text: 'Item 1' &#125;,</pre>
-              <div className="break"></div>
-              <pre>   &#123; id: 2, text: 'Item 2' &#125;,</pre>
-              <div className="break"></div>
-              <pre>   &#123; id: 3, text: 'Item 3' &#125;,</pre>
-              <div className="break"></div>
-              <pre>   &#93;;</pre>
+              <pre> const showContent = true;</pre>
               <div className="break"></div>
               <pre> return &#40;</pre>
               <div className="break"></div>
-              <pre>     &#60;ul&#62;</pre>
+              <pre>     &#60;div&#62;</pre>
               <div className="break"></div>
-              <pre>       &#123;items.map&#40;(item) =&#62; &#40;</pre>
+              <pre>         &#123;showContent && &#60;p&#62;Show this content&#60;/p&#62;&#125;</pre>
               <div className="break"></div>
-              <pre>         &#60;li key=&#123;item.id&#125;&#62;&#123;item.text&#125;&#60;/li&#62;</pre>
+              <pre>     &#60;/div&#62;</pre>
               <div className="break"></div>
-              <pre>       &#41;&#41;&#125;</pre>
+              <pre> &#41;;</pre>
               <div className="break"></div>
-              <pre>     &#60;/ul&#62;</pre>
-              <div className="break"></div>
-              <pre>   &#41;;</pre>
-              <div className="break"></div>
-              <pre> &#125;;</pre>
+                &#125;;
             </div>
+            <h3>Handling Conditional Styles: </h3>
             <ul>
-                <li>`const items`: This declares an array called `items`, containing three objects. Each object represents an item with an 'id' and 'text'. This array is used as the data source for rendering the list.</li>
-                <li>&#60;li key=&#123;item.id&#125;&#62;&#123;item.text&#125;&#60;/li&#62;: For each item in the array, it creates a list item. The key attribute is set to the 'id' of the item. Using a unique key for each item helps React efficiently update the DOM when the list changes. The content of each is the 'text' property of the item.</li>
-                <li> &#123;items.map&#40;(item) =&#62; ... &#41;&#125;: Maps over each item in the items array and generates a corresponding li element for each one.</li>
-                <li>Essentially, what we're doing here is generating an unordered list where each list item corresponds to an object in the `items' array. The'id' is used as the key to efficiently manage updates, and the 'text' is displayed as the content of each list item.</li>
-            </ul>
-            <h3>Dynamic Lists with Components</h3>
-            <div className="break"></div>
-            <ul>
-                <li>Definition: Components can be dynamically rendered within lists.</li>
-                <li>Purpose: Encourages reusability and modularity.</li>
+                <li>Apply dynamic styles based on conditions, enhancing the visual aspects of your components</li>
             </ul>
             <div className="code">
               <div className="break"></div>
-              const MyList = () =&#62; &#123;
+              const ConditionalStylesExample = () =&#62; &#123;
               <div className="break"></div>
-              <pre> const items = &#91;</pre>
-              <div className="break"></div>
-              <pre>   &#123; id: 1, text: 'Item 1' &#125;,</pre>
-              <div className="break"></div>
-              <pre>   &#123; id: 2, text: 'Item 2' &#125;,</pre>
-              <div className="break"></div>
-              <pre>   &#123; id: 3, text: 'Item 3' &#125;,</pre>
-              <div className="break"></div>
-              <pre>   &#93;;</pre>
+              <pre> const [isError, setIsError] = useState(false);</pre>
               <div className="break"></div>
               <pre> return &#40;</pre>
               <div className="break"></div>
-              <pre>     &#60;ul&#62;</pre>
+              <pre>     &#60;div style=&#123;&#123; color: isError ? 'red' : 'green' &#125;&#125;&#62;</pre>
               <div className="break"></div>
-              <pre>       &#123;items.map&#40;(item) =&#62; &#40;</pre>
+              <pre>         &#123;isError ? 'Error' : 'Success!'&#125;</pre>
               <div className="break"></div>
-              <pre>         &#60;li key=&#123;item.id&#125;&#62;text=&#123;item.text&#125;&#60;/li&#62;</pre>
+              <pre>     &#60;/div&#62;</pre>
               <div className="break"></div>
-              <pre>       &#41;&#41;&#125;</pre>
+              <pre> &#41;;</pre>
               <div className="break"></div>
-              <pre>     &#60;/ul&#62;</pre>
-              <div className="break"></div>
-              <pre>   &#41;;</pre>
-              <div className="break"></div>
-              <pre> &#125;;</pre>
-              <div className="break"></div>
-              const MyListItem = (&#123; item &#125;) =&#62; &#123;
-              <div className="break"></div>
-              <pre>   return &#60;li&#62;&#123;text&#125;&#60;/li&#62;;</pre>
-              <div className="break"></div>
-              &#125;;
+                &#125;;
             </div>
+            <h3>Best Practices: </h3>
             <ul>
-                <li>Although this looks very similar to the last code snippet we just went over, there are some important differences.</li>
-                <li>Here, we're using the `MyListItem` component, passing `key` and `text` as props.</li>
-                <li>The separate `MyListItem` component is defined to represent each list item. This provides a modular and reusable approach</li>
-                <li>We would want to use this reusable version of the code when we may need to use reuse the list items elsewhere.</li>
-            </ul>        
+                <li>Keep event handlers concise and focused on specific functionalities.</li>
+                <li>Use meaningful variable names for conditions to improve code readability.</li>
+            </ul>
           </div>
-          <a className="lesson-1-button" href="./lesson-1-4">
+          <a className="lesson-1-button" href="./lesson-1-5">
             Previous Lesson
           </a>
-          <a className="lesson-1-button" href="./lesson-1-6">
+          <a className="lesson-1-button" href="./lesson-1-7">
             Next Lesson
           </a>
           <a className="lesson-1-button" href="./quizzes">

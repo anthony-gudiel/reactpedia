@@ -48,10 +48,10 @@ export const LESSON_1_4 = () => {
             <a href="/lesson-1-4">Lesson 4 - Props & State</a>
             <a href="/lesson-1-5">Lesson 5 - Lists & Keys</a>
             <a href="/lesson-1-6">Lesson 6 - Conditional Rendering</a>
-            <a href="/lesson-1-7">Lesson 7 - Lists and Keys</a>
-            <a href="/lesson-1-8">Lesson 8 - Forms in React</a>
+            <a href="/lesson-1-7">Lesson 7 - Component Lifecycle</a>
+            <a href="/lesson-1-8">Lesson 8 - Styling in React</a>
             <a href="/lesson-1-9">Lesson 9 - React Router</a>
-            <a href="/lesson-1-10">Lesson 10 - State Management with Context</a>
+            <a href="/lesson-1-10">Lesson 10 - Hooks in React</a>
             <a href="/lesson-1-11">Lesson 11 - Hooks in React</a>
             <a href="/lesson-1-12">Lesson 12 - Fetching Data with API</a>
             <a href="/lesson-1-13">Lesson 13 - Testing in React</a>
@@ -256,6 +256,17 @@ export const LESSON_1_4 = () => {
               <pre> &#125;</pre>
               <div className="break"></div>
             </div>
+            <ul>
+              <li>This is similar to the previous example, except we have added `incrementCount`
+                to increment the counter every time the button is clicked and set its state.
+              </li>
+              <li>`incrementCount = () =&#62; &#123; ... &#125;`: Defines an arrow function named `incrementCount`.
+                Arrow functions are used to bind the function to the instance of the class, ensuring that this
+                refers to the component instance.</li>
+              <li>`this.setState((prevState) =&#62; (&#123; count: prevState.count + 1 &#125;));`:
+                Uses `this.setState` to update the state based on the previous state. It increments
+                 the `count` by 1.</li>
+            </ul>
             <h3>Stateless Functional Components</h3>
             <ul>
               <li>Functional component can receive props.</li>
@@ -285,7 +296,16 @@ export const LESSON_1_4 = () => {
               <pre> &#41;;</pre>
               <div className="break"></div>
               &#125;;
-            </div>            
+            </div>
+            <ul>
+              <li> This functional component uses the useState hook to manage a state variable (count)
+                 that represents a counter. The component renders a paragraph displaying the current
+                count and a button to increment the count when clicked. The use of useState allows
+                functional components to maintain state.</li>
+              <li>`const [count, setCount] = useState(0);`: Initializes state using the `useState` hook.
+                 It declares a state variable `count` and a function `setCount` to update the state.
+                The initial state value is set to `0`.</li>  
+            </ul>  
           </div>
           <a className="lesson-1-button" href="./lesson-1-3">
             Previous Lesson
