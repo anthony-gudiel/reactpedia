@@ -8,7 +8,6 @@ import "./videos.css";
 const defaultVideoId = "SqcY0GlETPk";
 const defaultChannelId = "UCWv7vMbMWH4-V0ZXdmDpPBA";
 var playlistName = "ReactPedia";
-var playlistId = "";
 
 export const onSearch = async (keyword, setState) => {
   const response = await youtube.get("/search", {
@@ -124,6 +123,7 @@ export const handleSubscriptionToggle = async (
 
     if (subscribeResponse.ok) {
       setSubscribed(true);
+      console.log("Subscribed to channel")
     } else {
       alert("Error subscribing:", subscribeResponse.status);
       console.error("Error subscribing:", subscribeResponse.status);
@@ -197,21 +197,23 @@ export const handleAddToPlaylistToggle = async (
   accessToken,
   videoItem,
   setAddedToPlaylist,
-  playlistId
+  playlistId,
+  setPlaylistId
 ) => {
+
   if (accessToken === "") {
     tokenClient.requestAccessToken();
     return;
   }
 
-  // Check if playlist exists
+  // Check if playlistId exists, update if exist
   if (playlistId === "") {
-    playlistId = await findPlaylist(accessToken, playlistName);
+     setPlaylistId(await findPlaylist(accessToken, playlistName));
   }
-
+  console.log("playlistId: ", playlistId);
   // If playlist does not exist, create it
   if (playlistId === "") {
-    playlistId = await createPlaylist(accessToken, playlistName);
+    setPlaylistId(await createPlaylist(accessToken, playlistName));
   }
 
   // Check if the video is already in the playlist
@@ -232,7 +234,7 @@ export const handleAddToPlaylistToggle = async (
       "Error fetching playlist status:",
       playlistItemsResponse.status
     );
-    playlistId = "";
+    setPlaylistId("");
     return;
   }
 
@@ -261,7 +263,7 @@ export const handleAddToPlaylistToggle = async (
         "Error removing from playlist:",
         removeFromPlaylistResponse.status
       );
-      playlistId = "";
+      setPlaylistId("");
     }
   } else {
     // Video is not in the playlist, add it
@@ -290,7 +292,7 @@ export const handleAddToPlaylistToggle = async (
     } else {
       alert("Error adding to playlist:", addToPlaylistResponse.status);
       console.error("Error adding to playlist:", addToPlaylistResponse.status);
-      playlistId = "";
+      setPlaylistId("");
     }
   }
 };
@@ -311,18 +313,19 @@ export const handlePrevious = (state, setState) => {
   }));
 };
 
-export const Videos = () => {
+export const Videos = ({tokenClient : initializeTokenClient, accessToken : initialAccessToken}) => {
   const [state, setState] = useState({
     videos: [],
     currentVideoId: defaultVideoId,
     currentVideoIndex: 0,
   });
-  const [tokenClient, setTokenClient] = useState({});
-  const [accessToken, setAccessToken] = useState("");
+  const [tokenClient, setTokenClient] = useState(initializeTokenClient || {});
+  const [accessToken, setAccessToken] = useState(initialAccessToken || "");
   const [subscribed, setSubscribed] = useState(false);
   const [addedToPlaylist, setAddedToPlaylist] = useState(false);
   const [searchTitle, setSearchTitle] = useState("");
   const [loading, setLoading] = useState(false);
+  const [playlistId, setPlaylistId] = useState("");
 
   const onSearchChanged = (event) => {
     const _title = event.target.value;
@@ -349,7 +352,6 @@ export const Videos = () => {
           setAccessToken(token.access_token);
         },
       });
-
       setTokenClient(client);
     };
     initializeTokenClient();
@@ -379,7 +381,6 @@ export const Videos = () => {
         );
 
         const subscriptionsData = await subscriptionsResponse.json();
-
         setSubscribed(
           subscriptionsData.items && subscriptionsData.items.length > 0
         );
@@ -400,7 +401,7 @@ export const Videos = () => {
 
       // Check if playlist exists
       if (playlistId === "") {
-        playlistId = await findPlaylist(accessToken, playlistName);
+        setPlaylistId(await findPlaylist(accessToken, playlistName));
       }
 
       // If playlist does not exist, return
@@ -433,7 +434,7 @@ export const Videos = () => {
       } catch (error) {
         alert("Error checking playlist status:", error);
         console.error("Error checking playlist status:", error);
-        playlistId = "";
+        setPlaylistId("");
       }
     };
 
@@ -484,7 +485,8 @@ export const Videos = () => {
           className={`subscribed-button ${
             subscribed ? "unsubscribe-button" : "subscribe-button"
           }`}
-          onClick={() =>
+          data-testid="subscribe-button"
+          onClick={() => {
             handleSubscriptionToggle(
               tokenClient,
               accessToken,
@@ -499,8 +501,8 @@ export const Videos = () => {
                     },
                   },
               setSubscribed
-            )
-          }
+            );
+          }}
         >
           {subscribed ? "Unsubscribe" : "Subscribe"}
         </button>
@@ -511,6 +513,7 @@ export const Videos = () => {
               ? "remove-from-playlist-button"
               : "add-to-playlist-button"
           }`}
+          data-testid="add-to-playlist-button"
           onClick={() =>
             handleAddToPlaylistToggle(
               tokenClient,

@@ -4,7 +4,7 @@ import { act, render, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import youtube from "../../../src/api/youtube";
 
-test("Integration test: Testing the search feature; Search then use the next and previous buttons", async () => {
+test("Search Integration test: Search then use the next and previous buttons", async () => {
   // Define global.window and global.window.google
   global.window = global.window || {};
   global.window.google = {
