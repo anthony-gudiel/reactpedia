@@ -2,7 +2,7 @@ import "./lesson-1-1.css";
 import React, { useState } from "react";
 import { OPENAI, suggestedOPENAI } from "../../api/openai";
 
-export const LESSON_1_8 = () => {
+export const LESSON_1_10 = () => {
   const [userInput, setUserInput] = useState("");
   const [apiResponse, setApiResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -35,7 +35,7 @@ export const LESSON_1_8 = () => {
     <div className="lesson-1-1">
       <div className="container">
         <div className="lessonHeader">
-          <h1>Lesson 8 - Styling in React</h1>
+          <h1>Lesson 10 - Hooks in React</h1>
         </div>
       </div>
       <div className="lesson-content">
@@ -52,10 +52,6 @@ export const LESSON_1_8 = () => {
             <a href="/lesson-1-8">Lesson 8 - Styling in React</a>
             <a href="/lesson-1-9">Lesson 9 - React Router</a>
             <a href="/lesson-1-10">Lesson 10 - Hooks in React</a>
-            <a href="/lesson-1-11">Lesson 11 - Hooks in React</a>
-            <a href="/lesson-1-12">Lesson 12 - Fetching Data with API</a>
-            <a href="/lesson-1-13">Lesson 13 - Testing in React</a>
-            <a href="/lesson-1-14">Lesson 14 - Deployment and Best Practices</a>
           </div>
         </div>
         <div className="container-2">
@@ -65,121 +61,110 @@ export const LESSON_1_8 = () => {
           <div className="break"></div>
           <div className="overview-paragraph">
             <ul>
-                <li>Understand various approaches of styling in React</li>
-                <li>Learn about inline styles, CSS-in-JS libraries, and external stylesheets.</li>
-                <li>Apply styling techniques to create visually appealing React components.</li>
+                <li>Understand the concept of React Hooks and their role in functional components.</li>
+                <li>Learn about some commonly used built-in hooks in React.</li>
+                <li>Explore how hooks can enhance the state and lifecycle management in functional components.</li>
             </ul>
           </div>
           <div className="break"></div>
           <div className="what-is-header">
-          <h3>Introduction to Styling in React: </h3>
+          <h3>Introduction to React Hooks: </h3>
           </div>
           <div className="break"></div>
           <div className="what-is-paragraph">
             <ul>
-                <li>Importance of Styling: Allows you to create engaging and user-friendly web applications.</li>
-                <li>Common Challenges with Styling: Resuability, responsiveness, code organization.</li>
+                <li>React Hooks are functions that enable functional components to use state and
+                    lifecycle features that were previously only available in class components.</li>
+                <li>They allow functional components to manage local state, side effects, and more.</li>
             </ul>
           </div>
           <div className="first-app">
-            <h3>Inline Styles: </h3>
+            <h3>`useState` Hook: </h3>
             <ul>
-                <li>We'll first discuss how to apply styles directly within the JSX using the `style` attribute.</li>
-                <li>These are called inline styles.</li>
-                <li>Pros of Inline Styles: Easy integration with React components, dynamic styling.</li>
-                <li>Cons of Inline Styles: Limited reusability, potential code clutter.</li>
-                <li>Example: </li>
+                <li>`useState` is a hook that enables the use of state in functional components.</li>
+                <li>Doing so allows components to have local state, making them more dynamic.</li>
             </ul>
             <div className="code">
-              <div className="break"></div>
-              const MyComponent = () =&#62; &#123;
-              <div className="break"></div>
-              <pre> const styles = &#123;</pre>
-              <div className="break"></div>
-              <pre>     color: 'blue',</pre>
-              <div className="break"></div>
-              <pre>     fontSize: '16px',</pre>
-              <div className="break"></div>
-              <pre> &#125;;</pre>
-              <div className="break"></div>
-              <pre> return &#60;div style=&#123;styles&#125;&#62;Styled Component&#60;/div&#62;</pre>
-              <div className="break"></div>
-              &#125;
-            </div>
-            <h3>CSS-in-JS Libraries: </h3>
-            <ul>
-                <li>CSS-in-JS libraries are tools that allow developers to write and manage CSS styles directly within JavaScript frameworks.</li>
-                <li>Good for scoped styling, dynamic theming, and better organization.</li>
-            </ul>
-            <div className="code">
-              <div className="break"></div>
-              import styled from 'styled-components';
-              <div className="break"></div>
-              const StyledButton = styled.button`
-              <div className="break"></div>
-              <pre>     background-color: blue;</pre>
-              <div className="break"></div>
-              <pre>     color: black;</pre>
-              <div className="break"></div>
-              <pre>     padding: 10px;</pre>
-              <div className="break"></div>
-              `;
+              const [count, setCount] = useState(0);
             </div>
             <ul>
-                <li>Here, we are importing the `styled` function from the `styled-components` library.
-                    This function is a utility provided by `styled-components` to create styled
-                    components.
-                </li>
-                <li>We then use the `styled` function called with our HTML element `button` as a template
-                    literal. The template literal contains CSS styles that will be applied to the specified
-                    element.
-                </li>
+                <li>`useState` allows functional components to have state variables. It takes an initial state as an argument.</li>
+                <li>In this case, the initial state is set to 0, meaning that `count` will initially have a value of 0.</li>
             </ul>
-            <h3>External StyleSheets: </h3>
+            <h3>`useEffect` Hook: </h3>
             <ul>
-                <li>This is commonly considered the most traditional approach for using CSS to stylize.</li>
-                <li>In this method, we link external CSS files to use in our JSX file.</li>
-                <li>There are two common ways of doing this:</li>
+                <li>`useEffect` is a hook used for side effects in functional components, such as
+                    data fetching, subscriptions, or manually changing the DOM.</li>
+                <li>This helps to handle side effects in a declarative way.</li>
             </ul>
             <div className="code">
-                &#60;link rel='stylesheet' href='styles.css' /&#62;
-            </div>
-            <div className="code">
-                import '../my-stylesheet.css'
-            </div>
-            <h3>Responsive Design in React: </h3>
+                useEffect&#40;() =&#62; &#123;
+              <div className="break"></div>
+              <pre>     document.title = `Count: $&#123;count&#125;`;</pre>
+              <div className="break"></div>
+                &#125;, [count]&#41;;
+             </div>
             <ul>
-                <li>Media queries are essential in creating responsive designs</li>
-                <li>Media queries are commonly used to adjust your styles based on the screen size of the user: </li>
+                <li>In this example, we're using `useEffect` to update the document title when count
+                    changes.</li>
+                <li>This will run after the initial render and after every re-render.</li>
+            </ul>
+            <h3>`useContext` Hook: </h3>
+            <ul>
+                <li>This hook allows functional components to subscribe to a context and access the
+                    values provided by that context. It provides a way to avoid passing data
+                    through multiple layers of components and makes it easier to access shared
+                    values.</li>
+                <li>First we'll create a context using `createContext`:</li>
             </ul>
             <div className="code">
-                @media (max-width:1003px) &#123;
+                //MyContext.jsx
                 <div className="break"></div>
-                <pre>   .lesson-3-image&#123;</pre>
+                import &#123; createContext &#125; from 'react';                
                 <div className="break"></div>
-                <pre>       display: none;</pre>
+                const MyContext = createContext();
                 <div className="break"></div>
-                <pre>   &#125;</pre>
+                export default MyContext;
+            </div>
+            <ul>
+                <li>Now, we can use `useContext` to access the values provided by this context in our components:</li>
+            </ul>
+            <div className="code">
+                // MyComponent.js
+                <div className="break"></div>
+                import &#123; useContext &#125; from 'react';                
+                <div className="break"></div>
+                const MyComponent = () =&#62; &#123;
+                <div className="break"></div>
+                <pre>     const contextValue = useContext(MyContext);</pre>
+                <div className="break"></div>
+                <pre>     return &#60;p&#62;Context Value: &#123;contextValue&#125;&#60;/p&#62;;</pre>
                 <div className="break"></div>
                 &#125;
+                <div className="break"></div>
+                export default MyComponent
             </div>
             <ul>
-                <li>Here, we're making it so that once the screen size of the user hits 1003px or less,
-                    the image under class `lesson-3-image` will no longer be displayed.
-                </li>
+                <li>First, we create a context using createContext. This context can hold a default value.</li>
+                <li>Next, we wrap our component tree with a MyContext.Provider to provide a value to the context.</li>
+                <li>Now, in any functional component within the tree, you can use `useContext(MyContext)` to access
+                    the current value of the context.</li>
             </ul>
-            <h3>Best Practices: </h3>
+            <h3>Custom Hooks: </h3>
             <ul>
-                <li>Use consistent naming conventions and meaningful class names for styles</li>
-                <li>Consider the reusability of your styles.</li>
-                <li>Explore common CSS techniques like Flexbox and Grid</li>
+                <li>You can also create your own custom hooks!</li>
+                <li>Create a function (e.g., `useCounter`) that encapsulates the logic you want to 
+                    reuse. It can use other built-in hooks like useState.</li>
+                <li>The custom hook should return values or functions that the components using
+                    the hook can use.</li>
+                <li>You can then import and use the custom hook in your components.</li>
             </ul>
+            <h3>Conclusion: </h3>
+            This is all we have to teach you for now! We hope you learned something useful! Be on
+            the lookout for new future lessons and improved upon current lessons!
           </div>
-          <a className="lesson-1-button" href="./lesson-1-7">
-            Previous Lesson
-          </a>
           <a className="lesson-1-button" href="./lesson-1-9">
-            Next Lesson
+            Previous Lesson
           </a>
           <a className="lesson-1-button" href="./quizzes">
             Quiz yourself!

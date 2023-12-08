@@ -220,7 +220,7 @@ export const LESSON_1_9 = () => {
           <a className="lesson-1-button" href="./lesson-1-8">
             Previous Lesson
           </a>
-          <a className="lesson-1-button" href="./lesson-1-9">
+          <a className="lesson-1-button" href="./lesson-1-10">
             Next Lesson
           </a>
           <a className="lesson-1-button" href="./quizzes">
