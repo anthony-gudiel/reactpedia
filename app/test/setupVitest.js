@@ -1,5 +1,7 @@
 import createFetchMock from 'vitest-fetch-mock';
-import { vi } from 'vitest';
+import { test, vi, expect } from "vitest";
+import { act, render, fireEvent, waitFor } from "@testing-library/react";
+import React from "react";
 
 const fetchMocker = createFetchMock(vi);
 

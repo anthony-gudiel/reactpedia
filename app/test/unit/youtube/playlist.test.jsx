@@ -2,6 +2,7 @@ import { handleAddToPlaylistToggle } from "../../../src/pages/videos/videos";
 import { test, vi, expect } from "vitest";
 
 global.fetch = vi.fn();
+const setPlaylistId = vi.fn();
 
 const createFetchResponse = (data, status = 200, statusText = "Successful") => ({
   ok: status >= 200 && status < 300,
@@ -42,7 +43,8 @@ test("Testing handleAddToPlaylistToggle: User is not logged in", async () => {
     accessToken,
     videoItem,
     setAddedToPlaylist,
-    playlistId
+    playlistId,
+    setPlaylistId
   );
 
   // Assertions
@@ -84,7 +86,8 @@ test("Testing handleAddToPlaylistToggle: Video is in playlist", async () => {
     accessToken,
     videoItem,
     setAddedToPlaylist,
-    playlistId
+    playlistId,
+    setPlaylistId
   );
 
   // Assertions
@@ -142,7 +145,8 @@ test("Testing handleAddToPlaylistToggle: Video is not in playlist", async () => 
     accessToken,
     videoItem,
     setAddedToPlaylist,
-    playlistId
+    playlistId,
+    setPlaylistId
   );
 
   // Assertions
@@ -212,7 +216,8 @@ test("Testing handleAddToPlaylistToggle: YouTube API response error", async () =
     accessToken,
     videoItem,
     setAddedToPlaylist,
-    playlistId
+    playlistId,
+    setPlaylistId
   );
 
   // Assertions
