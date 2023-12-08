@@ -124,6 +124,7 @@ export const handleSubscriptionToggle = async (
 
     if (subscribeResponse.ok) {
       setSubscribed(true);
+      console.log("Subscribed to channel")
     } else {
       alert("Error subscribing:", subscribeResponse.status);
       console.error("Error subscribing:", subscribeResponse.status);
@@ -311,14 +312,14 @@ export const handlePrevious = (state, setState) => {
   }));
 };
 
-export const Videos = () => {
+export const Videos = ({tokenClient : initializeTokenClient, accessToken : initialAccessToken}) => {
   const [state, setState] = useState({
     videos: [],
     currentVideoId: defaultVideoId,
     currentVideoIndex: 0,
   });
-  const [tokenClient, setTokenClient] = useState({});
-  const [accessToken, setAccessToken] = useState("");
+  const [tokenClient, setTokenClient] = useState(initializeTokenClient || {});
+  const [accessToken, setAccessToken] = useState(initialAccessToken || "");
   const [subscribed, setSubscribed] = useState(false);
   const [addedToPlaylist, setAddedToPlaylist] = useState(false);
   const [searchTitle, setSearchTitle] = useState("");
@@ -349,7 +350,6 @@ export const Videos = () => {
           setAccessToken(token.access_token);
         },
       });
-
       setTokenClient(client);
     };
     initializeTokenClient();
@@ -379,7 +379,6 @@ export const Videos = () => {
         );
 
         const subscriptionsData = await subscriptionsResponse.json();
-
         setSubscribed(
           subscriptionsData.items && subscriptionsData.items.length > 0
         );
@@ -484,7 +483,8 @@ export const Videos = () => {
           className={`subscribed-button ${
             subscribed ? "unsubscribe-button" : "subscribe-button"
           }`}
-          onClick={() =>
+          data-testid="subscribe-button"
+          onClick={() => {
             handleSubscriptionToggle(
               tokenClient,
               accessToken,
@@ -499,8 +499,8 @@ export const Videos = () => {
                     },
                   },
               setSubscribed
-            )
-          }
+            );
+          }}
         >
           {subscribed ? "Unsubscribe" : "Subscribe"}
         </button>
