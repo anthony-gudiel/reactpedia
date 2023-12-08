@@ -12,29 +12,32 @@ vi.mock("../../../src/api/openai", () => ({
 async function setupTest() {
     OPENAI.mockImplementation(async () => "Sample response");
     suggestedOPENAI.mockImplementation(async () => ["1. Question 1\n2. Question 2\n3. Question 3\n4. Question 4\n5. Question 5"]);
-    const userMessage = "What is the meaning of life?";
+    var userMessage = "What is the meaning of life?";
     const { getByTestId } = render(<LESSON_1_1 />);
     // User input
     const input = getByTestId("user-input");
     fireEvent.change(input, { target: { value: userMessage } });
     // Submit button
     const submit = getByTestId("submit-button");
-    await act(() => {
+    await act(async () => {
       fireEvent.click(submit);
     });
   
     return { getByTestId, userMessage };
   }
 
-test("Testing OpenAI Suggested Questions: Test response and clicking the responses", async () => {
+test("OpenAI Suggested Questions Integration Test: Test multiple questions and related responses", async () => {
     // Setup the test
     const { getByTestId, userMessage } = await setupTest();
+    // Check that the response is correct
+    expect(getByTestId("ai-response").textContent).toBe("Sample response");
+    expect(getByTestId("user-input").value).toBe("");
     // Check that the suggested questions exist
     expect(suggestedOPENAI).toHaveBeenCalledWith("Sample response");
 
     // Click the show suggested questions button
     const showSuggestedQuestions = getByTestId("suggested-questions-button");
-    await act(() => {
+    await act(async () => {
         fireEvent.click(showSuggestedQuestions);
     });
     // Check that the suggested questions are displayed
@@ -46,14 +49,22 @@ test("Testing OpenAI Suggested Questions: Test response and clicking the respons
 
     // New OpenAI response
     OPENAI.mockImplementation(async () => "Question 1 answer");
+    suggestedOPENAI.mockImplementation(async () => ["1. A\n2. B\n3. C\n4. D\n5. E"]);
 
     // Click the first suggested question
     const question1 = getByTestId("question-1-button");
-    await act(() => {
+    await act(async () => {
         fireEvent.click(question1);
     });
     expect(OPENAI).toHaveBeenCalledWith("Question 1");
     expect(getByTestId("user-input").value).toBe("");
     // Check that the response is correct
     expect(getByTestId("ai-response").textContent).toBe("Question 1 answer");
+    // Check that the suggested questions exist
+    expect(suggestedOPENAI).toHaveBeenCalledWith("Question 1 answer");
+    expect(getByTestId("question-1").textContent).toBe("1. A");
+    expect(getByTestId("question-2").textContent).toBe("2. B");
+    expect(getByTestId("question-3").textContent).toBe("3. C");
+    expect(getByTestId("question-4").textContent).toBe("4. D");
+    expect(getByTestId("question-5").textContent).toBe("5. E");
 });
