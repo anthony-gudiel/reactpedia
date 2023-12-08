@@ -254,12 +254,14 @@ export const LESSON_1_1 = () => {
             {showSuggestedQuestions && (
               <div className="suggested-questions-modal">
                 <ul>
-                  {suggestedQuestions.map((question, index) =>
+                  {
+                  suggestedQuestions.map((question, index) =>
                     question.split("\n").map((line, lineIndex) => (
-                      <li key={`${index}-${lineIndex}`}>
+                      <li key={`${index}-${lineIndex}`} data-testid={`question-${lineIndex + 1}`}>
                         <div
                           key={`${index}-${lineIndex}`}
                           className="suggested-question-button"
+                          data-testid={`question-${lineIndex + 1}-button`}
                           onClick={() => handleQuestionClick(line)}
                         >
                           {line}
