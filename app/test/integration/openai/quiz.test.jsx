@@ -8,7 +8,7 @@ vi.mock("../../../src/api/openai", () => ({
   suggestedOPENAI: vi.fn(),
 }));
 
-test("Testing OpenAI Quiz feature: Choosing a lesson from dropdown and submitting", async () => {
+test("OpenAI Quiz Integration Test: Choosing a lesson from dropdown and submitting", async () => {
   OPENAI.mockImplementation(async () => "This is a sample quiz");
   const { getByTestId, getByText } = render(<Quizzes />);
   // Get the selected option element

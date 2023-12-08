@@ -767,7 +767,7 @@ export const Quizzes = () => {
             Lesson 10 - Hooks in React
           </option>
         </select>
-        <button className="ai-submit" data-testId="submit-button" onClick={handleButtonClick}>
+        <button className="ai-submit" data-testid="submit-button" onClick={handleButtonClick}>
           Click to Submit!
         </button>
       </div>
@@ -781,7 +781,7 @@ export const Quizzes = () => {
         {!loading && quizContent && (
           <div>
             <h3>Quiz:</h3>
-            <pre style={{ whiteSpace: "pre-wrap", fontFamily: "monospace" }} data-testId="quiz-output">
+            <pre style={{ whiteSpace: "pre-wrap", fontFamily: "monospace" }} data-testid="quiz-output">
               {quizContent}
             </pre>
           </div>

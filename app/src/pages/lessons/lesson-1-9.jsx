@@ -51,7 +51,7 @@ export const LESSON_1_9 = () => {
             <a href="/lesson-1-7">Lesson 7 - Component Lifecycle</a>
             <a href="/lesson-1-8">Lesson 8 - Styling in React</a>
             <a href="/lesson-1-9">Lesson 9 - React Router</a>
-            <a href="/lesson-1-10">Lesson 10 - State Management with Context</a>
+            <a href="/lesson-1-10">Lesson 10 - Hooks in React</a>
           </div>
         </div>
         <div className="container-2">

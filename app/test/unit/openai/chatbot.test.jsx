@@ -18,7 +18,7 @@ test("Testing OpenAI Chatbot: Test input and response", async () => {
   expect(input.value).toBe("What is the meaning of life?");
   // Submit button
   const submit = getByTestId("submit-button");
-  await act(() => {
+  await act(async () => {
     fireEvent.click(submit);
   });
     expect(OPENAI).toHaveBeenCalledWith(userMessage);

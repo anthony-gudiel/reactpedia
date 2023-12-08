@@ -200,10 +200,10 @@ export const LESSON_1_1 = () => {
             more detail and learn how to create dynamic and interactive user
             interfaces. Happy coding!
           </div>
-          <a className="lesson-1-button" href="./lesson-1-2">
+          <a className="lesson-1-button" href="./lesson-1-2" data-testid="next-button">
             Next Lesson
           </a>
-          <a className="lesson-1-button" href="./quizzes">
+          <a className="lesson-1-button" href="./quizzes" data-testid="quiz-button">
             Quiz yourself!
           </a>
         </div>
@@ -266,7 +266,7 @@ export const LESSON_1_1 = () => {
                     ))
                   )}
                 </ul>
-                <button onClick={() => setShowSuggestedQuestions(false)}>
+                <button onClick={() => setShowSuggestedQuestions(false)} data-testid={"close-button"}>
                   Close
                 </button>
               </div>
