@@ -302,6 +302,12 @@ h3{
     }
 }
 
+@media (min-width: 1848px) {
+    .menu a{
+        font-size: 30px;
+    }
+}
+
 .suggested-question-button{
     margin-left: 20px;
     margin-top: 30px;
